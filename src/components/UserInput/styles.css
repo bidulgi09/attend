@@ -1,0 +1,7 @@
+.userInput {
+    height: 100%;
+    border: transparent;
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+}

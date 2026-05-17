@@ -1,0 +1,8 @@
+.userButton {
+    align-items: center;
+    border: transparent;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    outline: none;
+}

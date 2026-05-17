@@ -1,0 +1,115 @@
+html, body, #root {
+    width: 100%;
+    height: 100%;
+}
+
+.App {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(34, 40, 49);
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    width: 480px;
+    height: 360px;
+    border-radius: 5%;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(49, 54, 63);
+}
+
+.credentials-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.toggle {
+    display: flex;
+    flex: 1;
+    height: 50px;
+}
+
+label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(238, 238, 238);
+    width: 100%;
+    height: 100%;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    height: 64px;
+    width: 240px;
+}
+
+input[placeholder="유저 아이디"] {
+    border-top-left-radius: 8px;
+}
+input[placeholder="비밀번호"] {
+    border-bottom-left-radius: 8px;
+}
+
+.userButton {
+    width: 100px;
+    color: rgb(238, 238, 238);
+    background-color: rgb(118, 171, 174);
+    border-bottom-right-radius: 8px ;
+    border-top-right-radius: 8px;
+}
+
+.toggle {
+    position: relative;
+}
+
+.pw-visible {
+    display: flex;
+    position: relative;
+    justify-content: center;
+}
+
+.visible-toggle {
+    position: absolute;
+    background-color: yellow;
+    font-size: 8px;
+    border-radius: 8px;
+    text-align: center;
+    height: 12px;
+    width: 64px;
+    transform: translateX(250%);
+}
+.visible-toggle:hover {
+    cursor: pointer;
+}
+
+.indicator {
+    position: absolute;
+    background-color: rgb(118, 171, 174);
+    height: 5px;
+    width: 170px;
+    bottom: 0;
+    transition: transform 0.3s ease;
+}
+
+#학생:checked ~ .indicator {
+    transform: translateX(0%);
+}
+#교사:checked ~ .indicator {
+    transform: translateX(100%);
+}
+
+.login:has(#학생:checked) input[placeholder='유저 아이디'] {
+    border-top-left-radius: 0px;
+    transition: ease .2s
+}
+
+.login:has(#교사:checked) .userButton {
+    border-top-right-radius: 0px;
+    transition: ease .2s
+}

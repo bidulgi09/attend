@@ -1,0 +1,17 @@
+.toggleToken {
+    display: none
+}
+
+label {
+    cursor: pointer;
+}
+
+label {
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.toggleToken:checked + label {
+    border-width: 5px;
+    transition: all .2s;
+}

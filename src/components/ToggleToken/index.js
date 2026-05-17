@@ -1,0 +1,22 @@
+import React from 'react';
+import './stylese.css';
+
+const ToggleToken = ({name, value, checked, onChange}) => {
+    return (
+        <>
+            <input
+                className='toggleToken'
+                type='radio'
+                name={name}
+                value={value}
+                checked={checked}
+                onChange={onChange}
+                content={value}
+                id={value}
+            />
+            <label for={value}>{value}</label>
+        </>
+    )
+};
+
+export default ToggleToken;
