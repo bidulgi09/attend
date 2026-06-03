@@ -1,0 +1,13 @@
+.HomePage {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(34, 40, 49);
+}
+
+.HomePage .introduction {
+    color: rgb(238, 238, 238);
+    font-size: 100px;
+}
