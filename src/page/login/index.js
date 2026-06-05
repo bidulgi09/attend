@@ -46,7 +46,7 @@ function LoginPage() {
         <div className="LoginPage">
             <div className='login'>
                 <Link to="/">
-                    <Logo fill="red" />
+                    <Logo className='logo'/>
                 </Link>
                 <form>
                     <div className='credentials-row toggle'>

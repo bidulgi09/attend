@@ -45,6 +45,10 @@
     width: 240px;
 }
 
+.LoginPage .logo * {
+    stroke: rgb(238, 238, 238) !important;
+}
+
 .LoginPage input[placeholder="유저 아이디"] {
     border-top-left-radius: 8px;
 }
