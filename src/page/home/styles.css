@@ -1,3 +1,7 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
 .HomePage {
     height: 100%;
     width: 100%;
@@ -5,69 +9,106 @@
     background-color: rgb(34, 40, 49);
     color: rgb(238, 238, 238);
 }
-
 .HomePage .header {
+    box-sizing: border-box;
+    backdrop-filter: blur(12px);
     display: flex;
     flex: 1;
     flex-direction: row;
-    width: 100%;
-    height: 64px;
+    height: 72px;
     text-align: center;
     align-items: center;
     position: sticky;
     top: 0;
-    background-color: rgb(238, 238, 238);
+    padding-left: 5px;
+    padding-right: 20px;
+    width: 100%;
+    background-color: rgb(34, 40, 49, 0.8);
+    box-shadow: 0px 2px 5px rgb(22, 26, 33, .15);
     font-size: 20px;
 }
 
 .HomePage .logo-box {
     display: flex;
+    text-decoration: none;
+    color: rgb(238, 238, 238);
     justify-content: center;
     align-items: center;
-    border: 3px solid black;
+    text-align: left;
+    gap: 2px;
+}
+.HomePage .logo-box .name {
+    font-weight: bold;
+    font-size: 2rem;
+    color: rgb(238, 238, 238)
+}
+.HomePage .logo-box .description {
+    font-size: 0.85rem;
+    color: rgb(184, 181, 195);
+}
+.HomePage .logo-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid rgb(238, 238, 238);
     margin: 6px;
-    width: 55px;
-    height: 55px;
+    width: 60px;
+    height: 60px;
 }
 .HomePage .logo {
     display: flex;
     justify-content: center;
-    stroke: rgb(34, 40, 49) !important;
     overflow: hidden;
-    width: 40px;
-    height: 50px;
+    width: 55px;
+    height: 65px;
 }
 
 .HomePage .logo * {
-    stroke: rgb(34, 40, 49) !important;
+    stroke: rgb(238, 238, 238) !important;
+    stroke-width: 5;
 }
 
 .HomePage .tabs {
     display: flex;
     flex: 1;
-    gap: 10px;
+    gap: 32px;
     justify-content: right;
     align-items: center;
     text-align: center;
     width: 100%;
     height: 100%;
-    color: rgb(0, 0, 0);
+    color: rgb(238, 238, 238);
 }
 
 .HomePage .header-tab {
     margin: 6px;
+    font-size: 1.25rem;
+    text-decoration: none;
+    color: rgb(238, 238, 238);
+    transition: color 0.2s ease;
+}
+
+.HomePage .header-tab:hover {
+    color: rgb(118, 171, 174);
 }
 
 .HomePage .main {
     display: flex;
     flex: 1;
-    height: 400px;
+    height: 250px;
     font-size: 100px;
 }
 
 .HomePage .main2 {
     display: flex;
     flex: 1;
-    height: 400px;
+    height: 250px;
+    font-size: 100px;
+}
+
+.HomePage .main3 {
+    display: flex;
+    flex: 1;
+    height: 250px;
     font-size: 100px;
 }
