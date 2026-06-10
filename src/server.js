@@ -19,6 +19,13 @@ app.get('/api/test', (req, res) => {
     res.send(sendText);
 });
 
+app.post('/api/signup', (req, res) => {
+    
+});
+
+app.get('/api/users', (req, res) => {
+    res.send()
+})
 app.listen(port, () => {
     console.log("Example Server is Listening at https://localhost:" + port);
-})
+});
