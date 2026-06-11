@@ -9,8 +9,8 @@ import UserButton from '../../components/UserButton';
 import ToggleToken from '../../components/ToggleToken';
 import { Link } from 'react-router-dom';
 
-import api from '../../utils/Api.js';
-import UserManager from '../../utils/UserManager.js';
+import api from '../../server/utils/Api.js';
+import UserManager from '../../server/utils/UserManager.js';
 
 function LoginPage() {
     const [user, setUser] = useState({

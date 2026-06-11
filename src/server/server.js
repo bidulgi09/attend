@@ -3,10 +3,12 @@ const cors = require('cors');
 const bodyParser = require("body-parser"); 
 
 const mysql = require("mysql"); 
-const dbconfig = require("./mysql_middleware/config/database.js"); 
+const dbconfig = require("../mysql_middleware/config/database.js"); 
 const pool = mysql.createPool(dbconfig); 
 
 const jwt = require("jsonwebtoken");
+
+const checkDomainServer = require("./utils/checkDomainServer.js");
 
 const app = express(); 
 const port = 4000; 
@@ -26,21 +28,27 @@ app.get('/api/userList', (req, res) => {
     }) 
 }); 
 
-app.post('/api/findUser', (req, res) => { 
+app.post('/api/checkEmail', (req, res) => { 
     pool.getConnection(function(err, connection) { 
         if(err) throw err; 
-        let data = [ req.body.email, req.body.password ]; 
-        connection.query('SELECT * FROM users WHERE email=? AND password=?', data, function(error, results, fields) { 
+        let data = [ req.body.email ]; 
+        connection.query('SELECT * FROM users WHERE email=?', data, async function(error, results, fields) { 
             connection.release(); 
             if(error) { 
                 console.error(error); 
                 res.status(500).json({ error: "데이터 검색 실패" }); 
                 return; 
             } 
-            if(results[0]) { 
-                res.send({ success: true, result: { user: results[0] } }); 
-            } else { 
-                res.send({ success: false, result: { user: {} }}); 
+            if(results[0]) {
+                res.send({ success: true, isAvailable: false, reason: 'already exists' }); 
+            } else {
+                let obj = { success: true, isAvailable: false, reason: null};
+                if(!/^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(req.body.email) || !(await checkDomainServer(req.body.email.split('@')[1]).isValid)) {
+                    obj.reason = 'invalid format';
+                } else {
+                    obj.isAvailable = true;
+                }
+                res.send({ success: true, result: obj}); 
             } 
         }); 
     }); 
