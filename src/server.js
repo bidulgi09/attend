@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require('cors');
 const bodyParser = require("body-parser");
-const mysql = require("mysql");
+const mysql = require("mysql2");
 
 const dbconfig = require("./mysql_middleware/config/database.js");
 const pool = mysql.createPool(dbconfig);
