@@ -1,4 +1,4 @@
-import api from './Api.js'; 
+import api from './api.js'; 
 const UserManager = { 
     headers: { "Content-Type": "application/json" },
     async checkEmail(email) {

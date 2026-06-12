@@ -9,7 +9,7 @@ import UserButton from '../../components/UserButton';
 import ToggleToken from '../../components/ToggleToken';
 import { Link } from 'react-router-dom';
 
-import api from '../../server/utils/Api.js';
+import api from '../../server/utils/api.js';
 import UserManager from '../../server/utils/UserManager.js';
 
 function LoginPage() {
