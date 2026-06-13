@@ -9,6 +9,9 @@ import UserButton from '../../components/UserButton';
 import ToggleToken from '../../components/ToggleToken';
 import { Link } from 'react-router-dom';
 
+import api from '../../server/utils/Api.js';
+import UserManager from '../../server/utils/UserManager.js';
+
 function LoginPage() {
     const [user, setUser] = useState({
         name: null,
@@ -46,7 +49,7 @@ function LoginPage() {
         <div className="LoginPage">
             <div className='login'>
                 <Link to="/">
-                    <Logo />
+                    <Logo fill="red" />
                 </Link>
                 <form>
                     <div className='credentials-row toggle'>
@@ -73,6 +76,13 @@ function LoginPage() {
                                 value={user.name}
                                 onChange={ setUserName }
                             />
+                            <UserInput 
+                                name='user-email' 
+                                type='email' 
+                                placeholder='이메일 주소' 
+                                value={user.name} 
+                                onChange={ setUserEmail } 
+                            /> 
                             <div className='inputs pw-visible'>
                                 <UserInput
                                     name='user-password'
@@ -92,11 +102,11 @@ function LoginPage() {
                         </div>
                         <UserButton
                             text='가입'
-                            onClick={() => { alert(`이름: ${user.name}\n직업: ${user.type}\n이메일: ${user.email}\n비밀번호: ${user.password}`) }}
+                            onClick={() => { UserManager.signUp({ "username" : user.name, "email" : user.email, "password" : user.password }); }} 
                         />
                     </div>
                     <div className="direct-signup">
-                        <Link to="/find-my-pw"><span>비밀번호 찾기</span></Link>&nbsp;&nbsp;&nbsp;<Link to="/find-my-id"><span>아이디 찾기</span></Link>
+                        <div onClick={async() => {alert(await api.get("/api/userList"))}}>ㅁㄴㅇㄹ</div><Link to="/find-my-pw"><span>비밀번호 찾기</span></Link>&nbsp;&nbsp;&nbsp;<Link to="/find-my-id"><span>아이디 찾기</span></Link>
                     </div>
                 </form>
             </div>

@@ -1,3 +1,4 @@
+@import "/src/font.css";
 .userButton {
     align-items: center;
     border: transparent;
@@ -5,4 +6,5 @@
     box-sizing: border-box;
     cursor: pointer;
     outline: none;
+    font-family: appleNeo;
 }
