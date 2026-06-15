@@ -29,55 +29,54 @@ app.use(cookieParser());
 app.get('/api/userList', (req, res) => { 
     pool.getConnection(function(err, connection) { 
         if(err) throw err; 
-        connection.query("SELECT * FROM users", function(error, results, fields) {
+        connection.query("SELECT * FROM users;", function(error, results, fields) {
             connection.release(); 
             if(error) throw error;
-            res.send(results); 
+            res.send({ counts: results.length, results }); 
         }) 
     }) 
 }); 
 
-app.post('/api/checkEmail', (req, res) => { 
+app.post('/api/check', (req, res) => { 
     pool.getConnection(function(err, connection) { 
         if(err) throw err; 
-        let data = [ req.body.email ]; 
-        connection.query('SELECT * FROM users WHERE email=?', data, async function(error, results, fields) { 
+        let data = [ req.body.email, req.body.username ]; 
+        connection.query('SELECT email, username FROM users WHERE email=? OR username=?;', data, async function(error, results, fields) { 
             connection.release(); 
+            console.log(results);
             if(error) { 
                 console.error(error); 
                 res.status(500).json({ error: "데이터 검색 실패" }); 
                 return; 
             } 
-            if(results[0]) {
-                res.send({ success: true, isAvailable: false, reason: 'already exists' }); 
+
+            let regex = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+            let domain = await checkDomainServer(req.body.email.split('@')[1]);
+            if(!regex.test(req.body.email) || !domain.isValid || results.length > 0) {
+                res.send({ success: true, isAvailable: false });
             } else {
-                let obj = { success: true, isAvailable: false, reason: null};
-                if(!/^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(req.body.email) || !(await checkDomainServer(req.body.email.split('@')[1]).isValid)) {
-                    obj.reason = 'invalid format';
-                } else {
-                    obj.isAvailable = true;
-                }
-                res.send({ success: true, result: obj}); 
-            } 
+                res.send({ success: true, isAvailable: true });
+            }
         }); 
     }); 
 }); 
 
-app.post('/api/signUp', (req, res) => { 
-    console.log(req.method);
-    console.log(req.headers['content-type']);
-    console.log(req.body + "hi")
+app.post('/api/signUp', (req, res) => {
     pool.getConnection(function(err, connection) { 
         if(err) throw err; 
         let password_hash = bcrypt.hashSync(req.body.password, salt);
         let datas = [ 
             req.body.username, 
-            req.body.nickname || 'user', 
+            req.body.nickname || (() => {
+                const timestamp = Date.now().toString(36); // 현재 시간을 36진수로 변환
+                const randomStr = Math.random().toString(36).substring(2, 6); // 4자리 난수
+                return `user_${timestamp}${randomStr}`;
+            })(), 
             req.body.email, 
             password_hash,
-            req.body.role || 'USER' 
+            req.body.role || 'Student' 
         ]; 
-        connection.query('INSERT INTO users (username, nickname, email, password_hash, role) VALUES (?, ?, ?, ?, ?)', datas, function(error, results, fields) { 
+        connection.query('INSERT INTO users (username, nickname, email, password_hash, role) VALUES (?, ?, ?, ?, ?);', datas, function(error, results, fields) { 
             connection.release(); 
             if(error) { 
                 console.error(error); 
@@ -87,7 +86,41 @@ app.post('/api/signUp', (req, res) => {
             res.json({ success: true, insertedId: results.insertId}); 
         }); 
     }); 
-}); 
+});
+
+app.post('/api/deleteAccount', (req, res) => {
+    pool.getConnection(function(err, connection) { 
+        if(err) throw err;
+        let datas = [ 
+            req.body.username
+        ]; 
+        connection.query('SELECT password_hash FROM users WHERE username=?;', datas, function(error, results, fields) { 
+            if(error) { 
+                connection.release(); 
+                console.error(error); 
+                res.status(500).json({ error: "데이터 조회 실패" }); 
+                return; 
+            }
+            if(bcrypt.compareSync(req.body.password, results[0].password_hash)) {
+                datas.push(results[0].password_hash);
+                connection.query('DELETE FROM users WHERE username=? AND password_hash=?;', datas, function(error2, results2) {
+                    connection.release(); 
+                    if(error2) { 
+                        console.error(error2); 
+                        res.status(500).json({ error: "데이터 삭제 실패" }); 
+                        return; 
+                    }
+                    console.log(JSON.stringify(results2, null, 4));
+                    res.json({ success: true, results: { isDeleted: results2.affectedRows===1 } });
+                });
+            } else {
+                connection.release();
+                res.send({ success: false, results: { isDeleted: false, reason: "Invalid password." }});
+                return;
+            }
+        }); 
+    }); 
+});
 
 app.post('/api/logIn', (req, res) => {
     pool.getConnection(function(err, connection) {
@@ -95,7 +128,7 @@ app.post('/api/logIn', (req, res) => {
             req.body.username
         ];
 
-        connection.query('SELECT password_hash FROM users WHERE username = ?', data, function(error, results, fields) {
+        connection.query('SELECT password_hash FROM users WHERE username = ?;', data, function(error, results, fields) {
             if(error) {
                 connection.release();
                 console.log(error);
@@ -110,7 +143,7 @@ app.post('/api/logIn', (req, res) => {
                 if(bcrypt.compareSync(req.body.password, results[0].password_hash)) {
                     let refresh_token=uuidv4();
                     let access_token=jwt.sign({ username: req.body.username }, "access_secret", { expiresIn: "3h" });
-                    connection.query('UPDATE users SET refresh_token=?, expired_in=?, is_Active=? WHERE username=?', [refresh_token, REFRESH_TOKEN_EXPIRED_IN, true, req.body.username], function(error2, results2) {
+                    connection.query('UPDATE users SET refresh_token=?, expired_in=?, is_active=? WHERE username=?;', [refresh_token, REFRESH_TOKEN_EXPIRED_IN, true, req.body.username], function(error2, results2) {
                         connection.release();
                         if(error2) {
                             console.log(error2);
@@ -145,10 +178,11 @@ app.get('/api/profile', authenticateToken, (req, res) => {
     pool.getConnection(function(err, connection) {
         if(err) throw err;
         let data = [req.user.username];
-        connection.query('SELECT * FROM users WHERE username=?', data, function(error, results, fields) {
+        connection.query('SELECT * FROM users WHERE username=?;', data, function(error, results, fields) {
             connection.release();
             if(error) {
                 res.status(500).json({ error: "데이터 조회 실패" });
+                return;
             }
             res.send({ success: true, result: results[0] });
             return;
@@ -163,7 +197,7 @@ app.post('/api/refresh', (req, res) => {
             return res.status(401).json({ error: "Refresh token required."});
         }
         let data = [req.cookies.refresh_token];
-        connection.query('SELECT username, refresh_token, expired_in FROM users WHERE refresh_token=?', data, function(error, results, fields) {
+        connection.query('SELECT username, refresh_token, expired_in FROM users WHERE refresh_token=?;', data, function(error, results, fields) {
             let user = results[0];
             if(error) {
                 connection.release();
@@ -205,7 +239,7 @@ app.patch('/api/password', (req, res) => {
             req.body.username
         ];
 
-        connection.query('SELECT password_hash FROM users WHERE username = ?', data, function(error, results, fields) {
+        connection.query('SELECT password_hash FROM users WHERE username = ?;', data, function(error, results, fields) {
             if(error) {
                 connection.release();
                 console.log(error);
@@ -218,7 +252,7 @@ app.patch('/api/password', (req, res) => {
                 return;
             } else {
                 if(bcrypt.compareSync(req.body.password, results[0].password_hash)) {
-                    if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{16,}$/.test(req.new_password)) {
+                    if(!/^[a-zA-Z0-9]{8,16}$/.test(req.new_password)) {
                         connection.release();
                         res.status(401).json({ success: false, results: { isChanged: false, reason: "Invalid format" } });
                         return;
@@ -226,7 +260,7 @@ app.patch('/api/password', (req, res) => {
                     let refresh_token=uuidv4();
                     let access_token=jwt.sign({ username: req.body.username }, "access_secret", { expiresIn: "3h" });
                     let new_password_hash=bcrypt.hashSync(req.body.new_password, salt);
-                    connection.query('UPDATE users SET password=? WHERE username=?', [new_password_hash, req.body.username], function(error2, results2) {
+                    connection.query('UPDATE users SET password_hash=? WHERE username=?;', [new_password_hash, req.body.username], function(error2, results2) {
                         connection.release();
                         if(error2) {
                             console.log(error2);
