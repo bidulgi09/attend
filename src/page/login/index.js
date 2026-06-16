@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { ReactComponent as EyePasswordShow } from '../../assets/eye-password-show.svg';
 import { ReactComponent as EyePasswordHide } from '../../assets/eye-password-hide.svg';
@@ -8,8 +8,18 @@ import UserInput from '../../components/UserInput';
 import UserButton from '../../components/UserButton';
 import ToggleToken from '../../components/ToggleToken';
 import { Link } from 'react-router-dom';
+import UserManager from '../../server/utils/UserManager';
 
 function LoginPage() {
+    useEffect(() => {
+        async function redirect() {
+            let data = await UserManager.profile();
+            if(data && data.results.username && data.success) {
+                return window.location.replace('/home');
+            }
+        }
+        redirect();
+    }, []);
     const [user, setUser] = useState({
         name: null,
         type: "학생",
@@ -92,7 +102,7 @@ function LoginPage() {
                         </div>
                         <UserButton
                             text='로그인'
-                            onClick={() => { alert(`이름: ${user.name}\n직업: ${user.type}\n이메일: ${user.email}\n비밀번호: ${user.password}`) }}
+                            onClick={() => { UserManager.logIn(user.name, user.password) }}
                         />
                     </div>
                     <div className="direct-signup">

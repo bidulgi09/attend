@@ -1,26 +1,41 @@
 import api from './api.js'; 
 const UserManager = { 
-    headers: { "Content-Type": "application/json" },
-    async checkEmail(email) {
-        let res = await api.post('/api/checkEmail', this.headers, { email: email });
-        return res.data;
+    headers: { "Content-Type": "application/json",'Authorization': `Bearer test`, },
+    async check(email, username) {
+        let res = await api.post('/api/check', this.headers, { email, username });
+        return res;
     },
-    async checkUserName(username) {
-        let res = await api.post('/api/checkUserName', this.headers, { username: username });
-        return res.data;
+    async signUp({username, email, password}) {
+        let res = await api.post('/api/signUp', this.headers, { username, email, password}); 
+        return res; 
     },
-    async checkPassword(password) {
-        let res = await api.post('/api/checkPassword', this.headers, { password: password });
-        return res.data;
+    async profile() {
+        try {
+            let res = await api.get('/api/profile', this.headers);
+            console.log(res);
+            return res;
+        } catch(e) {
+            console.log(e);
+            return {};
+        }
     },
-    async signUp({username, email, password}) { 
-        let body = { 
-            "username": username, 
-            "email": email,
-            "password": password
-        }; 
-        let res = await api.post('/api/signUp', this.headers, body); 
-        return res.data; 
-    } 
+    async logIn(username, password) {
+        try {
+            let res = await api.post('/api/logIn', this.headers, { username, password });
+            return res;
+        } catch(e) {
+            console.log(e);
+            return {};
+        }
+    },
+    async logOut() {
+        try {
+            let res = await api.post('/api/logOut', this.headers);
+            return res;
+        } catch(e) {
+            console.log(e);
+            return {};
+        }
+    },
 } 
 export default UserManager;

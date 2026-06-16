@@ -12,16 +12,16 @@ const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
 const salt = 12;
 
-const REFRESH_TOKEN_EXPIRED_IN=(()=>new Date(Date.now() + 7*24*60*60*1000))();
-const ACCESS_TOKEN_EXPIRED_IN=(()=>new Date(Date.now() + 3*60*60*1000))();
-
 const checkDomainServer = require("./utils/checkDomainServer.js");
 const authenticateToken = require("./utils/authenticateToken.js");
 
 const app = express(); 
 const port = 4000; 
 
-app.use(cors()); 
+app.use(cors({
+    origin: "https://symmetrical-broccoli-v6x5jxwx74rxf4gg-3000.app.github.dev", 
+    credentials: true
+}));
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(bodyParser.json());
 app.use(cookieParser()); 
@@ -123,6 +123,9 @@ app.post('/api/deleteAccount', (req, res) => {
 });
 
 app.post('/api/logIn', (req, res) => {
+    console.log("👉 로그인 요청 들어옴!! body 데이터:", req.body);
+    const REFRESH_TOKEN_EXPIRED_IN=(()=>new Date(Date.now() + 7*24*60*60*1000))();
+    const ACCESS_TOKEN_EXPIRED_IN=(()=>new Date(Date.now() + 3*60*60*1000))();
     pool.getConnection(function(err, connection) {
         let data = [
             req.body.username
@@ -137,7 +140,7 @@ app.post('/api/logIn', (req, res) => {
             }
             if(results.length === 0) {
                 connection.release();
-                res.send({ success: false, result: { isLogIn: false, reason: "Account not found." } });
+                res.send({ success: false, results: { isLogIn: false, reason: "Account not found." } });
                 return;
             } else {
                 if(bcrypt.compareSync(req.body.password, results[0].password_hash)) {
@@ -153,13 +156,15 @@ app.post('/api/logIn', (req, res) => {
                         res.cookie('refresh_token', refresh_token, {
                             expires: REFRESH_TOKEN_EXPIRED_IN,
                             httpOnly: true,
-                            secure: false
+                            secure: true,
+                            sameSite: 'none'
                         });
                         
                         res.cookie('access_token', access_token, {
                             expires: ACCESS_TOKEN_EXPIRED_IN,
                             httpOnly: true,
-                            secure: false
+                            secure: true,
+                            sameSite: 'none'
                         });
                         res.send({ success: true, results: { isLogIn: true, refresh_token: { value: refresh_token, expiry: REFRESH_TOKEN_EXPIRED_IN } }});
                         return;
@@ -174,9 +179,38 @@ app.post('/api/logIn', (req, res) => {
     });
 });
 
+app.post('/api/logOut', (req, res) => {
+    pool.getConnection(function(err, connection) {
+        if(err) throw err;
+        if(!req.cookies.access_token) {
+            res.send({ success: false, results: { isLogOut: false, reason: "Unauthorized" } });
+            return;
+        }
+        let data = [null, null, jwt.decode(req.cookies.access_token).username];
+        console.log(JSON.stringify(data, null, 4));
+        connection.query('UPDATE users SET refresh_token=?, expired_in=? WHERE username=?', data, function(error, results, fields) {
+            connection.release();
+            if(error) {
+                res.status(500).send({ error: "데이터 갱신 실패" });
+                return;
+            }
+            if(results.affectedRows === 0) {
+                res.status(403).send({ success: true, results: { isLogOut: false, reason: "user not found"}});
+                return;
+            }
+            res.clearCookie("refresh_token");
+            res.clearCookie("access_token");
+            res.send({ success: true, results: { isLogOut: true }});
+        });
+    });
+});
 app.get('/api/profile', authenticateToken, (req, res) => {
     pool.getConnection(function(err, connection) {
         if(err) throw err;
+        if(!req.user || !req.user.username) {
+            res.send({ success: false, results: { isLoaded: false, reason: "Unauthorized"}});
+            return;
+        }
         let data = [req.user.username];
         connection.query('SELECT * FROM users WHERE username=?;', data, function(error, results, fields) {
             connection.release();
@@ -184,13 +218,15 @@ app.get('/api/profile', authenticateToken, (req, res) => {
                 res.status(500).json({ error: "데이터 조회 실패" });
                 return;
             }
-            res.send({ success: true, result: results[0] });
+            res.send({ success: true, results: results[0] });
             return;
         });
     });
 });
 
 app.post('/api/refresh', (req, res) => {
+    const REFRESH_TOKEN_EXPIRED_IN=(()=>new Date(Date.now() + 7*24*60*60*1000))();
+    const ACCESS_TOKEN_EXPIRED_IN=(()=>new Date(Date.now() + 3*60*60*1000))();
     pool.getConnection(function(err, connection) {
         if(err) throw err;
         if(!req.cookies.refresh_token) {
@@ -227,7 +263,7 @@ app.post('/api/refresh', (req, res) => {
                 secure: false
             }); 
 
-            res.send({ success: true, result: user });
+            res.send({ success: true, results: user });
             return;
         });
     });
@@ -248,11 +284,11 @@ app.patch('/api/password', (req, res) => {
             }
             if(results.length === 0) {
                 connection.release();
-                res.send({ success: false, result: { isLogIn: false, reason: "Account not found." } });
+                res.send({ success: false, results: { isLogIn: false, reason: "Account not found." } });
                 return;
             } else {
                 if(bcrypt.compareSync(req.body.password, results[0].password_hash)) {
-                    if(!/^[a-zA-Z0-9]{8,16}$/.test(req.new_password)) {
+                    if(!/^[a-zA-Z0-9]{8,16}$/.test(req.body.new_password)) {
                         connection.release();
                         res.status(401).json({ success: false, results: { isChanged: false, reason: "Invalid format" } });
                         return;
