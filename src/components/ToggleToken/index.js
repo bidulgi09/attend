@@ -14,7 +14,7 @@ const ToggleToken = ({name, value, checked, onChange}) => {
                 content={value}
                 id={value}
             />
-            <label for={value}>{value}</label>
+            <label htmlFor={value}>{value}</label>
         </>
     )
 };

@@ -51,7 +51,8 @@ function SignupPage({ user, setUser }) {
     };
     const setUserRole = (event) => {
         console.log(Object.keys(event.target));
-        setRole(event.target.value || "Teacher");
+        setRole(event.target.value == "학생" ? "Student" : "Teacher");
+        console.log(role);
         return setUser({...user, role : event.target.value === "학생" ? "Student" : "Teacher"});
     };
     const setUserEmail = (event) => {
@@ -72,8 +73,8 @@ function SignupPage({ user, setUser }) {
     
 
     return (
-        <div className="LoginPage">
-            <div className='login'>
+        <div className="SignupPage">
+            <div className='signup'>
                 <Link to="/">
                     <Logo fill="red" />
                 </Link>

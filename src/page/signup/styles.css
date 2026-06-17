@@ -6,7 +6,7 @@
     background-color: rgb(34, 40, 49);
 }
 
-.SignupPage .login {
+.SignupPage .signup {
     display: flex;
     flex-direction: column;
     width: 480px;
@@ -93,17 +93,18 @@
 
 .SignupPage #학생:checked ~ .indicator {
     transform: translateX(0%);
+    color: red;
 }
 .SignupPage #교사:checked ~ .indicator {
     transform: translateX(100%);
 }
 
-.SignupPage .login:has(#학생:checked) input[placeholder='유저 아이디'] {
+.SignupPage .signup:has(#학생:checked) input[placeholder='유저 아이디'] {
     border-top-left-radius: 0px;
     transition: ease .2s
 }
 
-.SignupPage .login:has(#교사:checked) .userButton {
+.SignupPage .signup:has(#교사:checked) .userButton {
     border-top-right-radius: 0px;
     transition: ease .2s
 }

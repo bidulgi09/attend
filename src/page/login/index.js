@@ -43,7 +43,7 @@ function LoginPage({user, setUser}) {
     };
     const setUserRole = (event) => {
         console.log(Object.keys(event.target));
-        setRole(event.target.value || "Teacher");
+        setRole(event.target.value == "학생" ? "Student" : "Teacher");
         return setUser({...user, role : event.target.value === "학생" ? "Student" : "Teacher"});
     };
     const setUserEmail = (event) => {
