@@ -7,39 +7,50 @@ import './styles.css';
 import UserInput from '../../components/UserInput';
 import UserButton from '../../components/UserButton';
 import ToggleToken from '../../components/ToggleToken';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 import UserManager from '../../server/utils/UserManager';
 
-function LoginPage() {
-    useEffect(() => {
-        async function redirect() {
-            let data = await UserManager.profile();
-            if(data && data.results.username && data.success) {
-                return window.location.replace('/home');
-            }
+function LoginPage({user, setUser}) {
+    const navigate = useNavigate();
+    async function redirect(user) {
+        let data = await UserManager.profile();
+        if(data.success && user.isLogin) {
+            return navigate('/home', { replace: true });
         }
-        redirect();
+    }
+    async function login(user) {
+        let data = await UserManager.logIn(user.name, user.password)
+        if(data.success) {
+            setUser({...user, isLogin: true});
+            alert("로그인 성공");
+        } else {
+            setUser({...user, isLogin: false});
+            alert("로그인  실패\n" + JSON.stringify(data));
+        }
+        return;
+    }
+    useEffect(() => {
+        redirect(user);
+    }, [user.isLogin]);
+
+    useEffect(() => {
+        redirect(user);
     }, []);
-    const [user, setUser] = useState({
-        name: null,
-        type: "학생",
-        email: null,
-        password: null
-    });
+    
     const setUserName = (event) => {
         console.log(Object.keys(event.target));
-        return setUser(Object.assign(user, { name : event.target.value }));
+        return setUser({...user, name : event.target.value });
     };
-    const setUserType = (event) => {
+    const setUserRole = (event) => {
         console.log(Object.keys(event.target));
-        setRole(event.target.value === "학생" ? "Student" : "Teacher");
-        return setUser(Object.assign(user, { type : event.target.value }));
+        setRole(event.target.value || "Teacher");
+        return setUser({...user, role : event.target.value === "학생" ? "Student" : "Teacher"});
     };
     const setUserEmail = (event) => {
-        return setUser(Object.assign(user, { email : event.target.value }));
+        return setUser({...user, email : event.target.value });
     };
     const setUserPW = (event) => {
-        return setUser(Object.assign(user, { password : event.target.value }));
+        return setUser({...user, password : event.target.value });
     };
 
     const [role, setRole] = useState('Student');
@@ -64,13 +75,13 @@ function LoginPage() {
                             name='user-type'
                             value='학생'
                             checked={role === 'Student'}
-                            onChange={setUserType}
+                            onChange={setUserRole}
                         />
                         <ToggleToken
                             name='user-type'
                             value='교사'
                             checked={role === 'Teacher'}
-                            onChange={setUserType}
+                            onChange={setUserRole}
                         />
                         <div className='indicator'></div>
                     </div>
@@ -102,7 +113,7 @@ function LoginPage() {
                         </div>
                         <UserButton
                             text='로그인'
-                            onClick={() => { UserManager.logIn(user.name, user.password) }}
+                            onClick={async () => { await login(user); }}
                         />
                     </div>
                     <div className="direct-signup">

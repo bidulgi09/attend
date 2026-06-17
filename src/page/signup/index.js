@@ -7,24 +7,25 @@ import './styles.css';
 import UserInput from '../../components/UserInput';
 import UserButton from '../../components/UserButton';
 import ToggleToken from '../../components/ToggleToken';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import api from '../../server/utils/api.js';
 import UserManager from '../../server/utils/UserManager.js';
 
 function LoginPage() {
+    const navigate = useNavigate();
     useEffect(() => {
         async function redirect() {
             let data = await UserManager.profile();
             if(data && data.results.username && data.success) {
-                return window.location.replace('/home');
+                return navigate('/home', { replace: true });
             }
         }
         redirect();
     }, []);
     const [user, setUser] = useState({
         name: null,
-        type: "학생",
+        role: "Student",
         email: null,
         password: null
     });
@@ -34,7 +35,7 @@ function LoginPage() {
     };
     const setUserType = (event) => {
         console.log(Object.keys(event.target));
-        setRole(event.target.value === "학생" ? "Student" : "Teacher");
+        setRole(event.target.value === "Student" ? "Student" : "Teacher");
         return setUser(Object.assign(user, { type : event.target.value }));
     };
     const setUserEmail = (event) => {

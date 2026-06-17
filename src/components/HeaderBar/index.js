@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import './styles.css';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
@@ -7,30 +7,17 @@ import { ReactComponent as MenuIcon } from '../../assets/hamburger-light.svg';
 import UserManager from '../../server/utils/UserManager';
 
 
-function HeaderBar({ status, setStatus }) {
-    let [isLogIn, setIsLogIn] = useState(false);
-    let [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        async function fetchProfile() {
-            try {
-                const data = await UserManager.profile();
-                console.log("결과: " + JSON.stringify(data));
-                if(data && data.results.username && data.success) {
-                    setIsLogIn(true);
-                } else {
-                    setIsLogIn(false);
-                }
-            } catch(e) {
-                console.log(e);
-                setIsLoading(false);
-                setIsLogIn(false);
-            } finally {
-                setIsLoading(false);
-            }
+function HeaderBar({ status, setStatus, user, setUser }) {
+    const navigate=useNavigate();
+    async function logout(user) {
+        let data = await UserManager.logOut();
+        let update = {...user, isLogin: false};
+        setUser(update);
+        if(data.success && !update.isLogin) {
+            return navigate('/login', { replace: true });
         }
-        fetchProfile();
-    }, []);
+    }
+
     function change() {
         setStatus(!status);
     }
@@ -46,8 +33,8 @@ function HeaderBar({ status, setStatus }) {
                     </span>
                 </Link>
                 <nav className='tabs'>
-                    {isLogIn ?
-                        <div className='header-tab' id={1} onClick={async () => { alert(JSON.stringify(await UserManager.logOut())); }}>로그아웃</div>
+                    {user.isLogin ?
+                        <div className='header-tab' id={1} onClick={async () => { await logout(user) }}>로그아웃</div>
                         :
                         <>
                             <Link to="/login" className='header-tab' id={1}>로그인<div className='select_bar'/></Link>
