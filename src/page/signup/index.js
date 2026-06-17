@@ -12,37 +12,53 @@ import { Link, useNavigate } from 'react-router-dom';
 import api from '../../server/utils/api.js';
 import UserManager from '../../server/utils/UserManager.js';
 
-function LoginPage() {
+function SignupPage({ user, setUser }) {
     const navigate = useNavigate();
-    useEffect(() => {
-        async function redirect() {
-            let data = await UserManager.profile();
-            if(data && data.results.username && data.success) {
-                return navigate('/home', { replace: true });
-            }
+    async function redirect(user) {
+        let data = await UserManager.profile();
+        if(data.success && user.isLogin) {
+            return navigate('/home', { replace: true });
         }
-        redirect();
+    }
+    async function signup(user) {
+        let data = await UserManager.signUp(user.name, user.email, user.password, user.role);
+        if(data.success) {    
+            let login = await UserManager.logIn(user.name, user.password)
+            if(login.success) {
+                setUser({...user, isLogin: true});
+                alert("가입 성공");
+            } else {
+                setUser({...user, isLogin: false});
+                alert("가입  실패\n" + JSON.stringify(data));
+            }
+        } else {
+            setUser({...user, isLogin: false});
+            alert("가입  실패\n" + JSON.stringify(data));
+        }
+        return;
+    }
+    useEffect(() => {
+        redirect(user);
+    }, [user.isLogin]);
+
+    useEffect(() => {
+        redirect(user);
     }, []);
-    const [user, setUser] = useState({
-        name: null,
-        role: "Student",
-        email: null,
-        password: null
-    });
+    
     const setUserName = (event) => {
         console.log(Object.keys(event.target));
-        return setUser(Object.assign(user, { name : event.target.value }));
+        return setUser({...user, name : event.target.value });
     };
-    const setUserType = (event) => {
+    const setUserRole = (event) => {
         console.log(Object.keys(event.target));
-        setRole(event.target.value === "Student" ? "Student" : "Teacher");
-        return setUser(Object.assign(user, { type : event.target.value }));
+        setRole(event.target.value || "Teacher");
+        return setUser({...user, role : event.target.value === "학생" ? "Student" : "Teacher"});
     };
     const setUserEmail = (event) => {
-        return setUser(Object.assign(user, { email : event.target.value }));
+        return setUser({...user, email : event.target.value });
     };
     const setUserPW = (event) => {
-        return setUser(Object.assign(user, { password : event.target.value }));
+        return setUser({...user, password : event.target.value });
     };
 
     const [role, setRole] = useState('Student');
@@ -67,13 +83,13 @@ function LoginPage() {
                             name='user-type'
                             value='학생'
                             checked={role === 'Student'}
-                            onChange={setUserType}
+                            onChange={setUserRole}
                         />
                         <ToggleToken
                             name='user-type'
                             value='교사'
                             checked={role === 'Teacher'}
-                            onChange={setUserType}
+                            onChange={setUserRole}
                         />
                         <div className='indicator'></div>
                     </div>
@@ -90,7 +106,7 @@ function LoginPage() {
                                 name='user-email' 
                                 type='email' 
                                 placeholder='이메일 주소' 
-                                value={user.name} 
+                                value={user.email} 
                                 onChange={ setUserEmail } 
                             /> 
                             <div className='inputs pw-visible'>
@@ -112,7 +128,7 @@ function LoginPage() {
                         </div>
                         <UserButton
                             text='가입'
-                            onClick={async() => { await UserManager.signUp({ "username" : user.name, "email" : user.email, "password" : user.password, "role" : user.role }); }} 
+                            onClick={async() => { await signup(user); }} 
                         />
                     </div>
                     <div className="direct-signup">
@@ -124,4 +140,4 @@ function LoginPage() {
     );
 }
 
-export default LoginPage;
+export default SignupPage;

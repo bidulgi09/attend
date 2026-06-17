@@ -5,8 +5,8 @@ const UserManager = {
         let res = await api.post('/api/check', this.headers, { email, username });
         return res;
     },
-    async signUp({username, email, password}) {
-        let res = await api.post('/api/signUp', this.headers, { username, email, password}); 
+    async signUp(username, email, password, role) {
+        let res = await api.post('/api/signUp', this.headers, { username, email, password, role }); 
         return res; 
     },
     async profile() {

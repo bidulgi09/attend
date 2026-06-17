@@ -10,7 +10,6 @@ import HeaderBar from './components/HeaderBar';
 
 function App() {
     let [status, setStatus] = useState(false);
-    
     const [user, setUser] = useState( sessionStorage.getItem('user_session') ?
         JSON.parse(sessionStorage.getItem('user_session')) :
         { 
@@ -27,7 +26,7 @@ function App() {
     return (
         <BrowserRouter>
             <div className='app-container'>
-                <SideBar status={ status } setStatus={ setStatus }/>
+                <SideBar status={ status } setStatus={ setStatus } user={ user } setUser={ setUser }/>
                 <div className='content-container'>
                     <HeaderBar status={ status } setStatus={ setStatus } user={ user } setUser={ setUser }/>
                     <div className='main-container'>
@@ -35,7 +34,7 @@ function App() {
                             <Route path="/" element={<HomePage/>}/>
                             <Route path="/home" element={<HomePage/>}/>
                             <Route path="/login" element={<LoginPage user={user} setUser={setUser}/>}/>
-                            <Route path="/signup" element={<SignupPage/>}/>
+                            <Route path="/signup" element={<SignupPage user={ user } setUser={ setUser }/>}/>
                         </Routes>
                     </div>
                 </div>

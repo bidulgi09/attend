@@ -16,7 +16,6 @@ function HomePage() {
             <main className='main'>
                  [박스3]
             </main>
-            <div className='circle'/>
         </div>
     )
 }

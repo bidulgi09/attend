@@ -19,16 +19,21 @@ const app = express();
 const port = 4000; 
 
 app.use(cors({
-    origin: "https://symmetrical-broccoli-v6x5jxwx74rxf4gg-3000.app.github.dev", 
+    origin: "https://refactored-potato-4j66rr45x7753gvx-4000.app.github.dev/", 
     credentials: true
 }));
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(bodyParser.json());
 app.use(cookieParser()); 
 
+app.get("/ping", (req, res) => {
+    res.json({ message: "pong" });
+});
+
 app.get('/api/userList', (req, res) => { 
     pool.getConnection(function(err, connection) { 
         if(err) throw err; 
+        console.log("MySQL connected");
         connection.query("SELECT * FROM users;", function(error, results, fields) {
             connection.release(); 
             if(error) throw error;
@@ -41,6 +46,7 @@ app.post('/api/check', (req, res) => {
     pool.getConnection(function(err, connection) { 
         if(err) throw err; 
         let data = [ req.body.email, req.body.username ]; 
+        console.log("MySQL connected");
         connection.query('SELECT email, username FROM users WHERE email=? OR username=?;', data, async function(error, results, fields) { 
             connection.release(); 
             console.log(results);
@@ -64,6 +70,7 @@ app.post('/api/check', (req, res) => {
 app.post('/api/signUp', (req, res) => {
     pool.getConnection(function(err, connection) { 
         if(err) throw err; 
+        console.log("MySQL connected");
         let password_hash = bcrypt.hashSync(req.body.password, salt);
         let datas = [ 
             req.body.username, 
@@ -94,6 +101,7 @@ app.post('/api/deleteAccount', (req, res) => {
         let datas = [ 
             req.body.username
         ]; 
+        console.log("MySQL connected");
         connection.query('SELECT password_hash FROM users WHERE username=?;', datas, function(error, results, fields) { 
             if(error) { 
                 connection.release(); 
@@ -130,7 +138,7 @@ app.post('/api/logIn', (req, res) => {
         let data = [
             req.body.username
         ];
-
+        console.log("MySQL connected");
         connection.query('SELECT password_hash FROM users WHERE username = ?;', data, function(error, results, fields) {
             if(error) {
                 connection.release();
@@ -182,7 +190,9 @@ app.post('/api/logIn', (req, res) => {
 app.post('/api/logOut', (req, res) => {
     pool.getConnection(function(err, connection) {
         if(err) throw err;
+        console.log("MySQL connected");
         if(!req.cookies.access_token) {
+            connection.release();
             res.send({ success: false, results: { isLogOut: false, reason: "Unauthorized" } });
             return;
         }
@@ -206,8 +216,10 @@ app.post('/api/logOut', (req, res) => {
 });
 app.get('/api/profile', authenticateToken, (req, res) => {
     pool.getConnection(function(err, connection) {
+        console.log("MySQL connected");
         if(err) throw err;
         if(!req.user || !req.user.username) {
+            connection.release();
             res.send({ success: false, results: { isLoaded: false, reason: "Unauthorized"}});
             return;
         }
@@ -228,9 +240,11 @@ app.post('/api/refresh', (req, res) => {
     const REFRESH_TOKEN_EXPIRED_IN=(()=>new Date(Date.now() + 7*24*60*60*1000))();
     const ACCESS_TOKEN_EXPIRED_IN=(()=>new Date(Date.now() + 3*60*60*1000))();
     pool.getConnection(function(err, connection) {
+        console.log("MySQL connected");
         if(err) throw err;
         if(!req.cookies.refresh_token) {
-            return res.status(401).json({ error: "Refresh token required."});
+            connection.release();
+            return res.status(401).json({ error: "Refresh token required."});   
         }
         let data = [req.cookies.refresh_token];
         connection.query('SELECT username, refresh_token, expired_in FROM users WHERE refresh_token=?;', data, function(error, results, fields) {
@@ -238,6 +252,7 @@ app.post('/api/refresh', (req, res) => {
             if(error) {
                 connection.release();
                 res.status(500).json({ error: "데이터 조회 실패"});
+                return;
             }
             if(!user) {
                 connection.release();
@@ -247,8 +262,10 @@ app.post('/api/refresh', (req, res) => {
             if(user.refresh_token !== req.cookies.refresh_token || user.expired_in < new Date(Date.now())) {
                 connection.release();
                 res.status(403).json({ success: false, results: {}, reason: "Invalid refresh token" });
+                return;
             }
 
+            connection.release();
             let new_refresh_token = uuidv4();
             let new_access_token = jwt.sign({ username: user.username }, "access_secret", { expiresIn: '3h' });
             res.cookie('refresh_token', new_refresh_token, {
@@ -282,6 +299,7 @@ app.patch('/api/password', (req, res) => {
                 res.status(500).json({ error : "데이터 조회 실패" });
                 return;
             }
+            console.log("MySQL connected");
             if(results.length === 0) {
                 connection.release();
                 res.send({ success: false, results: { isLogIn: false, reason: "Account not found." } });
