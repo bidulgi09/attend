@@ -128,7 +128,7 @@ function SignupPage({ user, setUser }) {
                         </div>
                         <UserButton
                             text='가입'
-                            onClick={async() => { await signup(user11); }} 
+                            onClick={async() => { await signup(user); }} 
                         />
                     </div>
                     <div className="direct-signup">
