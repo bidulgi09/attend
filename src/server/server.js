@@ -7,9 +7,12 @@ const mysql = require("mysql2");
 const dbconfig = require("../mysql_middleware/config/database.js"); 
 const pool = mysql.createPool(dbconfig); 
 
+<<<<<<< HEAD
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
+=======
+>>>>>>> origin/master
 const salt = 12;
 
 const checkDomainServer = require("./utils/checkDomainServer.js");
@@ -43,10 +46,17 @@ app.get('/api/userList', (req, res) => {
 
 app.post('/api/check', (req, res) => { 
     pool.getConnection(function(err, connection) { 
+<<<<<<< HEAD
         if(err) return res.status(500).json({ success: false, results: { isAvailable: false, reason: err } });
         let data = [ req.body.email, req.body.username ]; 
         connection.query('SELECT email, username FROM users WHERE email=? OR username=?;', data, async function(error, results, fields) { 
+=======
+        if(err) throw err; 
+        let data = [ req.body.email, req.body.username ]; 
+        connection.query('SELECT email, username FROM users WHERE email=? OR username=?', data, async function(error, results, fields) { 
+>>>>>>> origin/master
             connection.release(); 
+            console.log(results);
             if(error) { 
                 console.error(error); 
                 res.status(500).json({ error: "데이터 검색 실패" }); 
@@ -55,10 +65,20 @@ app.post('/api/check', (req, res) => {
 
             let regex = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
             let domain = await checkDomainServer(req.body.email.split('@')[1]);
+<<<<<<< HEAD
             if(!regex.test(req.body.email) || !domain.isValid || results.length > 0) {
                 res.send({ success: true, results: { isAvailable: false, reason: "Invalid email" }});
             } else {
                 res.send({ success: true, results: { isAvailable: true } });
+=======
+            console.log(regex.test(req.body.email));
+            console.log(domain.isValid);
+            console.log(results);
+            if(!regex.test(req.body.email) || !domain.isValid || results.length > 0) {
+                res.send({ success: true, isAvailable: false });
+            } else {
+                res.send({ success: true, isAvailable: true });
+>>>>>>> origin/master
             }
         }); 
     }); 
@@ -66,7 +86,11 @@ app.post('/api/check', (req, res) => {
 
 app.post('/api/signUp', (req, res) => {
     pool.getConnection(function(err, connection) { 
+<<<<<<< HEAD
         if(err) return res.status(500).json({ success: false, results: { insertedId: -1, reason: err } });
+=======
+        if(err) throw err; 
+>>>>>>> origin/master
         let password_hash = bcrypt.hashSync(req.body.password, salt);
         let datas = [ 
             req.body.username, 

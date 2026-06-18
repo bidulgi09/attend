@@ -16,7 +16,10 @@
     "dns": "^0.2.2",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
+<<<<<<< HEAD
     "mysql": "^2.18.1",
+=======
+>>>>>>> origin/master
     "mysql2": "^3.22.5",
     "nodemon": "^3.1.14",
     "react": "^19.2.5",
@@ -53,5 +56,9 @@
       "last 1 safari version"
     ]
   },
+<<<<<<< HEAD
   "proxy": "http://refactored-potato-4j66rr45x7753gvx-4000.app.github.dev/"
+=======
+  "proxy": "https://localhost:4000"
+>>>>>>> origin/master
 }
