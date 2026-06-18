@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 
 function authenticateToken(req, res, next) {
     const token = req.cookies.access_token;
-    console.log(jwt.decode(token));
 
     if(!token) {
         req.user = null; 
@@ -14,8 +13,6 @@ function authenticateToken(req, res, next) {
             return res.status(403).json({ error: "Invalid token."});
 
         req.user = user;
-        console.log(user);
-        console.log(req.user);
         next();
     });
     } catch(e) {

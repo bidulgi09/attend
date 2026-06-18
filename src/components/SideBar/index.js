@@ -7,9 +7,16 @@ function SideBar({ status, setStatus, user, setUser }) {
     const navigate=useNavigate({ user, setUser});
     async function logout(user) {
         let data = await UserManager.logOut();
-        let update = {...user, isLogin: false};
+        let update = {
+            name: '',
+            password: '',
+            email: '',
+            role: 'Student',
+            isLogin: false
+        };
         setUser(update);
-        if(data.success && !update.isLogin) {
+        if(data.success) {
+            localStorage.removeItem('user_session');
             return navigate('/login', { replace: true });
         }
     }
