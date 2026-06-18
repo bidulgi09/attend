@@ -8,6 +8,7 @@ import UserInput from '../../components/UserInput';
 import UserButton from '../../components/UserButton';
 import ToggleToken from '../../components/ToggleToken';
 import { Link, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 import api from '../../server/utils/api.js';
 import UserManager from '../../server/utils/UserManager.js';
@@ -23,7 +24,7 @@ function SignupPage({ user, setUser }) {
     async function signup(user) {
         let data = await UserManager.signUp(user.name, user.email, user.password, user.role);
         if(data.success) {    
-            let login = await UserManager.logIn(user.name, user.password)
+            let login = await UserManager.logIn(user.name, user.password, user.role);
             if(login.success) {
                 setUser({...user, isLogin: true});
                 alert("가입 성공");
@@ -46,13 +47,10 @@ function SignupPage({ user, setUser }) {
     }, []);
     
     const setUserName = (event) => {
-        console.log(Object.keys(event.target));
         return setUser({...user, name : event.target.value });
     };
     const setUserRole = (event) => {
-        console.log(Object.keys(event.target));
         setRole(event.target.value == "학생" ? "Student" : "Teacher");
-        console.log(role);
         return setUser({...user, role : event.target.value === "학생" ? "Student" : "Teacher"});
     };
     const setUserEmail = (event) => {
@@ -74,6 +72,9 @@ function SignupPage({ user, setUser }) {
 
     return (
         <div className="SignupPage">
+            <Helmet>
+                <title>출첵커 | 회원가입</title>
+            </Helmet>
             <div className='signup'>
                 <Link to="/">
                     <Logo fill="red" />
@@ -133,7 +134,7 @@ function SignupPage({ user, setUser }) {
                         />
                     </div>
                     <div className="direct-signup">
-                        <div onClick={async() => {alert(await api.get("/api/userList"))}}>ㅁㄴㅇㄹ</div><Link to="/find-my-pw"><span>비밀번호 찾기</span></Link>&nbsp;&nbsp;&nbsp;<Link to="/find-my-id"><span>아이디 찾기</span></Link>
+                        <Link to="/login"><span>로그인하러 가기</span></Link>&nbsp;&nbsp;&nbsp;<Link to="/find-my-pw"><span>비밀번호 찾기</span></Link>&nbsp;&nbsp;&nbsp;<Link to="/find-my-id"><span>아이디 찾기</span></Link>
                     </div>
                 </form>
             </div>

@@ -12,16 +12,15 @@ const UserManager = {
     async profile() {
         try {
             let res = await api.get('/api/profile', this.headers);
-            console.log(res);
             return res;
         } catch(e) {
             console.log(e);
             return {};
         }
     },
-    async logIn(username, password) {
+    async logIn(username, password, role) {
         try {
-            let res = await api.post('/api/logIn', this.headers, { username, password });
+            let res = await api.post('/api/logIn', this.headers, { username, password, role });
             return res;
         } catch(e) {
             console.log(e);

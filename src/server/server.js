@@ -32,11 +32,10 @@ app.get("/ping", (req, res) => {
 
 app.get('/api/userList', (req, res) => { 
     pool.getConnection(function(err, connection) { 
-        if(err) throw err; 
-        console.log("MySQL connected");
+        if(err) return res.status(500).json({ success: false, results: { isSearched: false, reason: err } });
         connection.query("SELECT * FROM users;", function(error, results, fields) {
             connection.release(); 
-            if(error) throw error;
+            if(error) return res.status(500).json({ success: false, results: { isSearched: false, reason: err } });
             res.send({ counts: results.length, results }); 
         }) 
     }) 
@@ -44,12 +43,10 @@ app.get('/api/userList', (req, res) => {
 
 app.post('/api/check', (req, res) => { 
     pool.getConnection(function(err, connection) { 
-        if(err) throw err; 
+        if(err) return res.status(500).json({ success: false, results: { isAvailable: false, reason: err } });
         let data = [ req.body.email, req.body.username ]; 
-        console.log("MySQL connected");
         connection.query('SELECT email, username FROM users WHERE email=? OR username=?;', data, async function(error, results, fields) { 
             connection.release(); 
-            console.log(results);
             if(error) { 
                 console.error(error); 
                 res.status(500).json({ error: "데이터 검색 실패" }); 
@@ -59,9 +56,9 @@ app.post('/api/check', (req, res) => {
             let regex = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
             let domain = await checkDomainServer(req.body.email.split('@')[1]);
             if(!regex.test(req.body.email) || !domain.isValid || results.length > 0) {
-                res.send({ success: true, isAvailable: false });
+                res.send({ success: true, results: { isAvailable: false, reason: "Invalid email" }});
             } else {
-                res.send({ success: true, isAvailable: true });
+                res.send({ success: true, results: { isAvailable: true } });
             }
         }); 
     }); 
@@ -69,8 +66,7 @@ app.post('/api/check', (req, res) => {
 
 app.post('/api/signUp', (req, res) => {
     pool.getConnection(function(err, connection) { 
-        if(err) throw err; 
-        console.log("MySQL connected");
+        if(err) return res.status(500).json({ success: false, results: { insertedId: -1, reason: err } });
         let password_hash = bcrypt.hashSync(req.body.password, salt);
         let datas = [ 
             req.body.username, 
@@ -85,29 +81,26 @@ app.post('/api/signUp', (req, res) => {
         ]; 
         connection.query('INSERT INTO users (username, nickname, email, password_hash, role) VALUES (?, ?, ?, ?, ?);', datas, function(error, results, fields) { 
             connection.release(); 
-            if(error) { 
-                console.error(error); 
-                res.status(500).json({ error: "데이터 삽입 실패" }); 
-                return; 
-            } 
-            res.json({ success: true, insertedId: results.insertId}); 
+            if(error) {
+                res.status(500).json({ success: false, results: { insertedId: -1, reason: "Fail to search" } });
+                return;
+            }
+            res.json({ success: true, results: { insertedId: results.insertId }}); 
         }); 
     }); 
 });
 
 app.post('/api/deleteAccount', (req, res) => {
     pool.getConnection(function(err, connection) { 
-        if(err) throw err;
+        if(err) return res.status(500).json({ success: false, results: { isDeleted: false, reason: err } });
         let datas = [ 
             req.body.username
         ]; 
-        console.log("MySQL connected");
         connection.query('SELECT password_hash FROM users WHERE username=?;', datas, function(error, results, fields) { 
-            if(error) { 
-                connection.release(); 
-                console.error(error); 
-                res.status(500).json({ error: "데이터 조회 실패" }); 
-                return; 
+            if(error) {
+                connection.release();
+                res.status(500).json({ success: false, results: { isDeleted: false, reason: "Fail to search" } });
+                return;
             }
             if(bcrypt.compareSync(req.body.password, results[0].password_hash)) {
                 datas.push(results[0].password_hash);
@@ -118,7 +111,6 @@ app.post('/api/deleteAccount', (req, res) => {
                         res.status(500).json({ error: "데이터 삭제 실패" }); 
                         return; 
                     }
-                    console.log(JSON.stringify(results2, null, 4));
                     res.json({ success: true, results: { isDeleted: results2.affectedRows===1 } });
                 });
             } else {
@@ -131,19 +123,18 @@ app.post('/api/deleteAccount', (req, res) => {
 });
 
 app.post('/api/logIn', (req, res) => {
-    console.log("👉 로그인 요청 들어옴!! body 데이터:", req.body);
     const REFRESH_TOKEN_EXPIRED_IN=(()=>new Date(Date.now() + 7*24*60*60*1000))();
     const ACCESS_TOKEN_EXPIRED_IN=(()=>new Date(Date.now() + 3*60*60*1000))();
     pool.getConnection(function(err, connection) {
+        if(err) return res.status(500).json({ success: false, results: { isLogin: false, reason: err } });
         let data = [
-            req.body.username
+            req.body.username,
+            req.body.role
         ];
-        console.log("MySQL connected");
-        connection.query('SELECT password_hash FROM users WHERE username = ?;', data, function(error, results, fields) {
+        connection.query('SELECT password_hash FROM users WHERE username = ? AND role = ?;', data, function(error, results, fields) {
             if(error) {
                 connection.release();
-                console.log(error);
-                res.status(500).json({ error : "데이터 조회 실패" });
+                res.status(500).json({ success: false, results: { isLogin: false, reason: "Fail to search" } });
                 return;
             }
             if(results.length === 0) {
@@ -154,10 +145,9 @@ app.post('/api/logIn', (req, res) => {
                 if(bcrypt.compareSync(req.body.password, results[0].password_hash)) {
                     let refresh_token=uuidv4();
                     let access_token=jwt.sign({ username: req.body.username }, "access_secret", { expiresIn: "3h" });
-                    connection.query('UPDATE users SET refresh_token=?, expired_in=?, is_active=? WHERE username=?;', [refresh_token, REFRESH_TOKEN_EXPIRED_IN, true, req.body.username], function(error2, results2) {
+                    connection.query('UPDATE users SET refresh_token=?, expired_in=?, is_active=? WHERE username=? AND role=?;', [refresh_token, REFRESH_TOKEN_EXPIRED_IN, true, req.body.username, req.body.role], function(error2, results2) {
                         connection.release();
                         if(error2) {
-                            console.log(error2);
                             res.status(500).json({ error: "데이터 수정 실패" });
                             return;
                         }
@@ -189,15 +179,13 @@ app.post('/api/logIn', (req, res) => {
 
 app.post('/api/logOut', (req, res) => {
     pool.getConnection(function(err, connection) {
-        if(err) throw err;
-        console.log("MySQL connected");
+        if(err) return res.status(500).json({ success: false, results: { isLogOut: false, reason: err } });
         if(!req.cookies.access_token) {
             connection.release();
             res.send({ success: false, results: { isLogOut: false, reason: "Unauthorized" } });
             return;
         }
         let data = [null, null, jwt.decode(req.cookies.access_token).username];
-        console.log(JSON.stringify(data, null, 4));
         connection.query('UPDATE users SET refresh_token=?, expired_in=? WHERE username=?', data, function(error, results, fields) {
             connection.release();
             if(error) {
@@ -208,29 +196,36 @@ app.post('/api/logOut', (req, res) => {
                 res.status(403).send({ success: true, results: { isLogOut: false, reason: "user not found"}});
                 return;
             }
-            res.clearCookie("refresh_token");
-            res.clearCookie("access_token");
+            res.clearCookie("refresh_token", {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'none'
+            });
+            res.clearCookie("access_token", {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'none'
+            });
             res.send({ success: true, results: { isLogOut: true }});
         });
     });
 });
 app.get('/api/profile', authenticateToken, (req, res) => {
     pool.getConnection(function(err, connection) {
-        console.log("MySQL connected");
-        if(err) throw err;
+        if(err) return res.status(500).json({ success: false, results: { isLoaded: false, reason: err } });
         if(!req.user || !req.user.username) {
             connection.release();
             res.send({ success: false, results: { isLoaded: false, reason: "Unauthorized"}});
             return;
         }
         let data = [req.user.username];
-        connection.query('SELECT * FROM users WHERE username=?;', data, function(error, results, fields) {
+        connection.query('SELECT username FROM users WHERE username=?;', data, function(error, results, fields) {
             connection.release();
             if(error) {
-                res.status(500).json({ error: "데이터 조회 실패" });
+                res.status(500).json({ success: false, results: { isLoaded: false, reason: "Fail to search" } });
                 return;
             }
-            res.send({ success: true, results: results[0] });
+            res.send({ success: true, results: { isLoaded: true, user: results[0] } });
             return;
         });
     });
@@ -240,8 +235,7 @@ app.post('/api/refresh', (req, res) => {
     const REFRESH_TOKEN_EXPIRED_IN=(()=>new Date(Date.now() + 7*24*60*60*1000))();
     const ACCESS_TOKEN_EXPIRED_IN=(()=>new Date(Date.now() + 3*60*60*1000))();
     pool.getConnection(function(err, connection) {
-        console.log("MySQL connected");
-        if(err) throw err;
+        if(err) return res.status(500).json({ success: false, results: { isRefreshed: false, reason: err } });
         if(!req.cookies.refresh_token) {
             connection.release();
             return res.status(401).json({ error: "Refresh token required."});   
@@ -251,43 +245,55 @@ app.post('/api/refresh', (req, res) => {
             let user = results[0];
             if(error) {
                 connection.release();
-                res.status(500).json({ error: "데이터 조회 실패"});
+                res.status(500).json({ success: false, results: { isRefreshed: false, reason: "Fail to search" } });
                 return;
             }
             if(!user) {
                 connection.release();
-                res.status(401).json({ success: false, results: {}, reason: "Not exists."});
+                res.status(401).json({ success: false, results: { isRefreshed: false, reason: "Not exists." } });
                 return;
             }
             if(user.refresh_token !== req.cookies.refresh_token || user.expired_in < new Date(Date.now())) {
                 connection.release();
-                res.status(403).json({ success: false, results: {}, reason: "Invalid refresh token" });
+                res.status(403).json({ success: false, results: { isRefreshed: false, reason: "Invalid refresh token" } });
                 return;
             }
 
-            connection.release();
             let new_refresh_token = uuidv4();
             let new_access_token = jwt.sign({ username: user.username }, "access_secret", { expiresIn: '3h' });
-            res.cookie('refresh_token', new_refresh_token, {
-                expires: REFRESH_TOKEN_EXPIRED_IN,
-                httpOnly: true,
-                secure: false
-            });
-            
-            res.cookie('access_token', new_access_token, {
-                expires: ACCESS_TOKEN_EXPIRED_IN,
-                httpOnly: true,
-                secure: false
-            }); 
+            connection.query('UPDATE users SET refresh_token=?, expired_in=? WHERE username=?;', [new_refresh_token, REFRESH_TOKEN_EXPIRED_IN, user.username], function(error2, results2) {
+                connection.release();
+                if(error2) {
+                    res.status(500).json({ success: false, results: { isRefreshed: false, reason: "Fail to update" } });
+                    return;
+                }
+                res.cookie('refresh_token', new_refresh_token, {
+                    expires: REFRESH_TOKEN_EXPIRED_IN,
+                    httpOnly: true,
+                    secure: true,
+                    sameSite: 'none'
+                });
+                
+                res.cookie('access_token', new_access_token, {
+                    expires: ACCESS_TOKEN_EXPIRED_IN,
+                    httpOnly: true,
+                    secure: true,
+                    sameSite: 'none'
+                }); 
 
-            res.send({ success: true, results: user });
-            return;
+                res.send({ success: true, results: { isRefreshed: true, data: user } });
+                return;
+            });
         });
     });
 });
 
 app.patch('/api/password', (req, res) => {
     pool.getConnection(function(err, connection) {
+        if(err) {
+            res.status(500).json({ success: false, results: { isChanged: false, reason: "Fail to search" } });
+            return;
+        }
         let data = [
             req.body.username
         ];
@@ -295,14 +301,12 @@ app.patch('/api/password', (req, res) => {
         connection.query('SELECT password_hash FROM users WHERE username = ?;', data, function(error, results, fields) {
             if(error) {
                 connection.release();
-                console.log(error);
-                res.status(500).json({ error : "데이터 조회 실패" });
+                res.status(500).json({ success: false, results: { isChanged: false, reason: "Fail to search" } });
                 return;
             }
-            console.log("MySQL connected");
             if(results.length === 0) {
                 connection.release();
-                res.send({ success: false, results: { isLogIn: false, reason: "Account not found." } });
+                res.send({ success: false, results: { isChanged: false, reason: "Account not found." } });
                 return;
             } else {
                 if(bcrypt.compareSync(req.body.password, results[0].password_hash)) {
@@ -317,8 +321,7 @@ app.patch('/api/password', (req, res) => {
                     connection.query('UPDATE users SET password_hash=? WHERE username=?;', [new_password_hash, req.body.username], function(error2, results2) {
                         connection.release();
                         if(error2) {
-                            console.log(error2);
-                            res.status(500).json({ error: "데이터 수정 실패" });
+                            res.status(500).json({ success: false, results: { isChanged: false, reason: "Fail to update" } });
                             return;
                         }
                         res.send({ success: true, results: { isChanged: true, new_password: req.body.new_password }});

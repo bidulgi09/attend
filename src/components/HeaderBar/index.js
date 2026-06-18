@@ -11,9 +11,23 @@ function HeaderBar({ status, setStatus, user, setUser }) {
     const navigate=useNavigate();
     async function logout(user) {
         let data = await UserManager.logOut();
-        let update = {...user, isLogin: false};
+        let update = {
+            name: '',
+            password: '',
+            email: '',
+            role: 'Student',
+            isLogin: false
+        };
         setUser(update);
-        if(data.success && !update.isLogin) {
+        if(data.success) {
+            localStorage.removeItem("user_session");
+            setUser({
+                name: '',
+                password: '',
+                email: '',
+                role: 'Student',
+                isLogin: false
+            });
             return navigate('/login', { replace: true });
         }
     }

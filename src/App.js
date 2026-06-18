@@ -10,8 +10,8 @@ import HeaderBar from './components/HeaderBar';
 
 function App() {
     let [status, setStatus] = useState(false);
-    const [user, setUser] = useState( sessionStorage.getItem('user_session') ?
-        JSON.parse(sessionStorage.getItem('user_session')) :
+    const [user, setUser] = useState( localStorage.getItem('user_session') ?
+        JSON.parse(localStorage.getItem('user_session')) :
         { 
             name: null,
             role: "Student",
@@ -21,7 +21,7 @@ function App() {
         }
     );
     useEffect(() => {
-        sessionStorage.setItem('user_session', JSON.stringify(user));
+        localStorage.setItem('user_session', JSON.stringify(user));
     }, [user]);
     return (
         <BrowserRouter>

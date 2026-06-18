@@ -8,6 +8,7 @@ import UserInput from '../../components/UserInput';
 import UserButton from '../../components/UserButton';
 import ToggleToken from '../../components/ToggleToken';
 import { Link, useNavigate, useOutletContext } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import UserManager from '../../server/utils/UserManager';
 
 function LoginPage({user, setUser}) {
@@ -19,7 +20,7 @@ function LoginPage({user, setUser}) {
         }
     }
     async function login(user) {
-        let data = await UserManager.logIn(user.name, user.password)
+        let data = await UserManager.logIn(user.name, user.password, user.role);
         if(data.success) {
             setUser({...user, isLogin: true});
             alert("로그인 성공");
@@ -38,11 +39,9 @@ function LoginPage({user, setUser}) {
     }, []);
     
     const setUserName = (event) => {
-        console.log(Object.keys(event.target));
         return setUser({...user, name : event.target.value });
     };
     const setUserRole = (event) => {
-        console.log(Object.keys(event.target));
         setRole(event.target.value == "학생" ? "Student" : "Teacher");
         return setUser({...user, role : event.target.value === "학생" ? "Student" : "Teacher"});
     };
@@ -65,6 +64,9 @@ function LoginPage({user, setUser}) {
 
     return (
         <div className="LoginPage">
+            <Helmet>
+                <title>출첵커 | 로그인</title>
+            </Helmet>
             <div className='login'>
                 <Link to="/">
                     <Logo />
