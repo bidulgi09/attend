@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import './App.css';
-import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import LoginPage from './page/login';
 import SignupPage from './page/signup';
 import HomePage from './page/home';
+import NotFound from './page/NotFound';
 import SideBar from './components/SideBar';
 import HeaderBar from './components/HeaderBar';
 
@@ -31,10 +32,11 @@ function App() {
                     <HeaderBar status={ status } setStatus={ setStatus } user={ user } setUser={ setUser }/>
                     <div className='main-container'>
                         <Routes>
-                            <Route path="/" element={<HomePage/>}/>
-                            <Route path="/home" element={<HomePage/>}/>
-                            <Route path="/login" element={<LoginPage user={user} setUser={setUser}/>}/>
-                            <Route path="/signup" element={<SignupPage user={ user } setUser={ setUser }/>}/>
+                            <Route path='/' element={<HomePage/>}/>
+                            <Route path='/home' element={<HomePage/>}/>
+                            <Route path='/login' element={<LoginPage user={user} setUser={setUser}/>}/>
+                            <Route path='/signup' element={<SignupPage user={ user } setUser={ setUser }/>}/>
+                            <Route path='*' element={<NotFound/>}/>
                         </Routes>
                     </div>
                 </div>
