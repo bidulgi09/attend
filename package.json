@@ -15,8 +15,8 @@
     "cors": "^2.8.6",
     "dns": "^0.2.2",
     "express": "^5.2.1",
+    "framer-motion": "^12.40.0",
     "jsonwebtoken": "^9.0.3",
-    "mysql": "^2.18.1",
     "mysql2": "^3.22.5",
     "nodemon": "^3.1.14",
     "react": "^19.2.5",
@@ -31,7 +31,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "server": "nodemon src/server/server.js",
-    "dev": "concurrently \"npm run server\" \"npm start\"",
+    "dev": "concurrently \"sudo service mariadb start\" \"npm run server\" \"npm start\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -1,0 +1,80 @@
+const express = require("express");
+const cors = require('cors');
+const bodyParser = require("body-parser");
+const mysql = require("mysql2");
+
+const dbconfig = require("./mysql_middleware/config/database.js");
+const pool = mysql.createPool(dbconfig);
+
+const app = express();
+const port = 4000;
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
+app.use(bodyParser.json());
+
+app.get('/api/userList', (req, res) => {
+
+    pool.getConnection(function(err, connection) {
+        if(err) throw err;
+        connection.query("SELECT * FROM users", function(error, results, fields) {
+            res.send(results);
+            connection.release();
+            if(error) throw error;
+        })
+    })
+});
+
+app.post('/api/findUser', (req, res) => {
+    pool.getConnection(function(err, connection) {
+        if(err) throw err;
+        
+        let data = [
+            req.body.email,
+            req.body.password
+        ]
+        connection.query('SELECT * FROM users WHERE email=? AND password=?', [req.body.email, req.body.password], function(error, results, fields) {
+            connection.release();
+
+            if(error) {
+                console.error(error);
+                res.status(500).json({ error: "데이터 검색 실패" });
+                return;
+            }
+            if(results[0]) {
+                res.send({ success: true, result: { user: results[0] } });
+            } else {
+                res.send({ success: false, result: { user: {} }});
+            }
+        });
+    });
+});
+
+app.post('/api/signUp', (req, res) => {
+    pool.getConnection(function(err, connection) {
+        if(err) throw err;
+        
+        let datas = [
+            req.body.username,
+            req.body.nickname,
+            req.body.email,
+            req.body.password,
+            req.body.role
+        ]
+        connection.query('INSERT INTO users (username, nickname, email, password_hash, role) VALUES (?, ?, ?, ?, ?)', datas, function(error, results, fields) {
+            connection.release();
+
+            if(error) {
+                console.error(error);
+                res.status(500).json({ error: "데이터 삽입 실패" });
+                return;
+            }
+
+            res.json({ success: true, insertedId: results.insertedId});
+        });
+    })
+});
+
+app.listen(port, () => {
+    console.log("Example Server is Listening at https://localhost:" + port);
+});
