@@ -24,7 +24,7 @@ function App() {
         localStorage.setItem('user_session', JSON.stringify(user));
     }, [user]);
     return (
-        <HashRouter basename="/attend">
+        <HashRouter>
             <div className='app-container'>
                 <SideBar status={ status } setStatus={ setStatus } user={ user } setUser={ setUser }/>
                 <div className='content-container'>
