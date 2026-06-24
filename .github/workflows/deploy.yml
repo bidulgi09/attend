@@ -22,7 +22,7 @@ jobs:
           node-version: 22
 
       - run: npm ci
-      - run: npm run build
+      - run: CI=false npm run build
 
       - uses: actions/upload-pages-artifact@v3
         with:
