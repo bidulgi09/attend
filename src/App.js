@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './App.css';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 
+import NotFound from './page/signup';
 import LoginPage from './page/login';
 import SignupPage from './page/signup';
 import HomePage from './page/home';
