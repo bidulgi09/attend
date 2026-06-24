@@ -1,9 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './styles.css';
 import { Helmet } from 'react-helmet-async';
-
-import { ReactComponent as Logo } from '../../assets/logo.svg';
 
 function HomePage() {
     return (

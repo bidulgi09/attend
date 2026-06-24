@@ -7,7 +7,7 @@ import './styles.css';
 import UserInput from '../../components/UserInput';
 import UserButton from '../../components/UserButton';
 import ToggleToken from '../../components/ToggleToken';
-import { Link, useNavigate, useOutletContext } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import UserManager from '../../server/utils/UserManager';
 
@@ -36,17 +36,14 @@ function LoginPage({user, setUser}) {
 
     useEffect(() => {
         redirect(user);
-    }, []);
+    }, [user, redirect]);
     
     const setUserName = (event) => {
         return setUser({...user, name : event.target.value });
     };
     const setUserRole = (event) => {
         setRole(event.target.value == "학생" ? "Student" : "Teacher");
-        return setUser({...user, role : event.target.value === "학생" ? "Student" : "Teacher"});
-    };
-    const setUserEmail = (event) => {
-        return setUser({...user, email : event.target.value });
+        return setUser({...user, role : event.target.value == "학생" ? "Student" : "Teacher"});
     };
     const setUserPW = (event) => {
         return setUser({...user, password : event.target.value });

@@ -10,7 +10,6 @@ import ToggleToken from '../../components/ToggleToken';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
-import api from '../../server/utils/api.js';
 import UserManager from '../../server/utils/UserManager.js';
 
 function SignupPage({ user, setUser }) {
@@ -44,14 +43,14 @@ function SignupPage({ user, setUser }) {
 
     useEffect(() => {
         redirect(user);
-    }, []);
+    }, [user, redirect]);
     
     const setUserName = (event) => {
         return setUser({...user, name : event.target.value });
     };
     const setUserRole = (event) => {
         setRole(event.target.value == "학생" ? "Student" : "Teacher");
-        return setUser({...user, role : event.target.value === "학생" ? "Student" : "Teacher"});
+        return setUser({...user, role : event.target.value == "학생" ? "Student" : "Teacher"});
     };
     const setUserEmail = (event) => {
         return setUser({...user, email : event.target.value });
