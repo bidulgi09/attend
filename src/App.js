@@ -35,6 +35,7 @@ function App() {
                             <Route path="/home" element={<HomePage/>}/>
                             <Route path="/login" element={<LoginPage user={user} setUser={setUser}/>}/>
                             <Route path="/signup" element={<SignupPage user={ user } setUser={ setUser }/>}/>
+                            <Route path='*' element={<NotFound/>}/>
                         </Routes>
                     </div>
                 </div>
