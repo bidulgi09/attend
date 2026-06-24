@@ -24,7 +24,7 @@ function App() {
         localStorage.setItem('user_session', JSON.stringify(user));
     }, [user]);
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/attend">
             <div className='app-container'>
                 <SideBar status={ status } setStatus={ setStatus } user={ user } setUser={ setUser }/>
                 <div className='content-container'>
