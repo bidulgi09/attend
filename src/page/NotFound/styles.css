@@ -77,7 +77,7 @@
 }
 .NotFound .home:hover,
 .NotFound .back:hover {
-    font-size: 20px;
+    font-size: 3.5vh;
 }
 .NotFound .home:hover .back,
 .NotFound .back:hover .home {
