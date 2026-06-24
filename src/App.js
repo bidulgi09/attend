@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 
 import LoginPage from './page/login';
 import SignupPage from './page/signup';
@@ -24,7 +24,7 @@ function App() {
         localStorage.setItem('user_session', JSON.stringify(user));
     }, [user]);
     return (
-        <BrowserRouter basename="/attend">
+        <HashRouter basename="/attend">
             <div className='app-container'>
                 <SideBar status={ status } setStatus={ setStatus } user={ user } setUser={ setUser }/>
                 <div className='content-container'>
@@ -39,7 +39,7 @@ function App() {
                     </div>
                 </div>
             </div>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 
