@@ -43,7 +43,7 @@ function SignupPage({ user, setUser }) {
 
     useEffect(() => {
         redirect(user);
-    }, [t]);
+    }, []);
     
     const setUserName = (event) => {
         return setUser({...user, name : event.target.value });
