@@ -16,10 +16,15 @@ const checkDomainServer = require("./utils/checkDomainServer.js");
 const authenticateToken = require("./utils/authenticateToken.js");
 
 const app = express(); 
-const port = 4000; 
+const port = process.env.PORT || 5000; 
 
 app.use(cors({
-    origin: "https://refactored-potato-4j66rr45x7753gvx-4000.app.github.dev/", 
+    origin: [
+        "http://localhost:3000",
+        "https://attend-508x.onrender.com",
+        "https://refactored-potato-4j66rr45x7753gvx-4000.app.github.dev/",
+        "https://bidulgi09.github.io"
+    ], 
     credentials: true
 }));
 app.use(bodyParser.urlencoded({ extended: true })); 
