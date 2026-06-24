@@ -36,7 +36,7 @@ function LoginPage({user, setUser}) {
 
     useEffect(() => {
         redirect(user);
-    }, [user, redirect]);
+    }, []);
     
     const setUserName = (event) => {
         return setUser({...user, name : event.target.value });
