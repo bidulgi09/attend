@@ -56,7 +56,7 @@
     ]
   },
   "homepage": "https://bidulgi09.github.io/attend",
-  "proxy": "http://refactored-potato-4j66rr45x7753gvx-4000.app.github.dev/",
+  "proxy": "https://attend-508x.onrender.com/",
   "devDependencies": {
     "gh-pages": "^6.3.0"
   }
