@@ -1,0 +1,31 @@
+.HomePage {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(34, 40, 49);
+    overflow: scroll;
+    color: rgb(238, 238, 238);
+}
+
+.HomePage .main {
+    display: flex;
+    position: relative;
+    flex: 1;
+    height: 250px;
+    font-size: 100px;
+    z-index: 10;
+}
+
+.HomePage .circle {
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
