@@ -33,7 +33,9 @@
     "server": "nodemon src/server/server.js",
     "dev": "concurrently \"sudo service mariadb start\" \"npm run server\" \"npm start\"",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -53,5 +55,9 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://attend-508x.onrender.com/"
+  "homepage": "https://bidulgi09.github.io/attend",
+  "proxy": "https://attend-508x.onrender.com/",
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
 }
