@@ -83,304 +83,6 @@ function SignupPage({ user, setUser }) {
                     <Logo fill="red" />
                 </Link>
                 <form>
-                    <div className="terms-box">
-                        <div className="terms">
-                            <strong>
-                            Terms &amp; Conditions
-                            </strong>
-                            <br/>
-                            <p>
-                                These terms and conditions apply to the 출첵커 app for web browsers, together with any related services operated by bidulgi09 (collectively, the "Application"). bidulgi09 is hereby referred to as the "Service Provider".
-                            </p>
-                            <br/>
-                            <p>
-                                By downloading or using the Application, you agree to these Terms and Conditions. You should read them carefully before using the Application.
-                            </p>
-                            <br/>
-                            <div>
-                                <strong>
-                                    License to use the Application
-                                </strong>   
-                                <p>
-                                Subject to your compliance with these Terms, the Service Provider grants you a limited, non-exclusive, non-transferable, revocable license to install and use the Application on a device for personal or internal business purposes. You may not reproduce, distribute, modify, create derivative works from, reverse engineer, decompile, or disassemble the Application, except as and only to the extent that such activity is expressly permitted by applicable law.
-                                </p>
-                            </div>
-                            <br/>
-                            <strong>
-                                Intellectual Property
-                            </strong>
-                            <p>
-                                The Service Provider retains all intellectual property rights in the Application, including its code, design, trademarks, service marks, trade names, logos, and branding (the "IP"). Nothing in these Terms grants you any license or right to use the Service Provider's trademarks, logos, or branding for any purpose. You agree not to remove, alter, or obscure any copyright, trademark, or other proprietary notices displayed in or on the Application.
-                            </p>
-                            <br/>
-                            <strong>
-                                Termination
-                            </strong>
-                            <p>
-                                The Service Provider may suspend your access to the Application or services if you materially breach these Terms. The Service Provider will provide you with written notice of the breach and, where the breach is capable of cure, you will have 14 days from receipt of notice to remedy the breach. If you fail to cure the breach within that period, the Service Provider may terminate your access.
-                            </p>
-                            <br/>
-                            <p>
-                                The Service Provider may suspend or terminate your access immediately without notice if you violate applicable law, infringe intellectual property rights, or engage in activity that could cause harm to other users or the Service Provider.
-                            </p>
-                            <br/>
-                            <p>
-                                Upon termination, your right to use the Application will end and you must delete all copies from your devices.
-                            </p>
-                            <br/>
-                            <p>
-                                By accessing and using this Application, you represent that you are legally permitted to use it in your jurisdiction. You must be at least 18 years of age (the age of digital consent in your jurisdiction) to use the Application. If you are below 18, a parent or legal guardian must review and accept these Terms on your behalf.
-                            </p>
-                            <div>
-                                <br/>
-                                <p>
-                                    Unauthorized copying, modification of the Application, any part of the Application, or the Service Provider's trademarks is strictly prohibited. Any attempts to extract the source code of the Application, translate the Application into other languages, or create derivative versions are not permitted. All trademarks, copyrights, database rights, and other intellectual property rights related to the Application remain the property of the Service Provider.
-                                </p>
-                            </div>
-                            <br/>
-                            <strong>
-                                User-Generated Content and Acceptable Use
-                            </strong>
-                            <p>
-                                If this Application allows users to post, share, or upload content, you agree not to post content that:
-                            </p>
-                            <ul>
-                                <li>
-                                    Is illegal or violates third-party intellectual property rights (copyright, trademark, patents)
-                                </li>
-                                <li>
-                                    Is abusive, threatening, harassing, defamatory, or hate speech
-                                </li>
-                                <li>
-                                    Contains discrimination or incitement to violence or illegal activity
-                                </li>
-                                <li>
-                                    Is spam, phishing, or contains malware
-                                </li>
-                                <li>
-                                    Violates the privacy or personal data rights of others
-                                </li>
-                                <li>
-                                    Is misleading, false, or deceptive
-                                </li>
-                                <li>
-                                    Contains explicit violence or sexual content (unless age-gated appropriately)
-                                </li>
-                            </ul>
-                            <br/>
-                            <p>
-                                The Service Provider reserves the right to:
-                            </p>
-                            <ul>
-                                <li>
-                                    Remove or disable access to content that violates these guidelines
-                                </li>
-                                <li>
-                                    Suspend or terminate accounts of users who repeatedly violate these guidelines
-                                </li>
-                                <li>
-                                    Cooperate with law enforcement if illegal content is reported
-                                </li>
-                                <li>
-                                    Moderate, filter, or hide content that violates these Terms, applicable law, or the guidelines set out above
-                                </li>
-                            </ul>
-                            <br/>
-                            <p>
-                                Content submitted through the Application may be visible to other users or to the public, depending on how the Application functions.
-                            </p>
-                            <br/>
-                            <p>
-                                If you believe content violates these Terms, infringes your rights, or is unlawful, you may report it to the Service Provider at dg2620628@daegun.hs.kr. The report should include enough information for the Service Provider to identify the content, evaluate the complaint, and contact you if follow-up is required.
-                            </p>
-                            <br/>
-                            <p>
-                                Where the Application provides such features, you may also report content, block other users, or mute notifications directly through the Application's interface. The Service Provider will review in-app reports with the same standards described in these Terms.
-                            </p>
-                            <br/>
-                            <p>
-                                The Service Provider may review reported content, request additional information where necessary, remove or restrict access to content, and take action against the responsible account where appropriate. Users affected by moderation decisions may contact the Service Provider at dg2620628@daegun.hs.kr to request further review. The Service Provider will respond to appeals within a reasonable period and provide the reasons for any upheld moderation decision, subject to applicable law.
-                            </p>
-                            <br/>
-                            <p>
-                                By submitting User-Generated Content you grant the Service Provider a non-exclusive, worldwide, royalty-free license to use, reproduce, distribute, prepare derivative works of, display and perform the content in connection with the Application and the Service Provider's business. This license does not grant the Service Provider the right to sell or sublicense your content to third parties independently of the Application. You represent and warrant that you own or control all rights in the content you post and that use of the content does not violate these Terms or applicable law.
-                            </p>
-                            <br/>
-                            <p>
-                                Your content may include personal data. Processing of personal data related to User-Generated Content is governed by the Privacy Policy. Do not post personal data of others without their consent.
-                            </p>
-                            <br/>
-                            <p>
-                                The Service Provider is dedicated to ensuring that the Application is as beneficial and efficient as possible. As such, they reserve the right to modify the Application or charge for their services at any time and for any reason. The Service Provider assures you that any charges for the Application or its services will be clearly communicated to you.
-                            </p>
-                            <br/>
-                            <p>
-                                The Application stores and processes personal data that you have provided to the Service Provider in order to provide the Service. It is your responsibility to maintain the security of your phone and access to the Application. The Service Provider strongly advises against jailbreaking or rooting your phone, which involves removing software restrictions and limitations imposed by the official operating system of your device. Such actions could expose your phone to malware, viruses, malicious programs, compromise your phone's security features, and may result in the Application not functioning correctly or at all.
-                            </p>
-                            <br/>
-                            <div>
-                                <p>
-                                    Please be aware that the Service Provider does not assume responsibility for certain aspects. Some functions of the Application require an active internet connection. The Service Provider cannot be held responsible if the Application does not function at full capacity due to lack of access to the internet or if you have exhausted your data allowance.
-                                </p>
-                                <br/>
-                                <p>
-                                    If you are using the Application, please be aware that your internet service provider's agreement terms still apply. Consequently, you may incur charges from your internet provider for data usage during the use of the Application. By using the Application, you accept responsibility for any such charges.
-                                </p>
-                            </div>
-                            <br/>
-                            <p>
-                                Similarly, the Service Provider cannot always assume responsibility for your usage of the application. For instance, it is your responsibility to ensure that your device remains charged. If your device runs out of battery and you are unable to access the Service, the Service Provider cannot be held responsible.
-                            </p>
-                            <br/>
-                            <p>
-                                Nothing in these Terms shall limit any rights you have under applicable consumer protection laws that cannot be lawfully excluded.
-                            </p>
-                            <strong>
-                                Limitation of Liability
-                            </strong>
-                            <p>
-                                To the fullest extent permitted by law, the Service Provider shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to lost profits, data loss, or business interruption, even if advised of the possibility of such damages.
-                            </p>
-                            <br/>
-                            <p>
-                                However, the Service Provider retains full liability for:
-                            </p>
-                            <ul>
-                                <li>
-                                    Death or personal injury caused by negligence
-                                </li>
-                                <li>
-                                    Fraud or fraudulent misrepresentation
-                                </li>
-                                <li>
-                                    Any other liability that cannot be excluded or limited under applicable law
-                                </li>
-                            </ul>
-                            <br/>
-                            <p>
-                                To the fullest extent permitted by law, the total liability of the Service Provider for any claim shall not exceed the amount paid by you to the Service Provider for the Application in the 12 months preceding the claim, or the minimum amount that must be paid under applicable law, whichever is greater. If the Application is provided free of charge, this means the Service Provider's liability is limited to the minimum amount permitted by applicable law.
-                            </p>
-                            <br/>
-                            <p>
-                                The Service Provider accepts no liability for any loss, direct or indirect, that you experience as a result of relying entirely on third-party information provided through this Application, or for inaccuracies in content provided by third parties.
-                            </p>
-                            <br/>
-                            <strong>
-                                Indemnification
-                            </strong>
-                            <p>
-                                To the fullest extent permitted by law, you agree to indemnify and hold harmless the Service Provider, its affiliates, officers, directors, employees and agents from and against any claims, liabilities, damages, losses and expenses, including reasonable legal fees, arising out of or directly related to your breach of these Terms or your intentional misuse of the Application, including User-Generated Content you submit in violation of these Terms.
-                            </p>
-                            <br/>
-                            <p>
-                                This indemnification does not apply to claims arising from the Service Provider's own negligence, breach of these Terms, or violation of applicable law. In jurisdictions where consumer indemnification is restricted by law, this clause shall be limited to the maximum extent permitted.
-                            </p>
-                            <br/>
-                            <p>The Service Provider may wish to update the application at some point. The application is currently available as per the requirements for the operating system (and for any additional systems they decide to extend the availability of the application to) may change, and you will need to download the updates if you want to continue using the application. The Service Provider does not guarantee that it will always update the application so that it is relevant to you and/or compatible with the particular operating system version installed on your device. You should accept updates when offered; if you choose not to, the Service Provider may cease to support earlier versions and the Application may not function properly. The Service Provider may also wish to cease providing the application and may terminate its use at any time without providing termination notice to you. Unless they inform you otherwise, upon any termination, (a) the rights and licenses granted to you in these terms will end; (b) you must cease using the application, and (if necessary) delete it from your device.
-                            </p>
-                            <br/>
-                            <strong>
-                                Governing Law and Jurisdiction
-                            </strong>
-                            <br/>
-                                <p>These Terms and Conditions are governed by the laws of the jurisdiction in which the Service Provider is established, excluding conflict of law rules, except to the extent mandatory consumer protection laws provide otherwise.
-                            </p>
-                            <br/>
-                                <p>Any dispute arising out of or relating to these Terms will be brought before the courts that have jurisdiction under applicable law. Nothing in this clause limits any rights you may have to bring a claim in a court that is competent under mandatory law.
-                            </p>
-                            <br/><strong>DSA Compliance (Digital Services Act)</strong><br/>
-                                <p>If the Application is an intermediary service as defined under the Digital Services Act (Regulation (EU) 2022/2065, "DSA"), the following provisions apply in addition to the terms above.
-                            </p>
-                            <br/>
-                            <p>
-                                <strong>
-                                    Point of Contact: 
-                                </strong>
-                                The Service Provider maintains a single point of contact for direct communication with EU authorities and recipients of the service, reachable at dg2620628@daegun.hs.kr. Where the Service Provider is established outside the European Union, a legal representative in the EU has been designated in accordance with Article 13 of the DSA.
-                            </p>
-                            <br/>
-                            <br/>
-                            <p>
-                                <strong>
-                                    Content Moderation and Statement of Reasons: 
-                                </strong>
-                                When the Service Provider restricts access to content, suspends or terminates an account, or otherwise limits the availability of the Application's features, a clear and specific statement of reasons will be provided to the affected user. The statement will include the nature of the restriction, the legal or contractual basis for the decision, and information on available redress mechanisms, in accordance with Article 17 of the DSA.
-                            </p>
-                            <br/>
-                            <p>
-                                <strong>
-                                    Notice and Action: 
-                                </strong>
-                                Users and third parties may submit notices of allegedly illegal content through the contact details provided in these Terms. The Service Provider will process notices promptly, diligently, and without automated decision-making where the circumstances require human review. Notices will be acknowledged electronically and a decision communicated without undue delay, in accordance with Article 16 of the DSA.
-                            </p>
-                            <br/>
-                            <p>
-                                <strong>
-                                    Out-of-Court Dispute Settlement: 
-                                </strong>
-                                Disputes regarding content moderation decisions, including decisions to restrict content or suspend accounts, may be submitted to an out-of-court dispute settlement body certified in accordance with Article 21 of the DSA. The Service Provider will engage with such bodies in good faith. Use of out-of-court dispute settlement does not affect your right to seek judicial remedy under applicable law.
-                            </p>
-                            <br/>
-                            <p>
-                                <strong>
-                                    Transparency Reporting: 
-                                </strong>
-                                The Service Provider publishes periodic transparency reports covering content moderation activities, including the volume of notices received, actions taken, and automated means used, in accordance with Article 24 of the DSA. Reports are made available upon request at dg2620628@daegun.hs.kr.
-                            </p>
-                            <br/>
-                            <p>
-                                These DSA provisions apply to the extent that the Application qualifies as an intermediary service under the DSA and does not replace or limit any rights or obligations under applicable consumer protection or data protection law.
-                            </p>
-                            <br/>
-                            <strong>
-                                Severability
-                            </strong>
-                            <p>
-                                If any provision of these Terms and Conditions is held to be invalid, illegal, or unenforceable by a court of competent jurisdiction, such provision shall be modified to the minimum extent necessary to make it valid and enforceable, and the remaining provisions of these Terms shall remain in full force and effect.
-                            </p>
-                            <br/>
-                            <strong>
-                                Entire Agreement
-                            </strong>
-                            <p>
-                                These Terms and Conditions, together with the Privacy Policy, constitute the entire agreement between you and the Service Provider concerning your use of the Application, superseding any prior agreements or understandings.
-                            </p>
-                            <br/>
-                            <strong>
-                                Changes to These Terms and Conditions
-                            </strong>
-                            <p>
-                                The Service Provider may periodically update their Terms and Conditions. Therefore, you are advised to review this page regularly for any changes. The Service Provider will notify you of any changes by posting the new Terms and Conditions on this page.
-                            </p>
-                            <br/>
-                            <p>
-                                Previous versions of these Terms and Conditions will be maintained and made available upon request by contacting the Service Provider at dg2620628@daegun.hs.kr.
-                            </p>
-                            <br/>
-                            <p>
-                                These terms and conditions are effective as of 2026-06-24
-                            </p>
-                            <br/>
-                            <strong>
-                                Contact Us
-                            </strong>
-                            <p>
-                                If you have any questions or suggestions about the Terms and Conditions, please do not hesitate to contact the Service Provider at dg2620628@daegun.hs.kr.
-                            </p>
-                            <hr/>
-                                <p>This Terms &amp; Conditions page was generated by 
-                                <a href="https://app-privacy-policy-generator.nisrulz.com/" target="_blank" rel="noopener noreferrer">
-                                App Privacy Policy Generator
-                                </a>
-                            </p>
-                        </div>
-                        <label className='check'>
-                            위 이용약관에 동의하십니까?&nbsp;
-                            <div className="checkbox"></div>
-                            <input type="checkbox" onClick={() => setIsAgree(!isAgree)}/>
-                            예
-                        </label>
-                    </div>
                     <div className='credentials-row toggle'>
                         <ToggleToken
                             name='user-type'
@@ -433,6 +135,324 @@ function SignupPage({ user, setUser }) {
                             text='가입'
                             onClick={async() => { await signup(user, isAgree); }} 
                         />
+                    </div>
+                    <div className="terms-box">
+                        <label className='agree-box'>
+                            <span className='agree-text'>다음 이용약관에 동의하십니까?</span>
+                            <span className='check-box'>
+                                <input type="checkbox" onClick={() => setIsAgree(!isAgree)}/>
+                                예
+                            </span>
+                        </label>
+                        <div className="terms">
+                            <strong>
+                                이용약관
+                            </strong>
+                            <br/>
+                            <p>
+                                본 이용약관은 bidulgi09가 운영하는 출첵커 웹 브라우저용 애플리케이션 및 관련 서비스(이하 "애플리케이션")에 적용됩니다. 본 약관에서 bidulgi09는 "서비스 제공자"를 의미합니다.
+                            </p>
+                            <br/>
+                            <p>
+                                애플리케이션을 다운로드하거나 사용하는 경우 귀하는 본 이용약관에 동의한 것으로 간주됩니다. 애플리케이션을 사용하기 전에 반드시 본 약관을 주의 깊게 읽어주시기 바랍니다.
+                            </p>
+                            <br/>
+                            <div>
+                                <strong>
+                                    애플리케이션 사용 라이선스
+                                </strong>
+                                <p>
+                                    귀하가 본 약관을 준수하는 것을 조건으로, 서비스 제공자는 귀하에게 개인적 또는 내부 업무 목적을 위해 귀하의 기기에 애플리케이션을 설치하고 사용할 수 있는 제한적이고 비독점적이며 양도 불가능하고 취소 가능한 사용 권한을 부여합니다. 관련 법률에서 명시적으로 허용하는 경우를 제외하고 귀하는 애플리케이션을 복제, 배포, 수정하거나 파생 저작물을 제작할 수 없으며, 리버스 엔지니어링, 디컴파일 또는 디스어셈블할 수 없습니다.
+                                </p>
+                            </div>
+                            <br/>
+                            <strong>
+                                지적재산권
+                            </strong>
+                            <p>
+                                서비스 제공자는 애플리케이션의 코드, 디자인, 상표, 서비스표, 상호, 로고 및 브랜딩을 포함한 모든 지적재산권을 보유합니다. 본 약관의 어떠한 내용도 귀하에게 서비스 제공자의 상표, 로고 또는 브랜드를 사용할 수 있는 권리를 부여하지 않습니다. 귀하는 애플리케이션 내에 표시된 저작권, 상표권 또는 기타 권리 고지를 제거, 변경 또는 숨길 수 없습니다.
+                            </p>
+                            <br/>
+                            <strong>
+                                이용 종료
+                            </strong>
+                            <p>
+                                귀하가 본 약관을 중대하게 위반하는 경우 서비스 제공자는 귀하의 애플리케이션 또는 서비스 이용을 정지할 수 있습니다. 서비스 제공자는 위반 사실을 서면으로 통지하며, 시정 가능한 위반 사항의 경우 귀하는 통지를 받은 날로부터 14일 이내에 이를 시정할 수 있습니다. 해당 기간 내에 위반 사항이 시정되지 않을 경우 서비스 제공자는 귀하의 이용 권한을 종료할 수 있습니다.
+                            </p>
+                            <br/>
+                            <p>
+                                또한 관련 법률 위반, 지적재산권 침해 또는 다른 사용자나 서비스 제공자에게 피해를 줄 수 있는 활동을 한 경우 서비스 제공자는 별도의 통지 없이 즉시 귀하의 이용 권한을 정지하거나 종료할 수 있습니다.
+                            </p>
+                            <br/>
+                            <p>
+                                이용이 종료되는 경우 귀하의 애플리케이션 사용 권한은 즉시 종료되며 귀하는 보유하고 있는 모든 사본을 삭제해야 합니다.
+                            </p>
+                            <br/>
+                            <p>
+                                귀하는 귀하의 관할 지역에서 본 애플리케이션을 합법적으로 사용할 수 있는 자격이 있음을 보증합니다. 애플리케이션 이용 가능 연령은 만 18세 이상(또는 해당 지역의 디지털 동의 가능 연령 이상)입니다. 만 18세 미만인 경우 부모 또는 법정대리인이 귀하를 대신하여 본 약관을 검토하고 동의해야 합니다.
+                            </p>
+                            <div>
+                                <br/>
+                                <p>
+                                    애플리케이션, 애플리케이션의 일부 또는 서비스 제공자의 상표를 무단으로 복사하거나 수정하는 행위는 엄격히 금지됩니다. 또한 애플리케이션의 소스 코드를 추출하거나 다른 언어로 번역하거나 파생 버전을 제작하는 행위 역시 허용되지 않습니다. 애플리케이션과 관련된 모든 상표권, 저작권, 데이터베이스 권리 및 기타 지적재산권은 서비스 제공자에게 귀속됩니다.
+                                </p>
+                            </div>
+                            <strong>
+                                사용자 생성 콘텐츠 및 허용되는 이용 행위
+                            </strong>
+                            <p>
+                                본 애플리케이션이 사용자의 콘텐츠 게시, 공유 또는 업로드 기능을 제공하는 경우, 귀하는 다음과 같은 콘텐츠를 게시하지 않을 것에 동의합니다.
+                            </p>
+                            <ul>
+                                <li>
+                                    불법적이거나 제3자의 지적재산권(저작권, 상표권, 특허권 등)을 침해하는 콘텐츠
+                                </li>
+                                <li>
+                                    욕설, 협박, 괴롭힘, 명예훼손 또는 혐오 표현이 포함된 콘텐츠
+                                </li>
+                                <li>
+                                    차별, 폭력 선동 또는 불법 행위를 조장하는 콘텐츠
+                                </li>
+                                <li>
+                                    스팸, 피싱 또는 악성코드를 포함한 콘텐츠
+                                </li>
+                                <li>
+                                    타인의 개인정보 또는 개인정보 보호 권리를 침해하는 콘텐츠
+                                </li>
+                                <li>
+                                    허위, 오해의 소지가 있거나 기만적인 콘텐츠
+                                </li>
+                                <li>
+                                    노골적인 폭력 또는 성적 내용을 포함한 콘텐츠(적절한 연령 제한이 적용된 경우는 제외)
+                                </li>
+                            </ul>
+                            <br/>
+                            <p>
+                                서비스 제공자는 다음 권리를 보유합니다.
+                            </p>
+                            <ul>
+                                <li>
+                                    본 지침을 위반하는 콘텐츠를 삭제하거나 접근을 제한할 권리
+                                </li>
+                                <li>
+                                    본 지침을 반복적으로 위반하는 사용자의 계정을 정지하거나 종료할 권리
+                                </li>
+                                <li>
+                                    불법 콘텐츠가 신고된 경우 수사기관과 협조할 권리
+                                </li>
+                                <li>
+                                    본 약관, 관련 법률 또는 상기 지침을 위반하는 콘텐츠를 검토, 필터링 또는 숨길 권리
+                                </li>
+                            </ul>
+                            <br/>
+                            <p>
+                                애플리케이션을 통해 제출된 콘텐츠는 애플리케이션의 기능에 따라 다른 사용자 또는 일반 대중에게 공개될 수 있습니다.
+                            </p>
+                            <br/>
+                            <p>
+                                귀하가 특정 콘텐츠가 본 약관을 위반하거나 귀하의 권리를 침해하거나 불법적이라고 판단하는 경우, dg2620628@daegun.hs.kr로 신고할 수 있습니다. 신고 시에는 서비스 제공자가 해당 콘텐츠를 식별하고, 신고 내용을 검토하며, 필요한 경우 귀하에게 연락할 수 있도록 충분한 정보를 제공해야 합니다.
+                            </p>
+                            <br/>
+                            <p>
+                                애플리케이션이 해당 기능을 제공하는 경우, 귀하는 애플리케이션 내에서 직접 콘텐츠를 신고하거나 다른 사용자를 차단하거나 알림을 음소거할 수 있습니다. 서비스 제공자는 앱 내 신고 역시 본 약관에 명시된 기준에 따라 검토합니다.
+                            </p>
+                            <br/>
+                            <p>
+                                서비스 제공자는 신고된 콘텐츠를 검토하고, 필요한 경우 추가 정보를 요청하며, 콘텐츠를 삭제하거나 접근을 제한하고, 필요한 경우 관련 계정에 조치를 취할 수 있습니다. 콘텐츠 관리 결정에 영향을 받은 사용자는 dg2620628@daegun.hs.kr로 재검토를 요청할 수 있으며, 서비스 제공자는 합리적인 기간 내에 이의 제기에 대한 결과와 사유를 안내합니다.
+                            </p>
+                            <br/>
+                            <p>
+                                귀하는 사용자 생성 콘텐츠를 제출함으로써 서비스 제공자에게 애플리케이션 및 서비스 제공자의 사업 운영과 관련하여 해당 콘텐츠를 사용, 복제, 배포, 수정, 전시 및 실행할 수 있는 비독점적이고 전 세계적이며 사용료가 없는 라이선스를 부여합니다. 단, 이는 서비스 제공자가 귀하의 콘텐츠를 애플리케이션과 무관하게 독립적으로 판매하거나 제3자에게 재라이선스할 권리를 부여하는 것은 아닙니다.
+                            </p>
+                            <br/>
+                            <p>
+                                귀하는 귀하가 게시하는 콘텐츠에 대한 모든 권리를 소유하거나 적법하게 통제하고 있으며, 해당 콘텐츠의 이용이 본 약관이나 관련 법률을 위반하지 않음을 보증합니다.
+                            </p>
+                            <br/>
+                            <p>
+                                귀하의 콘텐츠에는 개인정보가 포함될 수 있습니다. 사용자 생성 콘텐츠와 관련된 개인정보 처리는 개인정보 처리방침에 따라 이루어집니다. 타인의 개인정보는 당사자의 동의 없이 게시하지 마시기 바랍니다.
+                            </p>
+                            <br/>
+                            <p>
+                                서비스 제공자는 애플리케이션이 가능한 한 유용하고 효율적으로 운영될 수 있도록 노력하고 있습니다. 따라서 서비스 제공자는 언제든지 애플리케이션을 변경하거나 서비스 이용 요금을 부과할 권리를 보유합니다. 다만 애플리케이션 또는 서비스에 요금이 부과되는 경우, 해당 내용은 명확하게 안내됩니다.
+                            </p>
+                            <br/>
+                            <p>
+                                애플리케이션은 서비스를 제공하기 위해 귀하가 제공한 개인정보를 저장하고 처리합니다. 귀하는 자신의 기기와 애플리케이션 접근 권한을 안전하게 관리할 책임이 있습니다. 서비스 제공자는 공식 운영체제의 보안 제한을 제거하는 탈옥(Jailbreak) 또는 루팅(Rooting)을 권장하지 않습니다. 이러한 행위는 악성코드나 바이러스에 노출될 위험을 증가시키며, 애플리케이션이 정상적으로 작동하지 않거나 전혀 작동하지 않을 수 있습니다.
+                            </p>
+                            <br/>
+                            <div>
+                                <p>
+                                    서비스 제공자는 일부 사항에 대해서는 책임을 지지 않음을 알려드립니다. 애플리케이션의 일부 기능은 인터넷 연결이 필요합니다. 인터넷 연결이 없거나 데이터 사용량을 모두 소진하여 애플리케이션이 정상적으로 작동하지 않는 경우 서비스 제공자는 이에 대해 책임을 지지 않습니다.
+                                </p>
+                                <br/>
+                                <p>
+                                    애플리케이션 사용 시 귀하가 이용 중인 인터넷 서비스 제공업체의 약관 역시 적용됩니다. 따라서 애플리케이션 사용 중 발생하는 데이터 사용 요금은 귀하의 부담이며, 귀하는 이에 대한 책임을 부담합니다.
+                                </p>
+                            </div>
+                            <p>
+                                마찬가지로 서비스 제공자는 귀하의 애플리케이션 사용 방식에 대해 항상 책임을 질 수는 없습니다. 예를 들어, 귀하의 기기가 충분한 배터리를 유지하도록 관리하는 것은 귀하의 책임입니다. 기기의 배터리가 방전되어 서비스에 접근할 수 없는 경우 서비스 제공자는 이에 대해 책임을 지지 않습니다.
+                            </p>
+                            <br/>
+                            <p>
+                                본 약관의 어떠한 내용도 관련 소비자 보호법에 따라 귀하에게 부여되는 권리 중 법적으로 제한하거나 배제할 수 없는 권리를 제한하지 않습니다.
+                            </p>
+                            <strong>
+                                책임의 제한
+                            </strong>
+                            <p>
+                                관련 법률이 허용하는 최대 범위 내에서 서비스 제공자는 수익 손실, 데이터 손실 또는 사업 중단을 포함하되 이에 한정되지 않는 간접적, 부수적, 특별, 결과적 또는 징벌적 손해에 대해 책임을 지지 않습니다. 이는 서비스 제공자가 그러한 손해의 발생 가능성을 사전에 통지받은 경우에도 동일하게 적용됩니다.
+                            </p>
+                            <br/>
+                            <p>
+                                다만 서비스 제공자는 다음 사항에 대해서는 전적인 책임을 부담합니다.
+                            </p>
+                            <ul>
+                                <li>
+                                    과실로 인해 발생한 사망 또는 신체적 상해
+                                </li>
+                                <li>
+                                    사기 또는 사기성 허위 진술
+                                </li>
+                                <li>
+                                    관련 법률에 따라 책임을 제한하거나 배제할 수 없는 기타 책임
+                                </li>
+                            </ul>
+                            <br/>
+                            <p>
+                                관련 법률이 허용하는 최대 범위 내에서, 서비스 제공자의 총 책임 한도는 청구 발생일 이전 12개월 동안 귀하가 애플리케이션 이용을 위해 서비스 제공자에게 지급한 금액 또는 관련 법률에서 요구하는 최소 보상 금액 중 더 큰 금액으로 제한됩니다. 애플리케이션이 무료로 제공되는 경우 서비스 제공자의 책임은 관련 법률이 허용하는 최소 범위로 제한됩니다.
+                            </p>
+                            <br/>
+                            <p>
+                                서비스 제공자는 본 애플리케이션을 통해 제공되는 제3자의 정보에 전적으로 의존하여 발생한 직간접적인 손해 또는 제3자가 제공한 정보의 부정확성으로 인해 발생한 손해에 대해 어떠한 책임도 지지 않습니다.
+                            </p>
+                            <br/>
+                            <strong>
+                                면책 및 배상
+                            </strong>
+                            <p>
+                                관련 법률이 허용하는 최대 범위 내에서, 귀하는 본 약관 위반 또는 귀하의 고의적인 애플리케이션 오용으로 인해 발생하는 모든 청구, 책임, 손해, 손실 및 비용(합리적인 변호사 비용 포함)에 대해 서비스 제공자 및 그 계열사, 임원, 직원 및 대리인을 면책하고 보호하는 데 동의합니다. 여기에는 본 약관을 위반하여 제출된 사용자 생성 콘텐츠로 인해 발생한 경우도 포함됩니다.
+                            </p>
+                            <br/>
+                            <p>
+                                단, 이러한 면책 조항은 서비스 제공자의 과실, 본 약관 위반 또는 관련 법률 위반으로 인해 발생한 청구에는 적용되지 않습니다. 소비자 면책이 법적으로 제한되는 국가 또는 지역에서는 본 조항은 법률이 허용하는 최대 범위 내에서만 적용됩니다.
+                            </p>
+                            <br/>
+                            <p>
+                                서비스 제공자는 향후 애플리케이션을 업데이트할 수 있습니다. 현재 애플리케이션은 특정 운영체제 요구사항에 따라 제공되고 있으며, 지원 운영체제가 변경될 수 있습니다. 귀하가 애플리케이션을 계속 사용하려면 필요한 업데이트를 설치해야 할 수 있습니다.
+                            </p>
+                            <br/>
+                            <p>
+                                서비스 제공자는 애플리케이션이 항상 귀하의 환경에 적합하거나 귀하의 기기에 설치된 운영체제 버전과 호환되도록 업데이트될 것을 보장하지 않습니다. 귀하는 제공되는 업데이트를 수락해야 하며, 업데이트를 설치하지 않을 경우 이전 버전에 대한 지원이 중단되거나 애플리케이션이 정상적으로 작동하지 않을 수 있습니다.
+                            </p>
+                            <br/>
+                            <p>
+                                또한 서비스 제공자는 언제든지 애플리케이션 제공을 중단할 수 있으며 별도의 사전 통지 없이 서비스를 종료할 수 있습니다. 별도의 안내가 없는 한 서비스 종료 시 다음 사항이 적용됩니다.
+                            </p>
+                            <ul>
+                                <li>
+                                    본 약관에 따라 귀하에게 부여된 모든 권리와 라이선스는 종료됩니다.
+                                </li>
+                                <li>
+                                    귀하는 애플리케이션 사용을 중단해야 하며, 필요한 경우 기기에서 애플리케이션을 삭제해야 합니다.
+                                </li>
+                            </ul>
+                            <strong>
+                                준거법 및 관할권
+                            </strong>
+                            <br/>
+                            <p>
+                                본 이용약관은 서비스 제공자가 설립된 국가 또는 지역의 법률에 따라 해석되고 적용되며, 법률 충돌 규정은 적용되지 않습니다. 단, 관련 소비자 보호법이 우선 적용되는 경우에는 해당 법률이 우선합니다.
+                            </p>
+                            <br/>
+                            <p>
+                                본 약관과 관련하여 발생하는 모든 분쟁은 관련 법률에 따라 관할권을 가지는 법원에서 해결됩니다. 본 조항은 관련 강행법규에 따라 귀하가 행사할 수 있는 권리를 제한하지 않습니다.
+                            </p>
+                            <br/>
+                            <strong>
+                                DSA 준수 (디지털 서비스법)
+                            </strong>
+                            <br/>
+                            <p>
+                                본 애플리케이션이 디지털 서비스법(유럽연합 규정 (EU) 2022/2065, 이하 "DSA")에서 정의하는 중개 서비스에 해당하는 경우, 아래 규정이 추가로 적용됩니다.
+                            </p>
+                            <br/>
+                            <p>
+                                <strong>
+                                    연락 창구:
+                                </strong>
+                                서비스 제공자는 유럽연합 기관 및 서비스 이용자와 직접 연락할 수 있는 단일 연락 창구를 운영하며, 연락처는 dg2620628@daegun.hs.kr 입니다. 서비스 제공자가 유럽연합 외부에 설립된 경우 DSA 제13조에 따라 유럽연합 내 법적 대리인이 지정될 수 있습니다.
+                            </p>
+                            <br/>
+                            <br/>
+                            <p>
+                                <strong>
+                                    콘텐츠 관리 및 사유 통지:
+                                </strong>
+                                서비스 제공자가 콘텐츠 접근을 제한하거나 계정을 정지 또는 종료하거나 서비스 기능의 이용을 제한하는 경우, 영향을 받는 사용자에게 명확하고 구체적인 사유를 제공합니다. 여기에는 제한 조치의 내용, 법적 또는 계약상 근거, 이용 가능한 구제 절차에 대한 정보가 포함됩니다.
+                            </p>
+                            <br/>
+                            <p>
+                                <strong>
+                                    신고 및 조치:
+                                </strong>
+                                사용자 및 제3자는 본 약관에 명시된 연락처를 통해 불법 콘텐츠 신고를 제출할 수 있습니다. 서비스 제공자는 신고 내용을 신속하고 성실하게 처리하며, 필요한 경우 자동화된 의사결정 대신 사람의 검토를 수행합니다.
+                            </p>
+                            <br/>
+                            <p>
+                                <strong>
+                                    법원 외 분쟁 해결:
+                                </strong>
+                                콘텐츠 제한 또는 계정 정지와 관련된 분쟁은 관련 법률에 따라 인증된 법원 외 분쟁 해결 기관에 제출될 수 있습니다. 서비스 제공자는 해당 기관과 성실하게 협력합니다. 다만 이는 귀하의 사법적 구제 수단을 제한하지 않습니다.
+                            </p>
+                            <br/>
+                            <p>
+                                <strong>
+                                    투명성 보고:
+                                </strong>
+                                서비스 제공자는 콘텐츠 관리 활동, 신고 건수, 조치 내역 및 자동화 수단 사용 현황 등을 포함하는 투명성 보고서를 정기적으로 작성할 수 있습니다. 보고서는 요청 시 dg2620628@daegun.hs.kr 을 통해 제공됩니다.
+                            </p>
+                            <br/>
+                            <p>
+                                위 DSA 관련 조항은 애플리케이션이 DSA상 중개 서비스에 해당하는 경우에만 적용되며, 소비자 보호법 또는 개인정보 보호법에 따른 권리와 의무를 대체하거나 제한하지 않습니다.
+                            </p>
+                            <br/>
+                            <strong>
+                                조항의 독립성
+                            </strong>
+                            <p>
+                                본 이용약관의 일부 조항이 법원에 의해 무효, 위법 또는 집행 불가능하다고 판단되는 경우에도 해당 조항은 필요한 최소 범위 내에서만 수정되며, 나머지 조항은 계속하여 유효하게 적용됩니다.
+                            </p>
+                            <br/>
+                            <strong>
+                                전체 합의
+                            </strong>
+                            <p>
+                                본 이용약관과 개인정보 처리방침은 애플리케이션 사용과 관련하여 귀하와 서비스 제공자 간의 완전한 합의를 구성하며, 이전의 모든 계약 또는 이해를 대체합니다.
+                            </p>
+                            <br/>
+                            <strong>
+                                이용약관 변경
+                            </strong>
+                            <p>
+                                서비스 제공자는 필요에 따라 본 이용약관을 변경할 수 있습니다. 따라서 사용자는 정기적으로 본 페이지를 확인하시기 바랍니다. 변경된 약관은 본 페이지에 게시함으로써 공지됩니다.
+                            </p>
+                            <br/>
+                            <p>
+                                이전 버전의 이용약관은 서비스 제공자(dg2620628@daegun.hs.kr)에게 요청하여 제공받을 수 있습니다.
+                            </p>
+                            <br/>
+                            <p>
+                                본 이용약관은 2026년 6월 24일부터 적용됩니다.
+                            </p>
+                            <br/>
+                            <strong>
+                                문의하기
+                            </strong>
+                            <p>
+                                본 이용약관에 대한 질문이나 의견이 있으신 경우 dg2620628@daegun.hs.kr 로 문의하여 주시기 바랍니다.
+                            </p>
+                        </div>
                     </div>
                     <div className="direct-signup">
                         이미 계정이 있으시다면?&nbsp;<Link to="/login"><span>로그인하러 가기</span></Link>
