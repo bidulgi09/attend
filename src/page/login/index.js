@@ -62,7 +62,7 @@ function LoginPage({user, setUser}) {
     return (
         <div className="LoginPage">
             <Helmet>
-                <title>출첵커 | 로그인</title>
+                <title>출첵커&nbsp;|&nbsp;로그인</title>
             </Helmet>
             <div className='login'>
                 <Link to="/">
@@ -116,7 +116,7 @@ function LoginPage({user, setUser}) {
                         />
                     </div>
                     <div className="direct-signup">
-                        계정이 없다면?&nbsp;&nbsp;<Link to="/signup"><span>가입하러 가기</span></Link>
+                        <Link to="/signup"><span>회원가입</span></Link>&nbsp;|&nbsp;<Link to="/find-my-pw"><span>비밀번호 찾기</span></Link>&nbsp;|&nbsp;<Link to="/find-my-id"><span>아이디 찾기</span></Link>
                     </div>
                 </form>
             </div>

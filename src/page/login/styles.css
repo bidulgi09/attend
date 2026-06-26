@@ -118,9 +118,9 @@
 }
 
 .LoginPage .direct-signup span {
-    color: rgb(118, 171, 174);
-    font-style: italic;
+    color: rgb(238, 238, 238);
 }
+
 .LoginPage .direct-signup a {
-    color: rgb(118, 171, 174);
+    text-decoration: none;
 }

@@ -2,7 +2,7 @@
     box-sizing: border-box;
     backdrop-filter: blur(8px);
     display: flex;
-    position: absolute;
+    position: fixed;
     flex: 1;
     flex-direction: row;
     height: 72px;
@@ -18,7 +18,7 @@
     z-index: 20;
 }
 
-.logo-box {
+.HeaderBar .logo-box {
     display: flex;
     text-decoration: none;
     color: rgb(238, 238, 238);
@@ -27,23 +27,23 @@
     text-align: left;
     gap: 2px;
 }
-.logo-box .name {
+.HeaderBar .logo-box .name {
     font-weight: bold;
     font-size: 2rem;
     color: rgb(238, 238, 238)
 }
 
-.menu-icon {
+.HeaderBar .menu-icon {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.logo-box .description {
+.HeaderBar .logo-box .description {
     font-size: 0.85rem;
     color: rgb(184, 181, 195);
 }
-.logo-icon {
+.HeaderBar .logo-icon {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,7 +52,7 @@
     width: 60px;
     height: 60px;
 }
-.logo {
+.HeaderBar .logo {
     display: flex;
     justify-content: center;
     overflow: hidden;
@@ -60,12 +60,12 @@
     height: 65px;
 }
 
-.logo * {
+.HeaderBar .logo * {
     stroke: rgb(238, 238, 238) !important;
     stroke-width: 5;
 }
 
-.tabs {
+.HeaderBar .tabs {
     display: flex;
     position: relative;
     flex: 1;
@@ -74,13 +74,15 @@
     align-items: center;
     text-align: center;
     width: 100%;
+    min-width: 0;
     height: 100%;
     color: rgb(238, 238, 238);
     z-index: 20;
 }
 
-.header-tab {
+.HeaderBar .header-tab {
     margin: 6px;
+    flex-shrink: 0;
     font-size: 1.25rem;
     text-decoration: none;
     justify-content: center;
@@ -88,22 +90,23 @@
     cursor: pointer;
     color: rgb(238, 238, 238);
     transition: color, transform 0.2s ease;
+    z-index: 100;
 }
 
-.header-tab:hover {
+.HeaderBar .header-tab:hover {
     color: rgb(118, 171, 174);
     transform: translateY(-2.5px);
 }
 
-.header-tab:hover .select_bar {
+.HeaderBar .header-tab:hover .select_bar {
     transform: translateY(2.5px);
     background-color: rgb(118, 171, 174);
 }
-.header-tab:not(:hover) .select_bar {
+.HeaderBar .header-tab:not(:hover) .select_bar {
     transform: translateY(5px);
     background-color: rgb(118, 171, 174, 0);
 }
-.select_bar {
+.HeaderBar .select_bar {
     display: flex;
     position: absolute;
     background-color: rgb(118, 171, 174, 0);

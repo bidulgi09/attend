@@ -48,7 +48,7 @@ function HeaderBar({ status, setStatus, user, setUser }) {
                 </Link>
                 <nav className='tabs'>
                     {user.isLogin ?
-                        <div className='header-tab' id={1} onClick={async () => { await logout(user) }}>로그아웃</div>
+                        <div className='header-tab' id={1} onClick={async () => { await logout(user) }}>로그아웃<div className='select_bar'/></div>
                         :
                         <>
                             <Link to="/login" className='header-tab' id={1}>로그인<div className='select_bar'/></Link>
