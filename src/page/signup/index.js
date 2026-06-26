@@ -24,8 +24,10 @@ function SignupPage({ user, setUser }) {
         if(!agree) {
             return alert("이용 약관에 동의해주세요.");
         }
+        let check = await UserManager.check(user.email, user.name);
+        if(!check.results.isAvailable) return alert("이미 존재하는 계정입니다.");
         let data = await UserManager.signUp(user.name, user.email, user.password, user.role);
-        if(data.success) {    
+        if(data.success) {
             let login = await UserManager.logIn(user.name, user.password, user.role);
             if(login.success) {
                 setUser({...user, isLogin: true});
