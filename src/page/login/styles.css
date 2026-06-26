@@ -25,6 +25,7 @@
 .LoginPage .toggle {
     display: flex;
     flex: 1;
+    font-size: 18px;
     height: 50px;
 }
 
@@ -44,6 +45,10 @@
     width: 240px;
 }
 
+.LoginPage input {
+    font-size: 14px;
+}
+
 .LoginPage input[placeholder="유저 아이디"] {
     border-top-left-radius: 8px;
 }
@@ -54,6 +59,7 @@
 .LoginPage .userButton {
     width: 100px;
     color: rgb(238, 238, 238);
+    font-size: 18px;
     background-color: rgb(118, 171, 174);
     border-bottom-right-radius: 8px ;
     border-top-right-radius: 8px;

@@ -101,7 +101,6 @@
 
 .SignupPage #학생:checked ~ .indicator {
     transform: translateX(0%);
-    color: red;
 }
 .SignupPage #교사:checked ~ .indicator {
     transform: translateX(100%);
