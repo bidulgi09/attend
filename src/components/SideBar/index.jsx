@@ -29,19 +29,19 @@ function SideBar({ status, setStatus, user, setUser }) {
     return (
         <div className='SideBar'>
             <div className='side-container' isopened={ String(status) }>
-                <Link className='tab' to="/home">홈</Link>
+                <Link className='tab' to="/home" onClick={ change }>홈</Link>
                 <hr/>
                 {user.isLogin ?
-                    <div className='tab' onClick={async () => { await logout(user) }}>로그아웃</div>
+                    <div className='tab' onClick={async () => { await logout(user); change(); }}>로그아웃</div>
                     :
                     <>
-                        <Link className='tab' to="/login">로그인</Link>
+                        <Link className='tab' to="/login" onClick={ change }>로그인</Link>
                         <hr/>
-                        <Link className='tab' to="/signup">회원가입</Link>
+                        <Link className='tab' to="/signup" onClick={ change }>회원가입</Link>
                         <hr/>
-                        <Link className='tab' to="/introduction">기능소개</Link>
+                        <Link className='tab' to="/introduction" onClick={ change }>기능소개</Link>
                         <hr/>
-                        <Link className='tab' to="/ask">문의</Link>
+                        <Link className='tab' to="/ask" onClick={ change }>문의</Link>
                     </>
                 }
             </div>

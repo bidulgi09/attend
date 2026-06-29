@@ -132,7 +132,7 @@
 }
 
 
-@media(max-width:480px) {
+@media(max-width:420px) {
     .LoginPage .login {
         width:90%;
         max-width: 400px;

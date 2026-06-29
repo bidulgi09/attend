@@ -121,7 +121,7 @@
     z-index: 10;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 520px) {
   .HeaderBar .normal-tab {
     display: none;
     transition: all transform 0.2s ease;
@@ -129,9 +129,6 @@
   .HeaderBar .menu-icon {
     display: flex;
     transition: all transform 0.2s ease;
-  }
-  .HeaderBar .logo-box .name {
-    display:none;
   }
   .HeaderBar .logo-box .description {
     display:none;
