@@ -38,6 +38,10 @@ function SideBar({ status, setStatus, user, setUser }) {
                         <Link className='tab' to="/login">로그인</Link>
                         <hr/>
                         <Link className='tab' to="/signup">가입</Link>
+                        <hr/>
+                        <Link className='tab' to="/introduction">기능소개</Link>
+                        <hr/>
+                        <Link className='tab' to="/ask">문의</Link>
                     </>
                 }
             </div>

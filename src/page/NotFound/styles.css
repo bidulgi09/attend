@@ -83,3 +83,15 @@
 .NotFound .back:hover .home {
     color: rgb(69, 131, 135);
 }
+
+@media(max-width:100vh) {
+    .NotFound .phrase {
+        width: 90%;
+    }
+    .NotFound .box {
+        width: 90%;
+    }
+    .NotFound .logo {
+        display: none;
+    }
+}

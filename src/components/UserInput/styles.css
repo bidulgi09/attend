@@ -1,9 +1,10 @@
 @import "/src/font.css";
 .userInput {
+    width: 100%;
     height: 100%;
     border: transparent;
     text-align: center;
-    box-sizing: border-box;
+    box-sizing: border-box !important;
     outline: none;
     font-family: appleNeo;
 }

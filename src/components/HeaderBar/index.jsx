@@ -48,15 +48,15 @@ function HeaderBar({ status, setStatus, user, setUser }) {
                 </Link>
                 <nav className='tabs'>
                     {user.isLogin ?
-                        <div className='header-tab' id={1} onClick={async () => { await logout(user) }}>로그아웃<div className='select_bar'/></div>
+                        <div className='header-tab normal-tab' id={1} onClick={async () => { await logout(user) }}>로그아웃<div className='select_bar'/></div>
                         :
                         <>
-                            <Link to="/login" className='header-tab' id={1}>로그인<div className='select_bar'/></Link>
-                            <Link to="/signup" className='header-tab' id={2}>회원가입<div className='select_bar'/></Link>
+                            <Link to="/login" className='header-tab normal-tab' id={1}>로그인<div className='select_bar'/></Link>
+                            <Link to="/signup" className='header-tab normal-tab' id={2}>회원가입<div className='select_bar'/></Link>
                         </>
                     }
-                    <Link to="/introduction" className='header-tab' id={3}>기능소개<div className='select_bar'/></Link>
-                    <Link to="/ask" className='header-tab' id={4}>문의<div className='select_bar'/></Link>
+                    <Link to="/introduction" className='header-tab normal-tab' id={3}>기능소개<div className='select_bar'/></Link>
+                    <Link to="/ask" className='header-tab normal-tab' id={4}>문의<div className='select_bar'/></Link>
                     <div className='header-tab' onClick={ change }>
                         <MenuIcon className='menu-icon' width='2.5rem' height='2.5rem'/>
                     <div className='select_bar'/></div>

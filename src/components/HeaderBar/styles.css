@@ -10,7 +10,7 @@
     align-items: center;
     top: 0;
     padding-left: 5px;
-    padding-right: 20px;
+    padding-right: 5px;
     width: 100%;
     background-color: rgb(34, 40, 49, 0.8);
     box-shadow: 0px 2px 5px rgb(22, 26, 33, .55);
@@ -34,7 +34,7 @@
 }
 
 .HeaderBar .menu-icon {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
 }
@@ -119,4 +119,21 @@
     transform: translate(0px, 5px);
     transition: all .2s ease;
     z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .HeaderBar .normal-tab {
+    display: none;
+    transition: all transform 0.2s ease;
+  }
+  .HeaderBar .menu-icon {
+    display: flex;
+    transition: all transform 0.2s ease;
+  }
+  .HeaderBar .logo-box .name {
+    display:none;
+  }
+  .HeaderBar .logo-box .description {
+    display:none;
+  }
 }

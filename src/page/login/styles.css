@@ -60,6 +60,7 @@
     width: 100px;
     color: rgb(238, 238, 238);
     font-size: 18px;
+    box-sizing: border-box;
     background-color: rgb(118, 171, 174);
     border-bottom-right-radius: 8px ;
     border-top-right-radius: 8px;
@@ -128,4 +129,33 @@
 
 .LoginPage .direct-signup a {
     text-decoration: none;
+}
+
+
+@media(max-width:480px) {
+    .LoginPage .login {
+        width:90%;
+        max-width: 400px;
+    }
+    .LoginPage .inputs {
+        width: 90%;
+        max-width: 380px;
+    }
+    .LoginPage .visible-toggle {
+        width: 90%;
+        max-width: 380px;
+        transform: translateX(50%);
+    }
+    .LoginPage .pw-visible {
+        width: 100%;
+        max-width: 380px;
+    }
+    .LoginPage .toggle {
+        width: 100%;
+        max-width: 400px;
+    }
+    .LoginPage .indicator {
+        width: 50%;
+    }
+    
 }
