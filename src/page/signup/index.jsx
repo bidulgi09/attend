@@ -15,10 +15,13 @@ import UserManager from '../../server/utils/UserManager.js';
 function SignupPage({ user, setUser }) {
     const navigate = useNavigate();
     async function redirect(user) {
+        setIsLoading(true);
         let data = await UserManager.profile();
         if(data.success && user.isLogin) {
+            setIsLoading(false);
             return navigate('/home', { replace: true });
         }
+        return setIsLoading(false);
     }
     async function signup(user, agree) {
         if(!agree) {
@@ -66,6 +69,7 @@ function SignupPage({ user, setUser }) {
 
     const [role, setRole] = useState('Student');
     const [isAgree, setIsAgree] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
 
     const [lockedVisible, setLockedVisible] = useState(false);
@@ -132,7 +136,8 @@ function SignupPage({ user, setUser }) {
                             </div>
                         </div>
                         <UserButton
-                            text='가입'
+                            text='회원가입'
+                            disabled={isLoading}
                             onClick={async() => { await signup(user, isAgree); }} 
                         />
                     </div>

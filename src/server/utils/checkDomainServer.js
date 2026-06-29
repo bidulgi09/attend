@@ -1,4 +1,4 @@
-const dns = require("dns").promises;
+import dns from "dns/promises";
 
 async function checkDomainServer(domain) {
     try {
@@ -9,4 +9,4 @@ async function checkDomainServer(domain) {
     }
 }
 
-module.exports = checkDomainServer;
+export default checkDomainServer;

@@ -1,28 +1,28 @@
-const express = require("express"); 
-const cors = require('cors'); 
-const bodyParser = require("body-parser"); 
-const cookieParser = require("cookie-parser");
+import dotenv from 'dotenv';
+import express from "express"; 
+import cors from 'cors'; 
+import bodyParser from "body-parser"; 
+import cookieParser from "cookie-parser";
+import mysql from "mysql2"; 
+import dbconfig from "../mysql_middleware/config/database.js"; 
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import { v4 as uuidv4 } from "uuid";
+import checkDomainServer from "./utils/checkDomainServer.js";
+import authenticateToken from"./utils/authenticateToken.js";
 
-const mysql = require("mysql2"); 
-const dbconfig = require("../mysql_middleware/config/database.js"); 
-const pool = mysql.createPool(dbconfig); 
-
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const { v4: uuidv4 } = require("uuid");
-const salt = 12;
-
-const checkDomainServer = require("./utils/checkDomainServer.js");
-const authenticateToken = require("./utils/authenticateToken.js");
+dotenv.config({ path: '.env' });
 
 const app = express(); 
-const port = import.meta.env.PORT || 5000; 
+const port = process.env.PORT || 5000; 
+const pool = mysql.createPool(dbconfig); 
+const salt = 12;
 
 app.use(cors({
     origin: [
         "http://localhost:5173",
         "https://attend-508x.onrender.com",
-        "https://refactored-potato-4j66rr45x7753gvx-4000.app.github.dev",
+        "https://refactored-potato-4j66rr45x7753gvx-5173.app.github.dev",
         "https://bidulgi09.github.io"
     ], 
     credentials: true

@@ -20,6 +20,7 @@ function LoginPage({user, setUser}) {
         }
     }
     async function login(user) {
+        setIsLoading(true);
         let data = await UserManager.logIn(user.name, user.password, user.role);
         if(data.success) {
             setUser({...user, isLogin: true});
@@ -28,7 +29,7 @@ function LoginPage({user, setUser}) {
             setUser({...user, isLogin: false});
             alert("로그인  실패\n" + JSON.stringify(data));
         }
-        return;
+        return setIsLoading(false);
     }
     useEffect(() => {
         redirect(user);
@@ -50,7 +51,7 @@ function LoginPage({user, setUser}) {
     };
 
     const [role, setRole] = useState('Student');
-
+    const [isLoading, setIsLoading] = useState(false);
 
 
     const [lockedVisible, setLockedVisible] = useState(false);
@@ -112,6 +113,7 @@ function LoginPage({user, setUser}) {
                         </div>
                         <UserButton
                             text='로그인'
+                            disabled={isLoading}
                             onClick={async () => { await login(user); }}
                         />
                     </div>

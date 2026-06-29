@@ -77,14 +77,14 @@
     justify-content: center;
 }
 
-.LoginPage .visible-toggle {
+.LoginPage .pw-visible .visible-toggle {
     position: absolute;
+    right: 0;
     font-size: 8px;
     border-radius: 8px;
     text-align: center;
     height: 12px;
-    width: 64px;
-    transform: translateX(300%);
+    width: 30px;
 }
 .LoginPage .visible-toggle:hover {
     cursor: pointer;

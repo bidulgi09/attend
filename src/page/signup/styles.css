@@ -72,19 +72,21 @@
 }
 
 .SignupPage .pw-visible {
+    box-sizing: border-box;
     display: flex;
     position: relative;
+    width: 100%;
     justify-content: center;
 }
 
-.SignupPage .visible-toggle {
+.SignupPage .pw-visible .visible-toggle {
     position: absolute;
+    right: 0;
     font-size: 8px;
     border-radius: 8px;
     text-align: center;
-    height: 12px;
-    width: 64px;
-    transform: translateX(300%);
+    height: 14px;
+    width: 30px;
 }
 .SignupPage .visible-toggle:hover {
     cursor: pointer;
