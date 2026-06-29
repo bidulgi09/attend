@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { ReactComponent as Logo } from '../../assets/logo.svg';
-import { ReactComponent as EyePasswordShow } from '../../assets/eye-password-show.svg';
-import { ReactComponent as EyePasswordHide } from '../../assets/eye-password-hide.svg';
+import Logo from '../../assets/logo.svg?react';
+import EyePasswordShow from '../../assets/eye-password-show.svg?react';
+import EyePasswordHide from '../../assets/eye-password-hide.svg?react';
 import './styles.css';
 
 import UserInput from '../../components/UserInput';
@@ -90,7 +90,7 @@ function LoginPage({user, setUser}) {
                                 name='user-name'
                                 type='text'
                                 placeholder='유저 아이디'
-                                value={user.name}
+                                value={user.name || ""}
                                 onChange={ setUserName }
                             />
                             <div className='inputs pw-visible'>
@@ -98,7 +98,7 @@ function LoginPage({user, setUser}) {
                                     name='user-password'
                                     type={ isVisible ? 'text' : 'password' }
                                     placeholder='비밀번호'
-                                    value={user.password}
+                                    value={user.password || ""}
                                     onChange={ setUserPW }
                                 />
                                 <div className='visible-toggle' 

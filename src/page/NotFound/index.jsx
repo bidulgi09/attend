@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.css';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { ReactComponent as Logo } from '../../assets/logo.svg';
+import Logo from '../../assets/logo.svg?react';
 
 function NotFound() {
     const navigate = useNavigate();

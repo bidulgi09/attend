@@ -2,8 +2,8 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import './styles.css';
-import { ReactComponent as Logo } from '../../assets/logo.svg';
-import { ReactComponent as MenuIcon } from '../../assets/hamburger-light.svg';
+import Logo from '../../assets/logo.svg?react';
+import MenuIcon from '../../assets/hamburger-light.svg?react';
 import UserManager from '../../server/utils/UserManager';
 
 

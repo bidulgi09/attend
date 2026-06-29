@@ -28,7 +28,7 @@ function SideBar({ status, setStatus, user, setUser }) {
         return;
     return (
         <div className='SideBar'>
-            <div className='side-container' isOpened={ String(status) }>
+            <div className='side-container' isopened={ String(status) }>
                 <Link className='tab' to="/home">홈</Link>
                 <hr/>
                 {user.isLogin ?

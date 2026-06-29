@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { ReactComponent as Logo } from '../../assets/logo.svg';
-import { ReactComponent as EyePasswordShow } from '../../assets/eye-password-show.svg';
-import { ReactComponent as EyePasswordHide } from '../../assets/eye-password-hide.svg';
+import Logo from '../../assets/logo.svg?react';
+import EyePasswordShow from '../../assets/eye-password-show.svg?react';
+import EyePasswordHide from '../../assets/eye-password-hide.svg?react';
 import './styles.css';
 
-import UserInput from '../../components/UserInput';
-import UserButton from '../../components/UserButton';
-import ToggleToken from '../../components/ToggleToken';
+import UserInput from '../../components/UserInput/index.jsx';
+import UserButton from '../../components/UserButton/index.jsx';
+import ToggleToken from '../../components/ToggleToken/index.jsx';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
@@ -104,14 +104,14 @@ function SignupPage({ user, setUser }) {
                                 name='user-name'
                                 type='text'
                                 placeholder='유저 아이디'
-                                value={user.name}
+                                value={user.name || ""}
                                 onChange={ setUserName }
                             />
                             <UserInput 
                                 name='user-email' 
                                 type='email' 
                                 placeholder='이메일 주소' 
-                                value={user.email} 
+                                value={user.email || ""} 
                                 onChange={ setUserEmail } 
                             /> 
                             <div className='inputs pw-visible'>
@@ -119,7 +119,7 @@ function SignupPage({ user, setUser }) {
                                     name='user-password'
                                     type={ isVisible ? 'text' : 'password' }
                                     placeholder='비밀번호'
-                                    value={user.password}
+                                    value={user.password || ""}
                                     onChange={ setUserPW }
                                 />
                                 <div className='visible-toggle' 
