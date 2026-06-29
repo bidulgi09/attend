@@ -1,27 +1,27 @@
 /* font.css */
 @font-face {
   font-family: 'appleNeo';
-  src: url('/src/fonts/Apple_Sd_Gothic_Neo/AppleSDGothicNeoM.ttf') format('truetype');
+  src: url('/src/fonts/Apple_Sd_Gothic_Neo/AppleSDGothicNeoM.ttf') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'appleNeo';
-  src: url('/src/fonts/Apple_Sd_Gothic_Neo/AppleSDGothicNeoL.ttf') format('truetype');
+  src: url('/src/fonts/Apple_Sd_Gothic_Neo/AppleSDGothicNeoL.ttf') format('woff2');
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'appleNeo';
-  src: url('/src/fonts/Apple_Sd_Gothic_Neo/AppleSDGothicNeoSB.ttf') format('truetype');
+  src: url('/src/fonts/Apple_Sd_Gothic_Neo/AppleSDGothicNeoSB.ttf') format('woff2');
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'appleNeo';
-  src: url('/src/fonts/Apple_Sd_Gothic_Neo/AppleSDGothicNeoB.ttf') format('truetype');
+  src: url('/src/fonts/Apple_Sd_Gothic_Neo/AppleSDGothicNeoB.ttf') format('woff2');
   font-weight: bold;
   font-style: normal;
 }
