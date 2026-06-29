@@ -209,7 +209,6 @@
     .SignupPage .visible-toggle {
         width: 90%;
         max-width: 380px;
-        transform: translateX(50%);
     }
     .SignupPage .pw-visible {
         width: 100%;

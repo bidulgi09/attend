@@ -146,7 +146,6 @@
     .LoginPage .visible-toggle {
         width: 90%;
         max-width: 380px;
-        transform: translateX(50%);
     }
     .LoginPage .pw-visible {
         width: 100%;
