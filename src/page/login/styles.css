@@ -8,6 +8,7 @@
 
 .LoginPage .login {
     display: flex;
+    box-sizing: border-box;
     flex-direction: column;
     width: 480px;
     height: 360px;
@@ -132,10 +133,11 @@
 }
 
 
-@media(max-width:420px) {
+@media(max-width:520px) {
     .LoginPage .login {
         width:90%;
         max-width: 400px;
+        padding: 5%;
     }
     .LoginPage .inputs {
         width: 90%;
