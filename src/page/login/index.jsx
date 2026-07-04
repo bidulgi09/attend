@@ -24,6 +24,7 @@ function LoginPage({user, setUser}) {
         let data = await UserManager.logIn(user.name, user.password, user.role);
         if(data.success) {
             setUser({...user, isLogin: true});
+            setInfo({ name: '', pw: '', role: '' });
             alert("로그인 성공");
         } else {
             setUser({...user, isLogin: false});
@@ -46,12 +47,12 @@ function LoginPage({user, setUser}) {
         return setInfo({...info, role: event.target.value == "학생" ? "Student" : "Teacher"});
     };
     const setUserPW = (event) => {
-        return setInfo({...info, pw: event.target.value});
+        return setInfo({...info, password: event.target.value});
     };
     
     const [info, setInfo] = useState({
         name: '',
-        pw: '',
+        password: '',
         role: ''
     });
     const [isLoading, setIsLoading] = useState(false);

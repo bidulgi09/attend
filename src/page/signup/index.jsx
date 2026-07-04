@@ -34,6 +34,7 @@ function SignupPage({ user, setUser }) {
             let login = await UserManager.logIn(user.name, user.password, user.role);
             if(login.success) {
                 setUser({...user, isLogin: true});
+                setInfo({ name: '', password: '', email: '', role: '' });
                 alert("가입 성공");
             } else {
                 setUser({...user, isLogin: false});
@@ -63,12 +64,13 @@ function SignupPage({ user, setUser }) {
         return setInfo({...info, role: event.target.value == "학생" ? "Student" : "Teacher"});
     };
     const setUserPW = (event) => {
-        return setInfo({...info, pw: event.target.value});
+        return setInfo({...info, password: event.target.value});
     };
     
     const [info, setInfo] = useState({
         name: '',
-        pw: '',
+        password: '',
+        email: '',
         role: ''
     });
     const [isAgree, setIsAgree] = useState(false);
