@@ -24,6 +24,7 @@
 }
 .HomePage .profile-tab {
     margin-top: 72px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
