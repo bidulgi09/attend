@@ -18,8 +18,8 @@ function Schedule({ scheduleData }) {
                 {
                     (function() {
                         let res = [];
-                        if(scheduleData.length === 0) {
-                            return [];
+                        if (!Array.isArray(scheduleData) || scheduleData.length === 0) {
+                            return <div className="no-data">시간표 데이터가 없습니다.</div>;
                         }
                         for(let i = 0; i < scheduleData.length; i++) {
                             let row=[];
