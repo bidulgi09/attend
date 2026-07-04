@@ -1,4 +1,4 @@
-.HomePage {
+.TeacherPage {
     display: flex;
     flex: 1;
     position: relative;
@@ -9,7 +9,7 @@
 }
 
 
-.HomePage .main {
+.TeacherPage .main {
     display: flex;
     flex: 3;
     z-index: 10;
@@ -22,7 +22,7 @@
     min-height: 0;
     gap: 20px;
 }
-.HomePage .profile-tab {
+.TeacherPage .profile-tab {
     margin-top: 72px;
     display: flex;
     flex-direction: column;
@@ -34,13 +34,13 @@
     background-color: rgba(233, 233, 233, 0.03);
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
-.HomePage .profile-info-wrapper {
+.TeacherPage .profile-info-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.HomePage .profile-img {
+.TeacherPage .profile-img {
     display: flex;
     width: 24vh; 
     height: 24vh;
@@ -53,20 +53,20 @@
     }
 }
 
-.HomePage .name {
+.TeacherPage .name {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
 }
-.HomePage .edit-icon {
+.TeacherPage .edit-icon {
     display: flex;
     filter: brightness(0) invert(1);
     justify-content: center;
     align-items: center;
 }
 
-.HomePage .profile-tab .attendence-form {
+.TeacherPage .profile-tab .attendence-form {
     display: flex;
     flex: 1;
     margin-top: auto;
@@ -84,14 +84,14 @@
 }
 
 @media(max-width:520px) {
-    .HomePage {
+    .TeacherPage {
         width: 90%;
         padding: 5%;
     }
-    .HomePage .profile-tab {
+    .TeacherPage .profile-tab {
         display: none;
     }
-    .HomePage .main {
+    .TeacherPage .main {
         width:90%;
         padding: 5%;
     }

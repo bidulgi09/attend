@@ -10,7 +10,7 @@ import Schedule from '../../components/Schedule';
 import NotesTab from '../../components/NotesTab';
 import LogTab from '../../components/LogTab';
 
-function HomePage({ user, setUser }) {
+function StudentPage({ user, setUser }) {
     let data = user ? user.data : [
         ["국어", "수학", "영어", "과학", "사회"],
         ["체육", "음악", "미술", "정보", "역사"],
@@ -71,4 +71,4 @@ function HomePage({ user, setUser }) {
     )
 }
 
-export default HomePage;
+export default StudentPage;
