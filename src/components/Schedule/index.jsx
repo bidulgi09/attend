@@ -18,6 +18,9 @@ function Schedule({ scheduleData }) {
                 {
                     (function() {
                         let res = [];
+                        if(scheduleData.length === 0) {
+                            return [];
+                        }
                         for(let i = 0; i < scheduleData.length; i++) {
                             let row=[];
                             for(let j = 0; j < scheduleData[i].length; j++) {
