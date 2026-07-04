@@ -32,7 +32,7 @@ function App() {
                     <HeaderBar status={ status } setStatus={ setStatus } user={ user } setUser={ setUser }/>
                     <div className='main-container'>
                         <Routes>
-                            <Route path="/" element={<HomePage/>}/>
+                            <Route path="/" element={<HomePage user={user} setUser={setUser}/>}/>
                             <Route path="/home" element={<HomePage user={user} setUser={setUser}/>}/>
                             <Route path="/login" element={<LoginPage user={user} setUser={setUser}/>}/>
                             <Route path="/signup" element={<SignupPage user={ user } setUser={ setUser }/>}/>
