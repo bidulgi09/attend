@@ -23,7 +23,7 @@ function SignupPage({ user, setUser }) {
         }
         return setIsLoading(false);
     }
-    async function signup(user, agree) {
+    async function signup(user, agree, event) {
         if(!agree) {
             return alert("이용 약관에 동의해주세요.");
         }
@@ -143,7 +143,7 @@ function SignupPage({ user, setUser }) {
                         <UserButton
                             text='회원가입'
                             disabled={isLoading}
-                            onClick={async() => { await signup(user, isAgree); }} 
+                            onClick={async() => { await signup(info, isAgree); }} 
                         />
                     </div>
                     <div className="terms-box">

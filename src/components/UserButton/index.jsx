@@ -3,7 +3,7 @@ import './styles.css';
 
 const UserButton = ({ text, onClick, disabled }) => {
     return (
-        <button type="reset" className='userButton' onClick={onClick} disabled={disabled}>
+        <button type="button" className='userButton' onClick={onClick} disabled={disabled}>
            {text}
         </button>
     )
