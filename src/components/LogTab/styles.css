@@ -1,0 +1,104 @@
+.LogTab {
+    padding: 10px;
+    box-sizing: border-box;
+    max-width: 120vh;
+    width: 100%;
+    border-radius: 10px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.02);
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.LogTab .log-datas {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    outline: none;
+    align-items: center;
+    overflow: hidden;
+    overflow-y: scroll;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    height: 200px;
+    background-color: rgba(0, 0, 0, 0.2);
+
+}
+
+.LogTab .log-datas .log-title {
+    display: flex;
+    width: 100%;
+    justify-content: left;
+}
+.LogTab .log-datas .log-data {
+    display: flex;
+    flex-shrink: 0;
+    font-size: 14px;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-sizing: border-box;
+    max-width: 115vh;
+    width: 100%;
+    height: 5vh;
+    & hr {
+        border: none;
+        height: 2px;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+}
+
+.LogTab .log-data .log-date {
+    display: flex;
+    color: #c9c9c9;
+    margin-left: auto;
+    align-items: center;
+    text-align: center;
+}
+
+.LogTab .log-data .log-subject[status="출석"] {
+    display: flex;
+    color: rgb(138, 255, 120);
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+}
+.LogTab .log-data .log-subject[status="조퇴"] {
+    display: flex;
+    color: rgb(251, 255, 121);
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+}
+.LogTab .log-data .log-subject[status="결과"] {
+    display: flex;
+    color: rgb(255, 206, 99);
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+}
+.LogTab .log-data .log-subject[status="결석"] {
+    display: flex;
+    color: rgb(255, 112, 112);
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+}
+
+@media(max-width:520px) {
+    .LogTab {
+        width: 90%;
+        max-width: 100vh;
+    }
+    .LogTab .log-data {
+        width:90%;
+        max-width: 100%;
+    }
+}

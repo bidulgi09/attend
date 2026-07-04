@@ -15,78 +15,19 @@ function Schedule({ scheduleData }) {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th>1교시</th>
-                    <td>김</td>
-                    <td>멀</td>
-                    <td>대</td>
-                    <td>T</td>
-                    <td>V</td>
-                </tr>
-                <tr>
-                    <th>2교시</th>
-                    <td>김</td>
-                    <td>멀</td>
-                    <td>대</td>
-                    <td>T</td>
-                    <td>V</td>
-                </tr>
-                <tr>
-                    <th>3교시</th>
-                    <td>김</td>
-                    <td>멀</td>
-                    <td>대</td>
-                    <td>T</td>
-                    <td>V</td>
-                </tr>
-                <tr>
-                    <th>4교시</th>
-                    <td>김</td>
-                    <td>멀</td>
-                    <td>대</td>
-                    <td>T</td>
-                    <td>V</td>
-                </tr>
-                <tr>
-                    <th>5교시</th>
-                    <td>김</td>
-                    <td>멀</td>
-                    <td>대</td>
-                    <td>T</td>
-                    <td>V</td>
-                </tr>
-                <tr>
-                    <th>6교시</th>
-                    <td>김</td>
-                    <td>멀</td>
-                    <td>대</td>
-                    <td>T</td>
-                    <td>V</td>
-                </tr>
-                <tr>
-                    <th>7교시</th>
-                    <td>김</td>
-                    <td>멀</td>
-                    <td>대</td>
-                    <td>T</td>
-                    <td>V</td>
-                </tr>
-                <tr>
-                    <th>9교시</th>
-                    <td>김</td>
-                    <td>멀</td>
-                    <td>대</td>
-                    <td>T</td>
-                    <td>V</td>
-                </tr>
-                <tr>
-                    <th>8교시</th>
-                    <td>김</td>
-                    <td>멀</td>
-                    <td>대</td>
-                    <td>T</td>
-                    <td>V</td>
-                </tr>
+                {
+                    (function() {
+                        let res = [];
+                        for(let i = 0; i < scheduleData.length; i++) {
+                            let row=[];
+                            for(let j = 0; j < scheduleData[i].length; j++) {
+                                row.push(<td key={`td_${j}`}>{scheduleData[i][j]}</td>);
+                            }
+                            res.push(<tr key={`tr_${i}`}><th key={`th_${i}`}>{i+1}교시</th>{row}</tr>);
+                        }
+                        return res;
+                    })()
+                }
             </tbody>
         </table>
     );

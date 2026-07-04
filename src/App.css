@@ -6,6 +6,8 @@ html, body, #root {
     font-family: appleNeo;
 }
 
+ *:focus { outline:none; }
+ 
 .app-container {
     display: flex;
     width: 100%;

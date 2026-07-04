@@ -66,7 +66,7 @@ function LoginPage({user, setUser}) {
                 <title>출첵커&nbsp;|&nbsp;로그인</title>
             </Helmet>
             <div className='login'>
-                <Link to="/">
+                <Link className='logo' to="/">
                     <Logo />
                 </Link>
                 <form>
