@@ -14,21 +14,33 @@ html, body, #root {
 }
 
 .content-container {
+    display: flex;
     flex: 1;
     height: 100%;
-    position: relative;
 }
 
 .main-container {
+    display: flex;
+    height: 100%;
     flex: 1 1 0;
     height: 100%;
     box-sizing: border-box;
 }
 
 .main-container > * {
-    padding-top: 60px;
+    padding-top: 0;
 }
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+.contents-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.row-wrapper {
+    display: flex;
+    flex-direction: row;
 }

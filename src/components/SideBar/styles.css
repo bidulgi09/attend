@@ -15,7 +15,7 @@
     transition: .5s ease transform;
 }
 
-.SideBar .side-container[isOpened="true"] {
+.SideBar .side-container[isopened="true"] {
     transform: translateX(0%);
 }
 
@@ -48,7 +48,7 @@
     transition: .5s ease background-color;
 }
 
-.SideBar .side-container[isOpened="true"] ~ .outside {
+.SideBar .side-container[isopened="true"] ~ .outside {
     z-index: 25;
     background-color: rgba(17, 18, 19, 0.6);
 }

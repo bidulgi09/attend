@@ -8,6 +8,7 @@
 
 .LoginPage .login {
     display: flex;
+    margin-top: 72px;
     box-sizing: border-box;
     flex-direction: column;
     width: 480px;

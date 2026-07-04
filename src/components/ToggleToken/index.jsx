@@ -1,5 +1,5 @@
 import React from 'react';
-import './stylese.css';
+import './styles.css';
 
 const ToggleToken = ({name, value, checked, onChange}) => {
     return (

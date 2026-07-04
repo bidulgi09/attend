@@ -1,12 +1,14 @@
 .SignupPage {
     display: flex;
     height: 100%;
+    width: 100%;
     align-items: center;
     justify-content: center;
 }
 
 .SignupPage .signup {
     display: flex;
+    margin-top: 72px;
     box-sizing: border-box;
     flex-direction: column;
     width: 480px;

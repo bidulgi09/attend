@@ -1,0 +1,24 @@
+.notes-table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    margin: 10px;
+    font-size: 1.5vh;
+    text-align: center;
+}
+
+.notes-table th,
+.notes-table td {
+    border: 1px solid black;
+    height: 100px;
+    width: 200px;
+    padding: 1px 6px;
+}
+
+.notes-table th {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.notes-table td {
+    color: black;
+    background-color: rgba(221, 221, 221, 0.5);
+}

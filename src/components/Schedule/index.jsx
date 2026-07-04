@@ -1,0 +1,95 @@
+import React from 'react';
+import './styles.css';
+
+function Schedule({ scheduleData }) {
+    return (
+        <table className="ScheduleTable">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>월</th>
+                    <th>화</th>
+                    <th>수</th>
+                    <th>목</th>
+                    <th>금</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>1교시</th>
+                    <td>김</td>
+                    <td>멀</td>
+                    <td>대</td>
+                    <td>T</td>
+                    <td>V</td>
+                </tr>
+                <tr>
+                    <th>2교시</th>
+                    <td>김</td>
+                    <td>멀</td>
+                    <td>대</td>
+                    <td>T</td>
+                    <td>V</td>
+                </tr>
+                <tr>
+                    <th>3교시</th>
+                    <td>김</td>
+                    <td>멀</td>
+                    <td>대</td>
+                    <td>T</td>
+                    <td>V</td>
+                </tr>
+                <tr>
+                    <th>4교시</th>
+                    <td>김</td>
+                    <td>멀</td>
+                    <td>대</td>
+                    <td>T</td>
+                    <td>V</td>
+                </tr>
+                <tr>
+                    <th>5교시</th>
+                    <td>김</td>
+                    <td>멀</td>
+                    <td>대</td>
+                    <td>T</td>
+                    <td>V</td>
+                </tr>
+                <tr>
+                    <th>6교시</th>
+                    <td>김</td>
+                    <td>멀</td>
+                    <td>대</td>
+                    <td>T</td>
+                    <td>V</td>
+                </tr>
+                <tr>
+                    <th>7교시</th>
+                    <td>김</td>
+                    <td>멀</td>
+                    <td>대</td>
+                    <td>T</td>
+                    <td>V</td>
+                </tr>
+                <tr>
+                    <th>9교시</th>
+                    <td>김</td>
+                    <td>멀</td>
+                    <td>대</td>
+                    <td>T</td>
+                    <td>V</td>
+                </tr>
+                <tr>
+                    <th>8교시</th>
+                    <td>김</td>
+                    <td>멀</td>
+                    <td>대</td>
+                    <td>T</td>
+                    <td>V</td>
+                </tr>
+            </tbody>
+        </table>
+    );
+}
+
+export default Schedule;

@@ -1,0 +1,24 @@
+.ScheduleTable {
+    border-collapse: collapse;
+    border: 1px solid black;
+    margin: 10px;
+    font-size: 1.5vh;
+    text-align: center;
+}
+
+.ScheduleTable th,
+.ScheduleTable td {
+    border: 1px solid black;
+    height: 20px;
+    width: 40px;
+    padding: 1px 6px;
+}
+
+.ScheduleTable th {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.ScheduleTable td {
+    color: black;
+    background-color: rgba(221, 221, 221, 0.5);
+}

@@ -24,8 +24,6 @@ function SideBar({ status, setStatus, user, setUser }) {
     function change() {
         setStatus(!status);
     }
-    if(status === 'on')
-        return;
     return (
         <div className='SideBar'>
             <div className='side-container' isopened={ String(status) }>
@@ -45,7 +43,7 @@ function SideBar({ status, setStatus, user, setUser }) {
                     </>
                 }
             </div>
-            <div className='outside' onClick={ change }/>
+            <div className='outside' onClick={ () => { if(status) return change(); }}/>
         </div>
     )
 }
