@@ -18,7 +18,6 @@ function Schedule({ scheduleData }) {
                 {
                     (function() {
                         let res = [];
-                        if (!Array.isArray(scheduleData) || scheduleData.length === 0) {
                         for(let i = 0; i < scheduleData.length || 7; i++) {
                             let row=[];
                             for(let j = 0; j < scheduleData[i].length || 5; j++) {
