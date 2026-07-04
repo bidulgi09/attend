@@ -19,12 +19,10 @@ function Schedule({ scheduleData }) {
                     (function() {
                         let res = [];
                         if (!Array.isArray(scheduleData) || scheduleData.length === 0) {
-                            return <div className="no-data">시간표 데이터가 없습니다.</div>;
-                        }
-                        for(let i = 0; i < scheduleData.length; i++) {
+                        for(let i = 0; i < scheduleData.length || 7; i++) {
                             let row=[];
-                            for(let j = 0; j < scheduleData[i].length; j++) {
-                                row.push(<td key={`td_${j}`}>{scheduleData[i][j]}</td>);
+                            for(let j = 0; j < scheduleData[i].length || 5; j++) {
+                                row.push(<td key={`td_${j}`}>{scheduleData[i][j] || "공강"}</td>);
                             }
                             res.push(<tr key={`tr_${i}`}><th key={`th_${i}`}>{i+1}교시</th>{row}</tr>);
                         }
