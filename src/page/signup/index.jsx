@@ -53,21 +53,24 @@ function SignupPage({ user, setUser }) {
         redirect(user);
     }, []);
     
+    const setUserEmail = (event) => {
+        return setInfo({...info, email : event.target.value });
+    };
     const setUserName = (event) => {
-        return setUser({...user, name : event.target.value });
+        return setInfo({...info, name: event.target.value});
     };
     const setUserRole = (event) => {
-        setRole(event.target.value == "학생" ? "Student" : "Teacher");
-        return setUser({...user, role : event.target.value == "학생" ? "Student" : "Teacher"});
-    };
-    const setUserEmail = (event) => {
-        return setUser({...user, email : event.target.value });
+        return setInfo({...info, role: event.target.value == "학생" ? "Student" : "Teacher"});
     };
     const setUserPW = (event) => {
-        return setUser({...user, password : event.target.value });
+        return setInfo({...info, pw: event.target.value});
     };
-
-    const [role, setRole] = useState('Student');
+    
+    const [info, setInfo] = useState({
+        name: '',
+        pw: '',
+        role: ''
+    });
     const [isAgree, setIsAgree] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -91,13 +94,13 @@ function SignupPage({ user, setUser }) {
                         <ToggleToken
                             name='user-type'
                             value='학생'
-                            checked={role === 'Student'}
+                            checked={info.role === 'Student'}
                             onChange={setUserRole}
                         />
                         <ToggleToken
                             name='user-type'
                             value='교사'
-                            checked={role === 'Teacher'}
+                            checked={info.role === 'Teacher'}
                             onChange={setUserRole}
                         />
                         <div className='indicator'></div>
@@ -108,14 +111,14 @@ function SignupPage({ user, setUser }) {
                                 name='user-name'
                                 type='text'
                                 placeholder='유저 아이디'
-                                value={user.name || ""}
+                                value={info.name || ""}
                                 onChange={ setUserName }
                             />
                             <UserInput 
                                 name='user-email' 
                                 type='email' 
                                 placeholder='이메일 주소' 
-                                value={user.email || ""} 
+                                value={info.email || ""} 
                                 onChange={ setUserEmail } 
                             /> 
                             <div className='inputs pw-visible'>
@@ -123,7 +126,7 @@ function SignupPage({ user, setUser }) {
                                     name='user-password'
                                     type={ isVisible ? 'text' : 'password' }
                                     placeholder='비밀번호'
-                                    value={user.password || ""}
+                                    value={info.password || ""}
                                     onChange={ setUserPW }
                                 />
                                 <div className='visible-toggle' 

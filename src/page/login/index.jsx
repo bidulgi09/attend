@@ -40,17 +40,20 @@ function LoginPage({user, setUser}) {
     }, []);
     
     const setUserName = (event) => {
-        return setUser({...user, name : event.target.value });
+        return setInfo({...info, name: event.target.value});
     };
     const setUserRole = (event) => {
-        setRole(event.target.value == "학생" ? "Student" : "Teacher");
-        return setUser({...user, role : event.target.value == "학생" ? "Student" : "Teacher"});
+        return setInfo({...info, role: event.target.value == "학생" ? "Student" : "Teacher"});
     };
     const setUserPW = (event) => {
-        return setUser({...user, password : event.target.value });
+        return setInfo({...info, pw: event.target.value});
     };
-
-    const [role, setRole] = useState('Student');
+    
+    const [info, setInfo] = useState({
+        name: '',
+        pw: '',
+        role: ''
+    });
     const [isLoading, setIsLoading] = useState(false);
 
 
@@ -74,13 +77,13 @@ function LoginPage({user, setUser}) {
                         <ToggleToken
                             name='user-type'
                             value='학생'
-                            checked={role === 'Student'}
+                            checked={info.role === 'Student'}
                             onChange={setUserRole}
                         />
                         <ToggleToken
                             name='user-type'
                             value='교사'
-                            checked={role === 'Teacher'}
+                            checked={info.role === 'Teacher'}
                             onChange={setUserRole}
                         />
                         <div className='indicator'></div>
@@ -91,7 +94,7 @@ function LoginPage({user, setUser}) {
                                 name='user-name'
                                 type='text'
                                 placeholder='유저 아이디'
-                                value={user.name || ""}
+                                value={info.name || ""}
                                 onChange={ setUserName }
                             />
                             <div className='inputs pw-visible'>
@@ -99,7 +102,7 @@ function LoginPage({user, setUser}) {
                                     name='user-password'
                                     type={ isVisible ? 'text' : 'password' }
                                     placeholder='비밀번호'
-                                    value={user.password || ""}
+                                    value={info.password || ""}
                                     onChange={ setUserPW }
                                 />
                                 <div className='visible-toggle' 
@@ -114,7 +117,7 @@ function LoginPage({user, setUser}) {
                         <UserButton
                             text='로그인'
                             disabled={isLoading}
-                            onClick={async () => { await login(user); }}
+                            onClick={async () => { await login(info); }}
                         />
                     </div>
                     <div className="direct-signup">
