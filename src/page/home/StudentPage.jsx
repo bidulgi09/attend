@@ -40,7 +40,7 @@ function StudentPage({ user, setUser }) {
     { date: "2023-01-13", status: "결과", subject: "국어" }
 ];
     return (
-        <div className="HomePage">
+        <div className="StudentPage">
             <Helmet>
                 <title>출첵커 | 홈</title>
             </Helmet>
