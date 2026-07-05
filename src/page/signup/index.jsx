@@ -58,6 +58,13 @@ function SignupPage({ user, setUser }) {
         return setInfo({...info, email : event.target.value });
     };
     const setUserName = (event) => {
+        if(/[^\d]/.test(event.target.value)) {
+            event.target.value = event.target.value.replace(/[^\d]/g, '');
+        }
+        let val = event.target.value.replace(/[^\d]/g, '');
+        if(val.length > 2) {
+            event.target.value = val.substring(0, 2) + '-' + val.substring(2, 7);
+        }
         return setInfo({...info, name: event.target.value});
     };
     const setUserRole = (event) => {
@@ -71,7 +78,7 @@ function SignupPage({ user, setUser }) {
         name: '',
         password: '',
         email: '',
-        role: ''
+        role: 'Student'
     });
     const [isAgree, setIsAgree] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -112,7 +119,8 @@ function SignupPage({ user, setUser }) {
                             <UserInput
                                 name='user-name'
                                 type='text'
-                                placeholder='유저 아이디'
+                                placeholder='유저 아이디 (00-00000)'
+                                pattern="\d{2}-\d{5}"
                                 value={info.name || ""}
                                 onChange={ setUserName }
                             />

@@ -53,7 +53,7 @@
     font-size: 14px;
 }
 
-.SignupPage input[placeholder="유저 아이디"] {
+.SignupPage input[placeholder="유저 아이디 (00-00000)"] {
     border-top-left-radius: 8px;
 }
 .SignupPage input[placeholder="비밀번호"] {
@@ -111,7 +111,7 @@
     transform: translateX(100%);
 }
 
-.SignupPage .signup:has(#학생:checked) input[placeholder='유저 아이디'] {
+.SignupPage .signup:has(#학생:checked) input[placeholder='유저 아이디 (00-00000)'] {
     border-top-left-radius: 0px;
     transition: ease .2s
 }

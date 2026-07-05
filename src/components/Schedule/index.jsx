@@ -1,9 +1,9 @@
 import React from 'react';
 import './styles.css';
 
-function Schedule({ scheduleData }) {
+function Schedule({ scheduleData, ishided }) {
     return (
-        <table className="ScheduleTable">
+        <table className="ScheduleTable" ishided={(ishided || false).toString()}>
             <thead>
                 <tr>
                     <th></th>

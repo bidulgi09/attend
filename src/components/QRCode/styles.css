@@ -1,0 +1,45 @@
+@import "/src/font.css";
+.QRCode {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    font-size: 4vh;
+    font-weight: bold;
+    font-family: appleNeo;
+    overflow: hidden;
+}
+
+.QRCode .qr-code {
+    display: flex;
+    position: relative;
+}
+
+.QRCode[iscreated='false'] {
+    display: none;
+}
+
+.QRCode .qr-code .delete-btn {
+    display: flex;
+    font-size: 7vh;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(34, 40, 49, 0);
+    backdrop-filter: blur(0px);
+    opacity: 0;
+    color: white;
+    transition: all 0.25s ease-in-out;
+}
+
+.QRCode .qr-code:hover .delete-btn {
+    display: flex;
+    background-color: rgb(34, 40, 49, 0.7);
+    backdrop-filter: blur(2px);
+    opacity: 1;
+}

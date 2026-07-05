@@ -38,12 +38,14 @@
         max-width: 100vh;
     }
     .notes-table .th {
-        width:90%;
+        height: 80%;
+        width: 90%;
         max-width: 40px;
         padding: 5%;
     }
     .notes-table .td {
-        width:90%;
+        height: 80%;
+        width: 90%;
         max-width: 40px;
         padding: 5%;
     }

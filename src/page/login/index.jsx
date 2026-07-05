@@ -41,6 +41,13 @@ function LoginPage({user, setUser}) {
     }, []);
     
     const setUserName = (event) => {
+        if(/[^\d]/.test(event.target.value)) {
+            event.target.value = event.target.value.replace(/[^\d]/g, '');
+        }
+        let val = event.target.value.replace(/[^\d]/g, '');
+        if(val.length > 2) {
+            event.target.value = val.substring(0, 2) + '-' + val.substring(2, 7);
+        }
         return setInfo({...info, name: event.target.value});
     };
     const setUserRole = (event) => {
@@ -53,7 +60,7 @@ function LoginPage({user, setUser}) {
     const [info, setInfo] = useState({
         name: '',
         password: '',
-        role: ''
+        role: 'Student'
     });
     const [isLoading, setIsLoading] = useState(false);
 
@@ -94,7 +101,7 @@ function LoginPage({user, setUser}) {
                             <UserInput
                                 name='user-name'
                                 type='text'
-                                placeholder='유저 아이디'
+                                placeholder='유저 아이디 (00-00000)'
                                 value={info.name || ""}
                                 onChange={ setUserName }
                             />

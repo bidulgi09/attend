@@ -45,6 +45,9 @@ function StudentPage({ user, setUser }) {
                 <title>출첵커 | 홈</title>
             </Helmet>
             <div className='main'>
+                <form className='attendence-form-main'>
+                    <input type="text" placeholder="출석 코드"></input>
+                </form>
                 <NotesTab NotesData={{ attendance: 10, result: 5, absence: 2, earlyLeave: 1 }} />
                 <LogTab LogData={logData} />
             </div>
@@ -61,7 +64,7 @@ function StudentPage({ user, setUser }) {
                     <div className='grade'>
                         {user ? user.grade : 'N/A'}
                     </div>
-                    <form className='attendence-form'>
+                    <form className='attendence-form-side'>
                         <input type="text" placeholder="출석 코드"></input>
                     </form>
                 </div>

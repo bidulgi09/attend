@@ -52,7 +52,7 @@
     font-size: 14px;
 }
 
-.LoginPage input[placeholder="유저 아이디"] {
+.LoginPage input[placeholder="유저 아이디 (00-00000)"] {
     border-top-left-radius: 8px;
 }
 .LoginPage input[placeholder="비밀번호"] {
@@ -108,7 +108,7 @@
     transform: translateX(100%);
 }
 
-.LoginPage .login:has(#학생:checked) input[placeholder='유저 아이디'] {
+.LoginPage .login:has(#학생:checked) input[placeholder='유저 아이디 (00-00000)'] {
     border-top-left-radius: 0px;
     transition: ease .2s
 }

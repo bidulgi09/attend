@@ -134,4 +134,7 @@
   .HeaderBar .logo-box .description {
     display:none;
   }
+  .HeaderBar .logo-box .name {
+    display:none;
+  }
 }

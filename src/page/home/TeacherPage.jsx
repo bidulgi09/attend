@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './TeacherStyles.css';
 import { Helmet } from 'react-helmet-async';
 import edit from '../../assets/edit.png';
@@ -9,8 +9,24 @@ import GhostBox from '../../components/GhostBox';
 import Schedule from '../../components/Schedule';
 import NotesTab from '../../components/NotesTab';
 import LogTab from '../../components/LogTab';
+import QRCode from '../../components/QRCode';
 
 function TeacherPage({ user, setUser }) {
+    const [ generatedURL, setGeneratedURL ] = useState('');
+    const [ QRStatus, setQRStatus ] = useState(false);
+    const removeLink = function() {
+        setQRStatus(false);
+        setGeneratedURL('');
+    }
+    const generateLink = function() {
+        let url = window.location.origin + "/attend";
+        let current_date = Date.now();
+        
+        const access_url = `${url}?t=${current_date}`;
+        setQRStatus(true);
+        setGeneratedURL(access_url);
+    }
+    
     let data = user ? user.data : [
         ["국어", "수학", "영어", "과학", "사회"],
         ["체육", "음악", "미술", "정보", "역사"],
@@ -45,6 +61,9 @@ function TeacherPage({ user, setUser }) {
                 <title>출첵커 | 홈</title>
             </Helmet>
             <div className='main'>
+                <form className='attendence-form-main'>
+                    <input type="text" placeholder="학생 추가 (00-00000)"></input>
+                </form>
                 <NotesTab NotesData={{ attendance: 10, result: 5, absence: 2, earlyLeave: 1 }} />
                 <LogTab LogData={logData} />
             </div>
@@ -61,11 +80,15 @@ function TeacherPage({ user, setUser }) {
                     <div className='grade'>
                         {user ? user.grade : 'N/A'}
                     </div>
-                    <form className='attendence-form'>
-                        <input type="text" placeholder="교사 코드"></input>
+                    <form className='attendence-form-side'>
+                        <input type="text" placeholder="학생 추가 (00-00000)"></input>
+                        <button type="button" onClick={generateLink}>
+                            QR 생성
+                        </button>
                     </form>
                 </div>
-                <Schedule scheduleData={data}/>
+                <QRCode url={generatedURL} iscreated={QRStatus} removelink={removeLink}/>
+                <Schedule scheduleData={data} ishided={QRStatus}/>
             </div>
         </div>
     )
