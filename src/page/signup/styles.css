@@ -17,7 +17,7 @@
     align-items: center;
     justify-content: center;
     background-color: rgb(49, 54, 63);
-    z-index: 20;
+    z-index: 10;
 }
 
 .SignupPage .credentials-row {
