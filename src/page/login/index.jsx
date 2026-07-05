@@ -23,8 +23,9 @@ function LoginPage({user, setUser}) {
         setIsLoading(true);
         let data = await UserManager.logIn(user.name, user.password, user.role);
         if(data.success) {
-            setUser({...user, isLogin: true});
-            setInfo({ name: '', pw: '', role: '' });
+            let profile = await UserManager.profile();
+            setUser({...profile.results.user});
+            setInfo({ name: '', password: '', role: 'Student' });
             alert("로그인 성공");
         } else {
             setUser({...user, isLogin: false});

@@ -14,6 +14,7 @@ function App() {
     const [user, setUser] = useState( localStorage.getItem('user_session') ?
         JSON.parse(localStorage.getItem('user_session')) :
         { 
+            nickname: null,
             name: null,
             role: "Student",
             email: null,

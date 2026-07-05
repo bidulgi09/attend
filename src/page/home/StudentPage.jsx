@@ -61,8 +61,11 @@ function StudentPage({ user, setUser }) {
                         <p>{user ? user.name : 'Guest'}</p>
                         <img className='edit-icon' src={edit} width='12vh' height='12vh' />
                     </div>
+                    <div className='name'>
+                        {user ? user.nickname : 'N/A'}
+                    </div>
                     <div className='grade'>
-                        {user ? user.grade : 'N/A'}
+                        {user ? user.id : 'N/A'}
                     </div>
                     <form className='attendence-form-side'>
                         <input type="text" placeholder="출석 코드"></input>

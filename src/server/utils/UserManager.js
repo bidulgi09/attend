@@ -35,6 +35,6 @@ const UserManager = {
             console.log(e);
             return {};
         }
-    },
+    }
 } 
 export default UserManager;
