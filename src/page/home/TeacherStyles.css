@@ -106,9 +106,10 @@
     flex: 1;
     margin-top: 72px;
     justify-content: center;
-    text-align: center;
     align-items: center;
     & input {
+        display: inline-block;
+        text-align: center;
         box-shadow: 0 0 20px rgba(0,0,0,0.1);
         border-radius: 10px;
         border: none;

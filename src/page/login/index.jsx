@@ -15,7 +15,7 @@ function LoginPage({user, setUser}) {
     const navigate = useNavigate();
     async function redirect(user) {
         let data = await UserManager.profile();
-        if(data.success && data.results.user.isLogin) {
+        if(data.success && user.isLogin) {
             return navigate('/home', { replace: true });
         }
     }
@@ -25,7 +25,7 @@ function LoginPage({user, setUser}) {
         if(data.success) {
             let profile = await UserManager.profile();
             console.log(JSON.stringify(profile, null, 4))
-            setUser({...profile.results.user});
+            setUser({...profile.results.user, isLogin: true});
             setInfo({ name: '', password: '', role: 'Student' });
             alert("로그인 성공");
         } else {

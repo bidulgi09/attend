@@ -33,7 +33,9 @@ function SignupPage({ user, setUser }) {
         if(data.success) {
             let login = await UserManager.logIn(user.name, user.password, user.role);
             if(login.success) {
-                setUser({...user, isLogin: true});
+                let profile = await UserManager.profile();
+                console.log(JSON.stringify(profile, null, 4))
+                setUser({...profile.results.user, isLogin: true});
                 setInfo({ name: '', password: '', email: '', role: '' });
                 alert("가입 성공");
             } else {

@@ -58,14 +58,11 @@ function StudentPage({ user, setUser }) {
                         <img src={(user && user.avatar) ? user.avatar : 'https://i.pinimg.com/originals/78/20/45/7820459062e377482125ab4bafbd992f.jpg'} alt="Profile" />
                     </div>
                     <div className='name row-wrapper'>
-                        <p>{user ? user.name : 'Guest'}</p>
+                        <p>{user ? user.nickname : 'Guest'}</p>
                         <img className='edit-icon' src={edit} width='12vh' height='12vh' />
                     </div>
-                    <div className='name'>
-                        {user ? user.nickname : 'N/A'}
-                    </div>
                     <div className='grade'>
-                        {user ? user.id : 'N/A'}
+                        {user ? user.username : 'N/A'}
                     </div>
                     <form className='attendence-form-side'>
                         <input type="text" placeholder="출석 코드"></input>
