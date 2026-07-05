@@ -224,7 +224,7 @@ app.get('/api/profile', authenticateToken, (req, res) => {
             return;
         }
         let data = [req.user.username];
-        connection.query('SELECT * FROM users WHERE username=?;', data, function(error, results, fields) {
+        connection.query('SELECT username, email, nickname, role, log, current_status,  FROM users WHERE username=?;', data, function(error, results, fields) {
             connection.release();
             if(error) {
                 res.status(500).json({ success: false, results: { isLoaded: false, reason: "Fail to search" } });

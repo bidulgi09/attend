@@ -24,6 +24,7 @@ function LoginPage({user, setUser}) {
         let data = await UserManager.logIn(user.name, user.password, user.role);
         if(data.success) {
             let profile = await UserManager.profile();
+            console.log(JSON.stringify(profile, null, 4))
             setUser({...profile.results.user});
             setInfo({ name: '', password: '', role: 'Student' });
             alert("로그인 성공");
