@@ -15,7 +15,7 @@ function LoginPage({user, setUser}) {
     const navigate = useNavigate();
     async function redirect(user) {
         let data = await UserManager.profile();
-        if(data.success && user.isLogin) {
+        if(data.success && data.results.user.isLogin) {
             return navigate('/home', { replace: true });
         }
     }
