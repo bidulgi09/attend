@@ -39,6 +39,7 @@ app.get("/ping", (req, res) => {
 
 app.post('/upload', upload.single('file'), (req, res) => {
     if(!req.file) return res.status(500).json({ success: true, results: { isUploaded: false, reason: "Cannot find uploaded file."}});
+    console.log(req.file);
     if(!req.body.user || !req.body.user.role) return res.send({ success: true, results: { isUploaded: false, reason: "Unknown User."} }); 
     pool.getConnection(function(err, connection) {
         if(err) return res.sens({ success: true, results: { isUploaded: false, reason: err } });
