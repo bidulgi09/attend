@@ -1,11 +1,14 @@
 import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
-
+const uploadDir = path.join(process.cwd(), 'uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
 const upload = multer({
     storage: multer.diskStorage({
         destination(req, file, done) {
-            done(null, 'uploads/');
+            done(null, uploadDir);
         },
         filename(req, file, done) {
             const ext = path.extname(file.originalname);
