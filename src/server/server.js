@@ -38,7 +38,7 @@ app.get("/ping", (req, res) => {
 app.get('/api/userList', (req, res) => { 
     pool.getConnection(function(err, connection) { 
         if(err) return res.status(500).json({ success: false, results: { isSearched: false, reason: err } });
-        connection.query("SELECT * FROM users;", function(error, results, fields) {
+        connection.query("SELECT id, name, email, role FROM students UNION ALL SELECT id, name, email, role FROM teachers;", function(error, results, fields) {
             connection.release(); 
             if(error) return res.status(500).json({ success: false, results: { isSearched: false, reason: err } });
             res.send({ counts: results.length, results }); 
@@ -49,8 +49,8 @@ app.get('/api/userList', (req, res) => {
 app.post('/api/check', (req, res) => { 
     pool.getConnection(function(err, connection) { 
         if(err) return res.status(500).json({ success: false, results: { isAvailable: false, reason: err } });
-        let data = [ req.body.email, req.body.username ]; 
-        connection.query('SELECT email, username FROM users WHERE email=? OR username=?;', data, async function(error, results, fields) { 
+        let data = [ req.body.email, req.body.id, req.body.role, req.body.email, req.body.id, req.body.role ]; 
+        connection.query('SELECT email, id, role FROM students WHERE email=? OR id=? UNION ALL SELECT email, id, role FROM teachers WHERE email=? OR id=?;', data, async function(error, results, fields) { 
             connection.release(); 
             if(error) { 
                 console.error(error); 
@@ -73,18 +73,18 @@ app.post('/api/signUp', (req, res) => {
     pool.getConnection(function(err, connection) { 
         if(err) return res.status(500).json({ success: false, results: { insertedId: -1, reason: err } });
         let password_hash = bcrypt.hashSync(req.body.password, salt);
-        let datas = [ 
-            req.body.username, 
-            req.body.nickname || (() => {
+        let table = req.body.role === "Student" ? "students" : "teachers"
+        let datas = [
+            req.body.id, 
+            req.body.name || (() => {
                 const timestamp = Date.now().toString(36); // 현재 시간을 36진수로 변환
                 const randomStr = Math.random().toString(36).substring(2, 6); // 4자리 난수
                 return `user_${timestamp}${randomStr}`;
             })(), 
             req.body.email, 
             password_hash,
-            req.body.role || 'Student' 
         ]; 
-        connection.query('INSERT INTO users (username, nickname, email, password_hash, role) VALUES (?, ?, ?, ?, ?);', datas, function(error, results, fields) { 
+        connection.query(`INSERT INTO ${table} (id, name, email, password_hash) VALUES (?, ?, ?, ?);`, datas, function(error, results, fields) { 
             connection.release(); 
             if(error) {
                 res.status(500).json({ success: false, results: { insertedId: -1, reason: "Fail to search" } });
@@ -98,10 +98,11 @@ app.post('/api/signUp', (req, res) => {
 app.post('/api/deleteAccount', (req, res) => {
     pool.getConnection(function(err, connection) { 
         if(err) return res.status(500).json({ success: false, results: { isDeleted: false, reason: err } });
+        let table = req.body.role === "Student" ? "students" : "teachers"
         let datas = [ 
-            req.body.username
+            req.body.id,
         ]; 
-        connection.query('SELECT password_hash FROM users WHERE username=?;', datas, function(error, results, fields) { 
+        connection.query(`SELECT password_hash FROM ${table} WHERE id=?;`, datas, function(error, results, fields) { 
             if(error) {
                 connection.release();
                 res.status(500).json({ success: false, results: { isDeleted: false, reason: "Fail to search" } });
@@ -109,7 +110,7 @@ app.post('/api/deleteAccount', (req, res) => {
             }
             if(bcrypt.compareSync(req.body.password, results[0].password_hash)) {
                 datas.push(results[0].password_hash);
-                connection.query('DELETE FROM users WHERE username=? AND password_hash=?;', datas, function(error2, results2) {
+                connection.query(`DELETE FROM ${table} WHERE id=? AND password_hash=?;`, datas, function(error2, results2) {
                     connection.release(); 
                     if(error2) { 
                         console.error(error2); 
@@ -132,11 +133,11 @@ app.post('/api/logIn', (req, res) => {
     const ACCESS_TOKEN_EXPIRED_IN=(()=>new Date(Date.now() + 3*60*60*1000))();
     pool.getConnection(function(err, connection) {
         if(err) return res.status(500).json({ success: false, results: { isLogin: false, reason: err } });
+        let table = req.body.role === "Student" ? "students" : "teachers"
         let data = [
-            req.body.username,
-            req.body.role
+            req.body.id,
         ];
-        connection.query('SELECT password_hash FROM users WHERE username = ? AND role = ?;', data, function(error, results, fields) {
+        connection.query(`SELECT password_hash FROM ${table} WHERE id = ?`, data, function(error, results, fields) {
             if(error) {
                 connection.release();
                 res.status(500).json({ success: false, results: { isLogin: false, reason: "Fail to search" } });
@@ -149,8 +150,8 @@ app.post('/api/logIn', (req, res) => {
             } else {
                 if(bcrypt.compareSync(req.body.password, results[0].password_hash)) {
                     let refresh_token=uuidv4();
-                    let access_token=jwt.sign({ username: req.body.username }, "access_secret", { expiresIn: "3h" });
-                    connection.query('UPDATE users SET refresh_token=?, expired_in=?, is_active=? WHERE username=? AND role=?;', [refresh_token, REFRESH_TOKEN_EXPIRED_IN, true, req.body.username, req.body.role], function(error2, results2) {
+                    let access_token=jwt.sign({ id: req.body.id, role: req.body.role }, "access_secret", { expiresIn: "3h" });
+                    connection.query(`UPDATE ${table} SET refresh_token=?, expired_in=? WHERE id=?;`, [refresh_token, REFRESH_TOKEN_EXPIRED_IN, req.body.id], function(error2, results2) {
                         connection.release();
                         if(error2) {
                             res.status(500).json({ error: "데이터 수정 실패" });
@@ -190,8 +191,10 @@ app.post('/api/logOut', (req, res) => {
             res.send({ success: false, results: { isLogOut: false, reason: "Unauthorized" } });
             return;
         }
-        let data = [null, null, jwt.decode(req.cookies.access_token).username];
-        connection.query('UPDATE users SET refresh_token=?, expired_in=? WHERE username=?', data, function(error, results, fields) {
+        let user_data = jwt.decode(req.cookies.access_token);
+        let table = user_data.role === "Student" ? "students" : "teachers"
+        let data = [null, null, user_data.id];
+        connection.query(`UPDATE ${table} SET refresh_token=?, expired_in=? WHERE id=?`, data, function(error, results, fields) {
             connection.release();
             if(error) {
                 res.status(500).send({ error: "데이터 갱신 실패" });
@@ -218,13 +221,14 @@ app.post('/api/logOut', (req, res) => {
 app.get('/api/profile', authenticateToken, (req, res) => {
     pool.getConnection(function(err, connection) {
         if(err) return res.status(500).json({ success: false, results: { isLoaded: false, reason: err } });
-        if(!req.user || !req.user.username) {
+        if(!req.user || !req.user.id) {
             connection.release();
             res.send({ success: false, results: { isLoaded: false, reason: "Unauthorized"}});
             return;
         }
-        let data = [req.user.username];
-        connection.query('SELECT username, email, nickname, role, log, current_status FROM users WHERE username=?;', data, function(error, results, fields) {
+        let table = req.user.role === "Student" ? "students" : "teachers";
+        let data = [req.user.id];
+        connection.query(`SELECT id, email, name, role FROM ${table} WHERE id=?;`, data, function(error, results, fields) {
             connection.release();
             if(error) {
                 res.status(500).json({ success: false, results: { isLoaded: false, reason: "Fail to search" } });
@@ -245,8 +249,8 @@ app.post('/api/refresh', (req, res) => {
             connection.release();
             return res.status(401).json({ error: "Refresh token required."});   
         }
-        let data = [req.cookies.refresh_token];
-        connection.query('SELECT username, refresh_token, expired_in FROM users WHERE refresh_token=?;', data, function(error, results, fields) {
+        let data = [req.cookies.refresh_token, req.cookies.refresh_token];
+        connection.query('SELECT id, refresh_token, expired_in FROM students WHERE refresh_token=? UNION ALL SELECT id, refresh_token, expired_in FROM teachers WHERE refresh_token=?;', data, function(error, results, fields) {
             let user = results[0];
             if(error) {
                 connection.release();
@@ -264,9 +268,10 @@ app.post('/api/refresh', (req, res) => {
                 return;
             }
 
+            let table = user.role === "Student" ? "students" : "teachers"
             let new_refresh_token = uuidv4();
-            let new_access_token = jwt.sign({ username: user.username }, "access_secret", { expiresIn: '3h' });
-            connection.query('UPDATE users SET refresh_token=?, expired_in=? WHERE username=?;', [new_refresh_token, REFRESH_TOKEN_EXPIRED_IN, user.username], function(error2, results2) {
+            let new_access_token = jwt.sign({ id: user.id, role: user.role }, "access_secret", { expiresIn: '3h' });
+            connection.query(`UPDATE ${table} SET refresh_token=?, expired_in=? WHERE id=?;`, [new_refresh_token, REFRESH_TOKEN_EXPIRED_IN, user.id], function(error2, results2) {
                 connection.release();
                 if(error2) {
                     res.status(500).json({ success: false, results: { isRefreshed: false, reason: "Fail to update" } });
@@ -299,11 +304,12 @@ app.patch('/api/password', (req, res) => {
             res.status(500).json({ success: false, results: { isChanged: false, reason: "Fail to search" } });
             return;
         }
+        let table = req.body.role === "Student" ? "students" : "teachers"
         let data = [
-            req.body.username
+            req.body.id
         ];
 
-        connection.query('SELECT password_hash FROM users WHERE username = ?;', data, function(error, results, fields) {
+        connection.query(`SELECT password_hash FROM ${table} WHERE id = ?;`, data, function(error, results, fields) {
             if(error) {
                 connection.release();
                 res.status(500).json({ success: false, results: { isChanged: false, reason: "Fail to search" } });
@@ -320,10 +326,11 @@ app.patch('/api/password', (req, res) => {
                         res.status(401).json({ success: false, results: { isChanged: false, reason: "Invalid format" } });
                         return;
                     }
+                    let table = req.body.role === "Student" ? "students" : "teachers"
                     let refresh_token=uuidv4();
-                    let access_token=jwt.sign({ username: req.body.username }, "access_secret", { expiresIn: "3h" });
+                    let access_token=jwt.sign({ id: req.body.id, role: req.body.role }, "access_secret", { expiresIn: "3h" });
                     let new_password_hash=bcrypt.hashSync(req.body.new_password, salt);
-                    connection.query('UPDATE users SET password_hash=? WHERE username=?;', [new_password_hash, req.body.username], function(error2, results2) {
+                    connection.query(`UPDATE ${table} SET password_hash=? WHERE id=?;`, [new_password_hash, req.body.id], function(error2, results2) {
                         connection.release();
                         if(error2) {
                             res.status(500).json({ success: false, results: { isChanged: false, reason: "Fail to update" } });

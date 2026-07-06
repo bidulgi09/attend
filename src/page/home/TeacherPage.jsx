@@ -71,7 +71,7 @@ function TeacherPage({ user, setUser }) {
                 <GhostBox/>
                 <div className='profile-info-wrapper'>
                     <div className='profile-img'>
-                        <img src={(user && user.avatar) ? user.avatar : 'https://i.pinimg.com/originals/78/20/45/7820459062e377482125ab4bafbd992f.jpg'} alt="Profile" />
+                        <img src={(user && user.avatar) ? user.avatar : 'https://ohsobserver.com/wp-content/uploads/2022/12/Guest-user.png'} alt="Profile" />
                     </div>
                     <div className='name row-wrapper'>
                         <p>{user.isLogin ? user.nickname : 'Guest'}</p>

@@ -13,8 +13,4 @@ let dbconfig = {
     }
 }
 
-console.log("=== DB 연결 설정 확인 ===");
-console.log("HOST:", dbconfig.host);
-console.log("PORT:", dbconfig.port);
-
 export default dbconfig;
