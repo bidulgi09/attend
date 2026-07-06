@@ -44,7 +44,7 @@ app.post('/upload', upload.single('profileImage'), (req, res) => {
         connection.query(`UPDATE ${table} SET avatar = ? WHERE id = ?`, [req.file.path, req.body.id], function(error, results, fields) {
             connection.release();
             if(error) return res.status(500).json({ success: false, results: { isUploaded: false, reason: error }});
-            res.send({ success: true, results: { isUploaded: true }});
+            return res.send({ success: true, results: { isUploaded: true }});
         });
     });
 })
