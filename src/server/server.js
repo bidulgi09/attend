@@ -37,7 +37,7 @@ app.get("/ping", (req, res) => {
     res.json({ message: "pong" });
 });
 
-app.post('/upload', upload.single('profileImage'), (req, res) => {
+app.post('/upload', upload.single('file'), (req, res) => {
     if(!req.file) return res.status(500).json({ success: true, results: { isUploaded: false, reason: "Cannot find uploaded file."}});
     if(!req.body.user || !req.body.user.role) return res.send({ success: true, results: { isUploaded: false, reason: "Unknown User."} }); 
     pool.getConnection(function(err, connection) {
