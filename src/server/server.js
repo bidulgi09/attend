@@ -22,7 +22,7 @@ app.use(cors({
     origin: [
         "http://localhost:5173",
         "https://attend-508x.onrender.com",
-        "https://organic-engine-x5j4gjxjq7xxfv44w-5173.app.github.dev/attend/#/login",
+        "https://organic-engine-x5j4gjxjq7xxfv44w-5173.app.github.dev",
         "https://refactored-potato-4j66rr45x7753gvx-5173.app.github.dev",
         "https://bidulgi09.github.io"
     ], 
