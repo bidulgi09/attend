@@ -88,6 +88,7 @@ app.post('/api/signUp', (req, res) => {
         connection.query(`INSERT INTO ${table} (id, name, email, password_hash) VALUES (?, ?, ?, ?);`, datas, function(error, results, fields) { 
             connection.release(); 
             if(error) {
+                console.log(error);
                 res.status(500).json({ success: false, results: { insertedId: -1, reason: "Fail to search" } });
                 return;
             }
