@@ -43,7 +43,7 @@ app.post('/upload', upload.single('profileImage'), (req, res) => {
     pool.getConnection(function(err, connection) {
         if(err) return res.status(500).json({ success: false, results: { isUploaded: false, reason: err } });
         let table = req.user.role === "Student" ? "students" : "teachers"
-        connection.query(`UPDATE ${table} SET avatar = ? WHERE id = ?`, [req.file.path, req.body.id], function(error, results, fields) {
+        connection.query(`UPDATE ${table} SET avatar = ? WHERE id = ?`, [req.file.path, req.id], function(error, results, fields) {
             connection.release();
             if(error) return res.send({ success: true, results: { isUploaded: false, reason: error }});
             return res.send({ success: true, results: { isUploaded: true }});
