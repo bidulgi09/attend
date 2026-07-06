@@ -54,8 +54,7 @@ function StudentPage({ user, setUser }) {
 
         const formData = new FormData();
         formData.append('profileImage', file);
-        formData.append('id', user.id);
-        formData.append('role', user.role);
+        formData.append('user', user);
         
         UserManager.uploadProfileImage(formData, user);
     };
