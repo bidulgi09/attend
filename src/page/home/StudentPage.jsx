@@ -53,8 +53,8 @@ function StudentPage({ user, setUser }) {
         if (!file) return;
 
         const formData = new FormData();
-        formData.append('profileImage', file);
-        formData.append('user', user);
+        formData.append('file', file);
+        formData.append('user', JSON.stringify(user));
         
         UserManager.uploadProfileImage(formData, user);
     };
@@ -65,7 +65,7 @@ function StudentPage({ user, setUser }) {
                 <title>출첵커 | 홈</title>
             </Helmet>
             <form>
-                <input type="file" name="profileImage" ref={ fileInputRef } onClick={ handleFileChange }style={{ display: "none" }}/>
+                <input type="file" name="profileImage" ref={ fileInputRef } onChange={ handleFileChange }style={{ display: "none" }}/>
             </form>
             <div className='main'>
                 <form className='attendence-form-main'>
