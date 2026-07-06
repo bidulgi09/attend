@@ -54,7 +54,7 @@ app.get('/api/userList', (req, res) => {
         connection.query("SELECT id, name, email, role FROM students UNION ALL SELECT id, name, email, role FROM teachers;", function(error, results, fields) {
             connection.release(); 
             if(error) return res.status(500).json({ success: false, results: { isSearched: false, reason: error } });
-            res.send({ counts: results.length, results }); 
+            return res.send({ counts: results.length, results }); 
         }) 
     }) 
 }); 
