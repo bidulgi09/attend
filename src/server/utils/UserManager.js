@@ -38,7 +38,7 @@ const UserManager = {
     },
     async uploadProfileImage(formData, user) {
         try {
-            let res = await api.post('/uploads', this.headers, { formData: formData });
+            let res = await api.post('/upload', this.headers, { formData: formData });
             return res;
         } catch(e) {
             console.log(e);

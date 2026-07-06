@@ -46,8 +46,7 @@ app.post('/upload', upload.single('profileImage'), (req, res) => {
             if(error) return res.status(500).json({ success: false, results: { isUploaded: false, reason: error }});
             res.send({ success: true, results: { isUploaded: true }});
         });
-    })
-    res.send('ok');
+    });
 })
 app.get('/api/userList', (req, res) => { 
     pool.getConnection(function(err, connection) { 
