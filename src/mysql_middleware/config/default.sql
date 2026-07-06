@@ -2,6 +2,7 @@ CREATE TABLE "students" (
     "id" varchar(8) NOT NULL,
     "name" varchar(50) NOT NULL,
     "email" varchar(100) NOT NULL,
+    "avatar" MEDIUMTEXT NOT NULL,
     "password_hash" varchar(255) DEFAULT NULL,
     "role" varchar(100) DEFAULT'Student',
     "log" json DEFAULT(json_array()),

@@ -9,7 +9,8 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import checkDomainServer from "./utils/checkDomainServer.js";
-import authenticateToken from"./utils/authenticateToken.js";
+import authenticateToken from "./utils/authenticateToken.js";
+import upload from "./utils/upload.js"
 
 dotenv.config({ path: '.env' });
 
@@ -36,12 +37,24 @@ app.get("/ping", (req, res) => {
     res.json({ message: "pong" });
 });
 
+app.post('/upload', upload.single('profileImage'), (req, res) => {
+    pool.getConnection(function(err, connection) {
+        if(err) return res.status(500).json({ success: false, results: { isUploaded: false, reason: err } });
+        let table = user.role === "Student" ? "students" : "teachers"
+        connection.query(`UPDATE ${table} SET avatar = ? WHERE id = ?`, [req.file.path, req.body.id], function(error, results, fields) {
+            connection.release();
+            if(error) return res.status(500).json({ success: false, results: { isUploaded: false, reason: error }});
+            res.send({ success: true, results: { isUploaded: true }});
+        });
+    })
+    res.send('ok');
+})
 app.get('/api/userList', (req, res) => { 
     pool.getConnection(function(err, connection) { 
         if(err) return res.status(500).json({ success: false, results: { isSearched: false, reason: err } });
         connection.query("SELECT id, name, email, role FROM students UNION ALL SELECT id, name, email, role FROM teachers;", function(error, results, fields) {
             connection.release(); 
-            if(error) return res.status(500).json({ success: false, results: { isSearched: false, reason: err } });
+            if(error) return res.status(500).json({ success: false, results: { isSearched: false, reason: error } });
             res.send({ counts: results.length, results }); 
         }) 
     }) 

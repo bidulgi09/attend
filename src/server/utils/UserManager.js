@@ -1,12 +1,12 @@
 import api from './api.js'; 
 const UserManager = { 
     headers: { "Content-Type": "application/json",'Authorization': `Bearer test`, },
-    async check(email, username) {
-        let res = await api.post('/api/check', this.headers, { email, username });
+    async check(email, id) {
+        let res = await api.post('/api/check', this.headers, { email, id });
         return res;
     },
-    async signUp(username, email, password, role) {
-        let res = await api.post('/api/signUp', this.headers, { username, email, password, role }); 
+    async signUp(id, email, password, role) {
+        let res = await api.post('/api/signUp', this.headers, { id, email, password, role }); 
         return res; 
     },
     async profile() {
@@ -18,9 +18,9 @@ const UserManager = {
             return {};
         }
     },
-    async logIn(username, password, role) {
+    async logIn(id, password, role) {
         try {
-            let res = await api.post('/api/logIn', this.headers, { username, password, role });
+            let res = await api.post('/api/logIn', this.headers, { id, password, role });
             return res;
         } catch(e) {
             console.log(e);
@@ -30,6 +30,15 @@ const UserManager = {
     async logOut() {
         try {
             let res = await api.post('/api/logOut', this.headers);
+            return res;
+        } catch(e) {
+            console.log(e);
+            return {};
+        }
+    },
+    async uploadProfileImage(formData, user) {
+        try {
+            let res = await api.post('/uploads', this.headers, { formData: formData });
             return res;
         } catch(e) {
             console.log(e);

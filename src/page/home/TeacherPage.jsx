@@ -74,11 +74,11 @@ function TeacherPage({ user, setUser }) {
                         <img src={(user && user.avatar) ? user.avatar : 'https://ohsobserver.com/wp-content/uploads/2022/12/Guest-user.png'} alt="Profile" />
                     </div>
                     <div className='name row-wrapper'>
-                        <p>{user.isLogin ? user.nickname : 'Guest'}</p>
+                        <p>{user.isLogin ? user.name : 'Guest'}</p>
                         <img className='edit-icon' src={edit} width='12vh' height='12vh' />
                     </div>
                     <div className='grade'>
-                        {user ? user.username : 'N/A'}
+                        {user ? user.id : 'N/A'}
                     </div>
                     <form className='attendence-form-side'>
                         <input type="text" placeholder="학생 추가 (00-00000)"></input>
