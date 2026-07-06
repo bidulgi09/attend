@@ -40,14 +40,13 @@ app.get("/ping", (req, res) => {
 app.post('/upload', upload.single('file'), (req, res) => {
     if(!req.file) return res.status(500).json({ success: true, results: { isUploaded: false, reason: "Cannot find uploaded file."}});
     console.log(req.file);
-    console.log(req.body);
-    console.log(req.user);
-    console.log(Object.keys(req));
-    if(!req.user || !req.user.role) return res.send({ success: true, results: { isUploaded: false, reason: "Unknown User."} }); 
+    console.log(req.body.user);
+    console.log(typeof req.body.user);
+    if(!req.body.user || !req.body.user.role) return res.send({ success: true, results: { isUploaded: false, reason: "Unknown User."} }); 
     pool.getConnection(function(err, connection) {
         if(err) return res.sens({ success: true, results: { isUploaded: false, reason: err } });
-        let table = req.user.role === "Student" ? "students" : "teachers"
-        connection.query(`UPDATE ${table} SET avatar = ? WHERE id = ?`, [req.file.path, req.user.id], function(error, results, fields) {
+        let table = req.body.user.role === "Student" ? "students" : "teachers"
+        connection.query(`UPDATE ${table} SET avatar = ? WHERE id = ?`, [req.file.path, req.body.user.id], function(error, results, fields) {
             connection.release();
             if(error) return res.send({ success: true, results: { isUploaded: false, reason: error }});
             return res.send({ success: true, results: { isUploaded: true }});
