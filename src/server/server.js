@@ -7,10 +7,11 @@ import mysql from "mysql2";
 import dbconfig from "../mysql_middleware/config/database.js"; 
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { createClient } from '@supabase/supabase-js';
 import { v4 as uuidv4 } from "uuid";
 import checkDomainServer from "./utils/checkDomainServer.js";
 import authenticateToken from "./utils/authenticateToken.js";
-import upload from "./utils/upload.js"
+import multer from 'multer';
 
 dotenv.config({ path: '.env' });
 
@@ -18,6 +19,15 @@ const app = express();
 const port = process.env.PORT || 5000; 
 const pool = mysql.createPool(dbconfig); 
 const salt = 12;
+
+const SUPABASE_URL = 'https://axpxtxdyknjciwomxulh.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_kPhXQFcrsvcGAgVV0K5E4Q_5ASLXCgZ'; 
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const upload = multer({
+    storage: multer.memoryStorage()
+});
 
 app.use(cors({
     origin: [
@@ -37,16 +47,29 @@ app.get("/ping", (req, res) => {
     res.json({ message: "pong" });
 });
 
-app.post('/upload', upload.single('file'), (req, res) => {
+app.post('/upload', upload.single('file'), async (req, res) => {
     if(!req.file) return res.status(500).json({ success: true, results: { isUploaded: false, reason: "Cannot find uploaded file."}});
+    
+    const filename = `${Date.now()}_${req.file.originalname}`;
+    const { data, error } = await supabase.storage
+        .from('avatars')
+        .upload(filename, req.file.buffer, {
+            contentType: req.file.mimetype,
+            upsert: true
+        });
+    if(error) return res.send({ success: true, results: { isUploaded: false, reason: error } });
+    
+    const { data: { publicUrl } } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(fileName);
     let user = JSON.parse(req.body.user);
     if(!user || !user.role) return res.send({ success: true, results: { isUploaded: false, reason: "Unknown User."} }); 
     pool.getConnection(function(err, connection) {
         if(err) return res.sens({ success: true, results: { isUploaded: false, reason: err } });
         let table = user.role === "Student" ? "students" : "teachers"
-        connection.query(`UPDATE ${table} SET avatar = ? WHERE id = ?`, [req.file.path, user.id], function(error, results, fields) {
+        connection.query(`UPDATE ${table} SET avatar = ? WHERE id = ?`, [publicUrl, user.id], function(errors, results, fields) {
             connection.release();
-            if(error) return res.send({ success: true, results: { isUploaded: false, reason: error }});
+            if(errors) return res.send({ success: true, results: { isUploaded: false, reason: errors }});
             return res.send({ success: true, results: { isUploaded: true }});
         });
     });
