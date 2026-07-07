@@ -56,7 +56,8 @@ function StudentPage({ user, setUser }) {
         formData.append('file', file);
         formData.append('user', JSON.stringify(user));
         
-        UserManager.uploadProfileImage(formData, user);
+        let res = UserManager.uploadProfileImage(formData, user);
+        setUser({...user, avatar: res.results.url});
     };
 
     return (
