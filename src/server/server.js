@@ -48,6 +48,7 @@ app.get("/ping", (req, res) => {
 });
 
 app.post('/upload', upload.single('file'), async (req, res) => {
+    try{ 
     if(!req.file) return res.status(500).json({ success: true, results: { isUploaded: false, reason: "Cannot find uploaded file."}});
     
     const filename = `${Date.now()}_${req.file.originalname}`;
@@ -73,6 +74,9 @@ app.post('/upload', upload.single('file'), async (req, res) => {
             return res.send({ success: true, results: { isUploaded: true }});
         });
     });
+    } catch(e) {
+        return res.send(e);
+    }
 })
 app.get('/api/userList', (req, res) => { 
     pool.getConnection(function(err, connection) { 
