@@ -51,7 +51,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     try{ 
     if(!req.file) return res.status(500).json({ success: true, results: { isUploaded: false, reason: "Cannot find uploaded file."}});
     
-    const filename = `${Date.now()}_${req.file.originalname}`;
+    const fileName = `${Date.now()}_${req.file.originalname}`;
     const { data, error } = await supabase.storage
         .from('avatars')
         .upload(filename, req.file.buffer, {
