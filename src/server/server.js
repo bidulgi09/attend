@@ -66,12 +66,12 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     let user = JSON.parse(req.body.user);
     if(!user || !user.role) return res.send({ success: true, results: { isUploaded: false, reason: "Unknown User."} }); 
     pool.getConnection(function(err, connection) {
-        if(err) return res.sens({ success: true, results: { isUploaded: false, reason: err } });
+        if(err) return res.send({ success: true, results: { isUploaded: false, reason: err } });
         let table = user.role === "Student" ? "students" : "teachers"
         connection.query(`UPDATE ${table} SET avatar = ? WHERE id = ?`, [publicUrl, user.id], function(errors, results, fields) {
             connection.release();
             if(errors) return res.send({ success: true, results: { isUploaded: false, reason: errors }});
-            return res.send({ success: true, results: { isUploaded: true }});
+            return res.send({ success: true, results: { isUploaded: true, url: publicUrl }});
         });
     });
     } catch(e) {

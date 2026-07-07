@@ -11,7 +11,7 @@ import HeaderBar from './components/HeaderBar';
 
 function App() {
     let [status, setStatus] = useState(false);
-    const [user, setUser] = useState( localStorage.getItem('user_session') ?
+    const [user, setUser] = useState(localStorage.getItem('user_session') ?
         JSON.parse(localStorage.getItem('user_session')) :
         { 
             nickname: null,
