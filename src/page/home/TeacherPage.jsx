@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './TeacherStyles.css';
 import { Helmet } from 'react-helmet-async';
 import edit from '../../assets/edit.png';
@@ -11,7 +11,10 @@ import NotesTab from '../../components/NotesTab';
 import LogTab from '../../components/LogTab';
 import QRCode from '../../components/QRCode';
 
+import UserManager from '../../server/utils/UserManager';
+
 function TeacherPage({ user, setUser }) {
+    const fileInputRef = useRef(null);
     const [ generatedURL, setGeneratedURL ] = useState('');
     const [ QRStatus, setQRStatus ] = useState(false);
     const removeLink = function() {
