@@ -48,7 +48,7 @@ function StudentPage({ user, setUser }) {
         fileInputRef.current?.click();
     };
 
-    const handleFileChange = (e) => {
+    const handleFileChange = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
 
@@ -56,7 +56,8 @@ function StudentPage({ user, setUser }) {
         formData.append('file', file);
         formData.append('user', JSON.stringify(user));
         
-        let res = UserManager.uploadProfileImage(formData, user);
+        let res = await UserManager.uploadProfileImage(formData, user);
+        console.log(res);
         setUser({...user, avatar: res.results.url});
     };
 
@@ -66,7 +67,7 @@ function StudentPage({ user, setUser }) {
                 <title>출첵커 | 홈</title>
             </Helmet>
             <form>
-                <input type="file" name="profileImage" ref={ fileInputRef } onChange={ handleFileChange }style={{ display: "none" }}/>
+                <input type="file" name="profileImage" ref={ fileInputRef } onChange={ async() => { handleFileChange } }style={{ display: "none" }}/>
             </form>
             <div className='main'>
                 <form className='attendence-form-main'>
