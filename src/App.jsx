@@ -18,7 +18,7 @@ function App() {
             name: null,
             role: "Student",
             email: null,
-            password: null,
+            avatar: null,
             isLogin: false
         }
     );

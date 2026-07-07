@@ -82,7 +82,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 app.get('/api/userList', (req, res) => { 
     pool.getConnection(function(err, connection) { 
         if(err) return res.status(500).json({ success: false, results: { isSearched: false, reason: err } });
-        connection.query("SELECT id, name, email, role FROM students UNION ALL SELECT id, name, email, role FROM teachers;", function(error, results, fields) {
+        connection.query("SELECT id, name, email, role, avatar FROM students UNION ALL SELECT id, name, email, role, avatar FROM teachers;", function(error, results, fields) {
             connection.release(); 
             if(error) return res.status(500).json({ success: false, results: { isSearched: false, reason: error } });
             return res.send({ counts: results.length, results }); 
@@ -273,7 +273,7 @@ app.get('/api/profile', authenticateToken, (req, res) => {
         }
         let table = req.user.role === "Student" ? "students" : "teachers";
         let data = [req.user.id];
-        connection.query(`SELECT id, email, name, role FROM ${table} WHERE id=?;`, data, function(error, results, fields) {
+        connection.query(`SELECT id, email, name, role, avatar FROM ${table} WHERE id=?;`, data, function(error, results, fields) {
             connection.release();
             if(error) {
                 res.status(500).json({ success: false, results: { isLoaded: false, reason: "Fail to search" } });
