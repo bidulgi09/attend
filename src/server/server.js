@@ -75,6 +75,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
         });
     });
     } catch(e) {
+        console.log(e);
         return res.send(e);
     }
 })
