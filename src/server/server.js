@@ -93,7 +93,7 @@ app.get('/api/userList', (req, res) => {
 app.post('/api/check', (req, res) => { 
     pool.getConnection(function(err, connection) { 
         if(err) return res.status(500).json({ success: false, results: { isAvailable: false, reason: err } });
-        let data = [ req.body.email, req.body.id, req.body.role, req.body.email, req.body.id, req.body.role ]; 
+        let data = [ req.body.email, req.body.id, req.body.email, req.body.id ]; 
         connection.query('SELECT email, id, role FROM students WHERE email=? OR id=? UNION ALL SELECT email, id, role FROM teachers WHERE email=? OR id=?;', data, async function(error, results, fields) { 
             connection.release(); 
             if(error) { 

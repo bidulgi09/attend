@@ -49,16 +49,19 @@ function StudentPage({ user, setUser }) {
     };
 
     const handleFileChange = async (e) => {
+        alert("프로필 업로드 중");
         const file = e.target.files[0];
-        if (!file) return;
+        
+        if (!file) return alert("프로필 업로드 실패");
 
         const formData = new FormData();
         formData.append('file', file);
         formData.append('user', JSON.stringify(user));
         
         let res = await UserManager.uploadProfileImage(formData, user);
-        console.log(res);
+        
         setUser({...user, avatar: res.results.url});
+        return alert("프로필 업로드 완료");
     };
 
     return (
@@ -67,7 +70,7 @@ function StudentPage({ user, setUser }) {
                 <title>출첵커 | 홈</title>
             </Helmet>
             <form>
-                <input type="file" name="profileImage" ref={ fileInputRef } onChange={ async() => { handleFileChange } }style={{ display: "none" }}/>
+                <input type="file" name="profileImage" ref={ fileInputRef } onChange={ handleFileChange }style={{ display: "none" }}/>
             </form>
             <div className='main'>
                 <form className='attendence-form-main'>

@@ -55,11 +55,33 @@ function TeacherPage({ user, setUser }) {
     { date: "2023-01-12", status: "출석", subject: "코딩" },
     { date: "2023-01-13", status: "결과", subject: "국어" }
 ];
+    const handleProfileClick = () => {
+        fileInputRef.current?.click();
+    };
+
+    const handleFileChange = async (e) => {
+        alert("프로필 업로드 중");
+        const file = e.target.files[0];
+        
+        if (!file) return alert("프로필 업로드 실패");
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('user', JSON.stringify(user));
+        
+        let res = await UserManager.uploadProfileImage(formData, user);
+        
+        setUser({...user, avatar: res.results.url});
+        return alert("프로필 업로드 완료");
+    };
     return (
         <div className="TeacherPage">
             <Helmet>
                 <title>출첵커 | 홈</title>
             </Helmet>
+            <form>
+                <input type="file" name="profileImage" ref={ fileInputRef } onChange={ handleFileChange }style={{ display: "none" }}/>
+            </form>
             <div className='main'>
                 <form className='attendence-form-main'>
                     <input type="text" placeholder="학생 추가 (00-00000)"></input>
@@ -70,8 +92,8 @@ function TeacherPage({ user, setUser }) {
             <div className='profile-tab contents-wrapper'>
                 <GhostBox/>
                 <div className='profile-info-wrapper'>
-                    <div className='profile-img'>
-                        <img src={(user && user.avatar) ? user.avatar : 'https://ohsobserver.com/wp-content/uploads/2022/12/Guest-user.png'} alt="Profile" />
+                    <div className='profile-img' onClick={ handleProfileClick }>
+                        <img src={(user && user.avatar) ? user.avatar : 'src/uploads/guest_profile.png'} alt="Profile" />
                     </div>
                     <div className='name row-wrapper'>
                         <p>{user.isLogin ? user.name : 'Guest'}</p>
