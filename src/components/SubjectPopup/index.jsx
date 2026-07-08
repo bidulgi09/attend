@@ -13,20 +13,21 @@ function SubjectPopup ({ isopen, user }) {
         setData(Object.assign(data, {days: Array.from(document.getElementsByClassName("dayName")).filter(v => v.checked).map(v => v.value)}));
     }
     const setSubject = function(event) {
-        setData(Object.assign(data, { subject: event.target.value }));
+        setData(Object.assign(data, { name: event.target.value }));
     }
-    const addSubject = function(event) {
+    const addSubject = async function(event) {
         event.preventDefault();
-        let res = SubjectManager.addSubject(data);
+        console.log(data);
+        let res = await SubjectManager.addSubject(data);
         console.log(res);
-        UserManager.connectSubject(user, res.results.subject.id);
+        //UserManager.connectSubject(user, res.results.subject.id);
     }
     return (
         <div className="SubjectPopup" isopen={isopen.toString()}>
             <form className="subject-form" onChange={setDays} onSubmit={(e) => e.preventDefault()}>
                 <p className="title">과목 추가</p>
                 <div className="subject-input">
-                    <input type="text" className="subject" placeholder='과목 입력' value={data.subject} onChange={setSubject}></input>
+                    <input type="text" className="subject" placeholder='과목 입력' value={data.name} onChange={setSubject}></input>
                     <button className = "subject-submit" onClick={addSubject}>추가</button>
                 </div>
                 <span>요일 선택</span>
