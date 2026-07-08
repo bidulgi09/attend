@@ -427,6 +427,7 @@ app.get('/api/subjectList', (req, res) => {
         if(err) return res.status(500).json({ success: false, results: { isLoaded: false, reason: err }});
         connection.query(
             `SELECT 
+                a.id AS id,
                 a.subject_id AS subject_id, c.name AS subject_name, 
                 a.teacher_id AS teacher_id, a.days AS subject_days, 
                 COALESCE(
