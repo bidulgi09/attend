@@ -55,6 +55,7 @@ const UserManager = {
     },
     async connectSubject(subject, user) {
         try {
+            console.log({ subject, teacher: user });
             let res = await api.post('/api/connectSubject', this.headers, { subject, teacher: user });
         } catch(e) {
             return {};

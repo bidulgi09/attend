@@ -111,7 +111,7 @@ function TeacherPage({ user, setUser }) {
             <Helmet>
                 <title>출첵커 | 홈</title>
             </Helmet>
-            <SubjectPopup isopen={isPopup}/>
+            <SubjectPopup isopen={isPopup} user={user}/>
             <form>
                 <input type="file" name="profileImage" ref={ fileInputRef } onChange={ handleFileChange }style={{ display: "none" }}/>
             </form>
