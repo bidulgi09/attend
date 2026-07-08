@@ -4,7 +4,7 @@ import './styles.css';
 import SubjectManager from '../../server/utils/SubjectManager.js';
 import UserManager from '../../server/utils/UserManager.js';
 
-function SubjectPopup ({ isopen, user }) {
+function SubjectPopup ({ isopen, setIsOpen, user }) {
     const [data, setData] = useState({
         name: null,
         days: []
@@ -24,6 +24,7 @@ function SubjectPopup ({ isopen, user }) {
     }
     return (
         <div className="SubjectPopup" isopen={isopen.toString()}>
+            <div className="close" onClick={() => setIsOpen(!isOpen)}>X</div>
             <form className="subject-form" onChange={setDays} onSubmit={(e) => e.preventDefault()}>
                 <p className="title">과목 추가</p>
                 <div className="subject-input">

@@ -18,6 +18,13 @@
     z-index: 20;
     pointer-events: none;
     transition: .2s all ease;
+    padding: 2dvh;
+    & .close {
+        display: flex;
+        justify-content: right;
+        width: 100%;
+        height: 100%;
+    }
     & .subject-form {
         display: flex;
         width: 100%;
