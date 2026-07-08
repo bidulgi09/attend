@@ -393,7 +393,7 @@ app.post('/api/addSubject', (req, res) => {
         if(err) return res.status(500).json({ success: false, results: { isAdded: false, reason: err }});
         connection.query("INSERT INTO subjects (name) VALUES (?)", [req.body.name], function(error, result, fields) {
             connection.release();
-            if(error) return res.json({ success: false, results: { isAdded: false, reason: "Could not Insert Subject" }});
+            if(error) return res.json({ success: false, results: { isAdded: false, reason: error}});
             res.json({ success: true, results: { id: result.insertId }});
         })
     })
