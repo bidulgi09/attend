@@ -402,7 +402,7 @@ app.post('/api/connectSubject', (req, res) => {
     pool.getConnection(function(err, connection) {
             console.log(req.body);
         if(err) return res.status(500).json({ success: false, results: { isConnected: false, reason: err }});
-        connection.query("INSERT INTO subject_teachers (subject_id, teacher_id, days) VALUE (?, ?, ?)", [req.body.subject.id, req.body.teacher.id, req.body.subject.days], function(error, result, fields) {
+        connection.query("INSERT INTO subject_teachers (subject_id, teacher_id, days) VALUE (?, ?, ?)", [req.body.subject.id, req.body.teacher.id, JSON.stringify(req.body.subject.days)], function(error, result, fields) {
             connection.release();
             if(error) return res.json({ success: false, results: { isConnected: false, reason: error }});
             return res.json({ success: true, results: { isConnected: true, insertId: res.insertId }});
