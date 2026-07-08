@@ -391,8 +391,20 @@ app.post('/api/addSubject', (req, res) => {
     pool.getConnection(function(err, connection) {
         if(err) return res.status(500).json({ success: false, results: { isAdded: false, reason: err }});
         connection.query("INSERT INTO subjects (name) VALUES (?)", [req.body.name], function(error, result, fields) {
+            if(error) {
+                if(error.code === "ER_DUP_ENTRY") {
+                    connection.query("SELECT id FROM subjects WHERE name=?", [req.body.name], function(error2, result2) {
+                        connection.release();
+                        if(error2) 
+                            return res.json({ success: false, results: { isAdded: false, reason: error2 } });
+                        return res.json({ success: true, results: { isAdded: true, subject: { id: result2[0].id } } });
+                    });
+                } else {
+                    connection.release();
+                    return res.json({ success: false, results: { isAdded: false, reason: error }});
+                }
+            }
             connection.release();
-            if(error) return res.json({ success: false, results: { isAdded: false, reason: error}});
             return res.json({ success: true, results: { isAdded: true, subject: { id: result.insertId } } });
         });
     });
