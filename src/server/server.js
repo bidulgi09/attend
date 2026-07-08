@@ -429,6 +429,9 @@ app.get('/api/subjectList', (req, res) => {
             GROUP BY a.subject_id, c.name, a.teacher_id, a.days`, function(error, result, fields) {
                 connection.release();
                 if(error) return res.json({ success: false, results: { isLoaded: false, reason: error }});
+                result = results.forEach(v => {
+                    return v.students = JSON.parse(v.students);
+                });
                 return res.json({ success: true, results: { isLoaded: true, list: result }}); 
             })
     })
