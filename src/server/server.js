@@ -424,7 +424,7 @@ app.get('/api/subjectList', (req, res) => {
             GROUP BY b.subject_id, c.name, b.teacher_id, b.days`, function(error, result, fields) {
                 connection.release();
                 if(error) return res.json({ success: false, results: { isLoaded: false, reason: error }});
-                return res.sjon({ success: true, results: { isLoaded: true, list: result }}); 
+                return res.json({ success: true, results: { isLoaded: true, list: result }}); 
             })
     })
 })
