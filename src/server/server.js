@@ -418,7 +418,7 @@ app.get('/api/getSubjectsInfo', (req, res) => {
                 b.subject_id AS subject_id, c.name AS subject_name, b.teacher_id AS teacher_id, b.days AS subject_days, JSON_ARRAYAGG(a.student_id) AS students 
             FROM subject_students AS a 
             INNER JOIN subject_teachers AS b 
-                ON a.teacher_id = b.subject_teacher_id 
+                ON b.teacher_id = a.subject_teacher_id 
             INNER JOIN subjects AS c 
                 ON b.subject_id = c.id 
             GROUP BY b.subject_id, c.name, b.teacher_id, b.days`, function(error, result, fields) {
