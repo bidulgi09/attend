@@ -97,7 +97,7 @@ function SignupPage({ user, setUser }) {
                 <title>출첵커 | 회원가입</title>
             </Helmet>
             <div className='signup'>
-                <Link to="/">
+            <Link className="logo" to="/">
                     <Logo fill="red" />
                 </Link>
                 <form>

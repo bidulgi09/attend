@@ -24,7 +24,7 @@ function SubjectPopup ({ isopen, setIsOpen, user }) {
     }
     return (
         <div className="SubjectPopup" isopen={isopen.toString()}>
-            <div className="close" onClick={() => setIsOpen(!isOpen)}>X</div>
+            <div className="close" onClick={() => setIsOpen(!isopen)}>X</div>
             <form className="subject-form" onChange={setDays} onSubmit={(e) => e.preventDefault()}>
                 <p className="title">과목 추가</p>
                 <div className="subject-input">
