@@ -410,7 +410,7 @@ app.post('/api/connectSubject', (req, res) => {
     })
 });
 
-api.get('/api/getSubjectsInfo', (req, res) => {
+app.get('/api/getSubjectsInfo', (req, res) => {
     pool.getConnection(function(err, connection) {
         if(err) return res.status(500).json({ success: false, results: { isLoaded: false, reason: err }});
         connection.query(
