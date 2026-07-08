@@ -25,7 +25,7 @@ function SubjectPopup ({ isopen, user }) {
                 <p className="title">과목 추가</p>
                 <div className="subject-input">
                     <input type="text" className="subject" placeholder='과목 입력' value={data.subject} onChange={setSubject}></input>
-                    <button className = "subject-submit">추가</button>
+                    <button className = "subject-submit" onClick={addSubject}>추가</button>
                 </div>
                 <span>요일 선택</span>
                 <div className="days">
