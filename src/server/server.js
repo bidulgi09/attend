@@ -47,7 +47,7 @@ app.get("/ping", (req, res) => {
     res.json({ message: "pong" });
 });
 
-app.post('/upload', upload.single('file'), async (req, res) => {
+app.post('/api/upload', upload.single('file'), async (req, res) => {
     try{ 
     if(!req.file) return res.status(500).json({ success: true, results: { isUploaded: false, reason: "Cannot find uploaded file."}});
     
@@ -89,7 +89,6 @@ app.get('/api/userList', (req, res) => {
         }) 
     }) 
 }); 
-
 app.post('/api/check', (req, res) => { 
     pool.getConnection(function(err, connection) { 
         if(err) return res.status(500).json({ success: false, results: { isAvailable: false, reason: err } });
@@ -112,7 +111,6 @@ app.post('/api/check', (req, res) => {
         }); 
     }); 
 }); 
-
 app.post('/api/signUp', (req, res) => {
     pool.getConnection(function(err, connection) { 
         if(err) return res.status(500).json({ success: false, results: { insertedId: -1, reason: err } });
@@ -139,7 +137,6 @@ app.post('/api/signUp', (req, res) => {
         }); 
     }); 
 });
-
 app.post('/api/deleteAccount', (req, res) => {
     pool.getConnection(function(err, connection) { 
         if(err) return res.status(500).json({ success: false, results: { isDeleted: false, reason: err } });
@@ -172,7 +169,6 @@ app.post('/api/deleteAccount', (req, res) => {
         }); 
     }); 
 });
-
 app.post('/api/logIn', (req, res) => {
     const REFRESH_TOKEN_EXPIRED_IN=(()=>new Date(Date.now() + 7*24*60*60*1000))();
     const ACCESS_TOKEN_EXPIRED_IN=(()=>new Date(Date.now() + 3*60*60*1000))();
@@ -227,7 +223,6 @@ app.post('/api/logIn', (req, res) => {
         });
     });
 });
-
 app.post('/api/logOut', (req, res) => {
     pool.getConnection(function(err, connection) {
         if(err) return res.status(500).json({ success: false, results: { isLogOut: false, reason: err } });
@@ -284,7 +279,6 @@ app.get('/api/profile', authenticateToken, (req, res) => {
         });
     });
 });
-
 app.post('/api/refresh', (req, res) => {
     const REFRESH_TOKEN_EXPIRED_IN=(()=>new Date(Date.now() + 7*24*60*60*1000))();
     const ACCESS_TOKEN_EXPIRED_IN=(()=>new Date(Date.now() + 3*60*60*1000))();
@@ -342,7 +336,6 @@ app.post('/api/refresh', (req, res) => {
         });
     });
 });
-
 app.patch('/api/password', (req, res) => {
     pool.getConnection(function(err, connection) {
         if(err) {
@@ -394,6 +387,17 @@ app.patch('/api/password', (req, res) => {
     });
 });
 
+
+app.post('/api/addSubject', (req, res) => {
+    pool.getConnection(function(err, connection) {
+        if(err) return res.status(500).json({ success: false, results: { isAdded: false, reason: err }});
+        connection.query("INSERT INTO subjects (name) VALUES (?)", [req.body.name], function(error, result, fields) {
+            connection.release();
+            if(error) return res.json({ success: false, results: { isAdded: false, reason: "Could not Insert Subject" }});
+            res.json({ success: true, results: { id: result.insertId }});
+        })
+    })
+})
 app.listen(port, () => { 
     console.log("Example Server is Listening at http://localhost:" + port); 
 });

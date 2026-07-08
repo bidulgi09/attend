@@ -1,6 +1,9 @@
+@import "/src/font.css";
 .TeacherPage {
     display: flex;
     flex: 1;
+    justify-content: center;
+    align-items: center;
     position: relative;
     height: 100%;
     width: 100%;
@@ -33,6 +36,7 @@
     justify-content: space-between;
     align-items: center;
     padding-bottom: 15px;
+    height: 100%;
     flex: 1;
     z-index: 10;
     background-color: rgba(233, 233, 233, 0.03);
@@ -77,19 +81,65 @@
     justify-content: center;
     align-items: center;
     gap: 5px;
+    & .dropdown {
+        display: flex;
+    }
+    & .dropdown-box {
+        display: flex;
+        position: relative;
+        & .dropdown-placeholder {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            box-sizing: border-box;
+            display: inline-block;
+            height: 5dvh;
+            width: 12dvh;
+            border: none;
+            font-family: appleNeo;
+            z-index: 10;
+        }
+        & .dropdown-menu {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            border-radius: 10px;
+            border: none;
+            padding: 1dvh;
+            padding-top: 3dvh;
+            left: 0;
+            right: 0;
+            z-index: 5;
+            background-color: rgb(255, 255, 255);
+            color: black;
+            & dropdown-item {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                list-style-type: none;
+            }
+            & .add-btn {
+                border: none;
+                background-color: rgba(0,0,0,0);
+                font-size: 1.5dvh;
+            }
+        }
+    }
     & input {
         box-sizing: border-box;
         display: inline-block;
         text-align: center;
-        border-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
         border: none;
         height: 5dvh;
-        width: 24dvh;
+        width: 20dvh;
         &::placeholder {
             text-align: center;
+            font-family: appleNeo;
         }
     }
-    & button {
+    & .createQR {
         box-sizing: border-box;
         display: inline-block;
         text-align: center;

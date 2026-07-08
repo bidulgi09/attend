@@ -35,15 +35,15 @@ function SignupPage({ user, setUser }) {
             if(login.success) {
                 let profile = await UserManager.profile();
                 console.log(JSON.stringify(profile, null, 4))
-                setUser({...profile.results.user, isLogin: true});
+                setUser(Object.assign(profile.results.user, {isLogin: true}));
                 setInfo({ name: '', password: '', email: '', role: '' });
                 alert("가입 성공");
             } else {
-                setUser({...user, isLogin: false});
+                setUser(Object.assign(user, {isLogin: false}));
                 alert("가입  실패\n" + JSON.stringify(data));
             }
         } else {
-            setUser({...user, isLogin: false});
+            setUser(Object.assign(user, {isLogin: false}));
             alert("가입  실패\n" + JSON.stringify(data));
         }
         return;

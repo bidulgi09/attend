@@ -36,7 +36,7 @@
     "yaml": "^2.9.0"
   },
   "scripts": {
-    "start": "vite",
+    "start": "vite --host",
     "build": "vite build",
     "serve": "vite preview",
     "server": "nodemon src/server/server.js",

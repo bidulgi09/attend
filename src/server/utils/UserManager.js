@@ -38,10 +38,18 @@ const UserManager = {
     },
     async uploadProfileImage(formData, user) {
         try {
-            let res = await api.post('/upload', { "Content-Type": "multipart/form-data",'Authorization': `Bearer test` }, formData);
+            let res = await api.post('/api/upload', { "Content-Type": "multipart/form-data",'Authorization': `Bearer test` }, formData);
             return res;
         } catch(e) {
             console.log(e);
+            return {};
+        }
+    },
+    async userList() {
+        try {
+            let res = await api.get('/api/userList', this.headers);
+            return res;
+        } catch(e) {
             return {};
         }
     }

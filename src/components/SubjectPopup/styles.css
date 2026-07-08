@@ -1,0 +1,89 @@
+@import "/src/font.css";
+.SubjectPopup {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 20dvh;
+    width: 20dvh;
+    font-size: 0;
+    font-family: appleNeo;
+    background-color: rgba(34, 40, 49, 0.8);
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    visibility: hidden;
+    opacity: 0;
+    z-index: 20;
+    pointer-events: none;
+    transition: .2s all ease;
+    & .subject-form {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        & .title {
+            font-family: appleNeo;
+            font-weight: bold;
+            font-size: 0vh;
+            transition: .2s all ease;
+        }
+        & .subject-input {
+            margin-bottom: 5vh;
+            & .subject {
+                display: inline-block;
+                box-sizing: border-box;
+                vertical-align: middle;
+                text-align: center;
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px;
+                border: none;
+                height: 6dvh;
+                width: 20vh;
+                &::placeholder {
+                    text-align: center;
+                    font-family: appleNeo;
+                }
+            }
+            & .subject-submit {
+                display: inline-block;
+                box-sizing: border-box;
+                vertical-align: middle;
+                border-top-right-radius: 10px;
+                border-bottom-right-radius: 10px;
+                border: none;
+                height: 6dvh;
+                width: 10vh;
+                font-family: appleNeo;
+                background-color: rgb(118, 171, 174);
+            }
+        }
+        & .days {
+            display: flex;
+            flex-direction: row;
+            & .day {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+}
+
+.SubjectPopup[isopen='true'] {
+    height: 50dvh;
+    width: 60dvh;
+    font-size: 2dvh;
+    pointer-events: all;
+    visibility: visible;
+    opacity: 1;
+    & .title {
+        font-family: appleNeo;
+        font-weight: bold;
+        font-size: 4vh;
+        transition: .2s all ease;
+    }
+}

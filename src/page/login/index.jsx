@@ -25,11 +25,11 @@ function LoginPage({user, setUser}) {
         if(data.success) {
             let profile = await UserManager.profile();
             console.log(JSON.stringify(profile, null, 4))
-            setUser({...profile.results.user, isLogin: true});
+            setUser(Object.assign(profile.results.user, {isLogin: true}));
             setInfo({ name: '', password: '', role: 'Student' });
             alert("로그인 성공");
         } else {
-            setUser({...user, isLogin: false});
+            setUser(Object.assign(user, {isLogin: false}));
             alert("로그인  실패\n" + JSON.stringify(data));
         }
         return setIsLoading(false);

@@ -1,10 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './TeacherStyles.css';
 import { Helmet } from 'react-helmet-async';
 import edit from '../../assets/edit.png';
 
 import banner from '../../assets/배너.png';
 
+import SubjectPopup from '../../components/SubjectPopup';
 import GhostBox from '../../components/GhostBox';
 import Schedule from '../../components/Schedule';
 import NotesTab from '../../components/NotesTab';
@@ -14,9 +15,37 @@ import guest_profile from '../../uploads/guest_profile.png';
 import UserManager from '../../server/utils/UserManager';
 
 function TeacherPage({ user, setUser }) {
+    const [ isOpen, setIsOpen ] = useState(false);
+    const [ items, setItems ] = useState([]);
+    const [ isPopup, setIsPopup ] = useState(false);
+    const dropdownRef = useRef(null);
+
     const fileInputRef = useRef(null);
     const [ generatedURL, setGeneratedURL ] = useState('');
     const [ QRStatus, setQRStatus ] = useState(false);
+    const [ studentID, setStudentID ] = useState('');
+
+    const handleAddItem = function() {
+        setIsPopup(!isPopup)
+    }
+    useEffect(() => {
+        function handleClickOutSide(event) {
+            if(dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutSide);
+        return () => document.removeEventListener('mousedown', handleClickOutSide);
+    }, []);
+    const addStudent = function(event) {
+        if(/[^\d]/.test(event.target.value)) {
+            event.target.value = event.target.value.replace(/[^\d]/g, '');
+        }
+        let val = event.target.value.replace(/[^\d]/g, '');
+        if(val.length > 2) {
+            event.target.value = val.substring(0, 2) + '-' + val.substring(2, 7);
+        }
+    }
     const removeLink = function() {
         setQRStatus(false);
         setGeneratedURL('');
@@ -74,7 +103,7 @@ function TeacherPage({ user, setUser }) {
         
         let res = await UserManager.uploadProfileImage(formData, user);
         
-        setUser({...user, avatar: res.results.url});
+        setUser(Object.assign(user, {avatar: res.results.url}));
         return alert("프로필 업로드 완료");
     };
     return (
@@ -82,6 +111,7 @@ function TeacherPage({ user, setUser }) {
             <Helmet>
                 <title>출첵커 | 홈</title>
             </Helmet>
+            <SubjectPopup isopen={isPopup}/>
             <form>
                 <input type="file" name="profileImage" ref={ fileInputRef } onChange={ handleFileChange }style={{ display: "none" }}/>
             </form>
@@ -105,9 +135,30 @@ function TeacherPage({ user, setUser }) {
                     <div className='grade'>
                         {user ? user.id : 'N/A'}
                     </div>
-                    <form className='attendence-form-side'>
-                        <input type="text" placeholder="학생 추가 (00-00000)"></input>
-                        <button type="button" onClick={generateLink}>
+                    <form className='attendence-form-side' onSubmit={() => { event.preventDefault(); }}>
+                        <div className="dropdown" ref={dropdownRef}>
+                            <span className="dropdown-box">
+                                <button className="dropdown-placeholder" onClick={() => setIsOpen(!isOpen)}>
+                                    선택하기 v
+                                </button>
+                                {isOpen && (
+                                    <ul className="dropdown-menu">
+                                        {
+                                            items.map((item, i) => {
+                                                return <li key={i} className='dropdown-item' onClick={ () => { setIsOpen(false) }}>
+                                                    {item}
+                                                </li>
+                                            })
+                                        }
+                                        <button className='add-btn' onClick={handleAddItem}>
+                                            + 새 과목
+                                        </button>
+                                    </ul>
+                                )}
+                            </span>
+                            <input type="text" placeholder="학생 추가 (00-00000)" onChange={ addStudent }></input>
+                        </div>
+                        <button type="button" className = "createQR" onClick={generateLink}>
                             QR 생성
                         </button>
                     </form>
