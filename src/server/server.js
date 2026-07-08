@@ -387,18 +387,6 @@ app.patch('/api/password', (req, res) => {
     });
 });
 
-
-app.post('/api/addSubject', (req, res) => {
-    pool.getConnection(function(err, connection) {
-        if(err) return res.status(500).json({ success: false, results: { isAdded: false, reason: err }});
-        connection.query("INSERT INTO subjects (name) VALUES (?)", [req.body.name], function(error, result, fields) {
-            connection.release();
-            if(error) return res.json({ success: false, results: { isAdded: false, reason: error}});
-            res.json({ success: true, results: { id: result.insertId }});
-        });
-    });
-})
-
 app.post('/api/addSubject', (req, res) => {
     pool.getConnection(function(err, connection) {
         if(err) return res.status(500).json({ success: false, results: { isAdded: false, reason: err }});
