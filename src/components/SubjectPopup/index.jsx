@@ -19,7 +19,7 @@ function SubjectPopup ({ isopen, user }) {
         event.preventDefault();
         console.log(data);
         let res = await SubjectManager.addSubject(data);
-        console.log(res);
+        console.log(user);
         UserManager.connectSubject(Object.assign(data, { id: res.results.subject.id }), user);
     }
     return (
