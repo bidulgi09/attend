@@ -409,6 +409,25 @@ app.post('/api/connectSubject', (req, res) => {
         });
     })
 });
+
+api.get('/api/getSubjectsInfo', (req, res) => {
+    pool.getConnection(function(err, connection) {
+        if(err) return res.status(500).json({ success: false, results: { isLoaded: false, reason: err }});
+        connection.query(
+            `SELECT 
+                b.subject_id AS subject_id, c.name AS subject_name, b.teacher_id AS teacher_id, b.days AS subject_days, JSON_ARRAYAGG(a.student_id) AS students 
+            FROM subject_students AS a 
+            INNER JOIN subject_teachers AS b 
+                ON a.teacher_id = b.subject_teacher_id 
+            INNER JOIN subjects AS c 
+                ON b.subject_id = c.id 
+            GROUP BY b.subject_id, c.name, b.teacher_id, b.days`, function(error, result, fields) {
+                connection.release();
+                if(error) return res.json({ success: false, results: { isLoaded: false, reason: error }});
+                return res.sjon({ success: true, results: { isLoaded: true, list: result }}); 
+            })
+    })
+})
 app.listen(port, () => { 
     console.log("Example Server is Listening at http://localhost:" + port); 
 });
