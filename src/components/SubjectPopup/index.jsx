@@ -20,7 +20,7 @@ function SubjectPopup ({ isopen, user }) {
         console.log(data);
         let res = await SubjectManager.addSubject(data);
         console.log(res);
-        //UserManager.connectSubject(user, res.results.subject.id);
+        UserManager.connectSubject(Object.assign(data, { id: res.results.subject.id }), user);
     }
     return (
         <div className="SubjectPopup" isopen={isopen.toString()}>

@@ -395,9 +395,31 @@ app.post('/api/addSubject', (req, res) => {
             connection.release();
             if(error) return res.json({ success: false, results: { isAdded: false, reason: error}});
             res.json({ success: true, results: { id: result.insertId }});
-        })
-    })
+        });
+    });
 })
+
+app.post('/api/addSubject', (req, res) => {
+    pool.getConnection(function(err, connection) {
+        if(err) return res.status(500).json({ success: false, results: { isAdded: false, reason: err }});
+        connection.query("INSERT INTO subjects (name) VALUES (?)", [req.body.name], function(error, result, fields) {
+            connection.release();
+            if(error) return res.json({ success: false, results: { isAdded: false, reason: error}});
+            res.json({ success: true, results: { isAdded: true, subject: { id: result.insertId } } });
+        });
+    });
+});
+
+app.post('/api/connectSubject', (req, res) => {
+    pool.getConnection(function(err, connection) {
+        if(err) return res.status(500).json({ success: false, results: { isConnected: false, reason: err }});
+        connection.query("INSERT INTO subjects_teachers (subject_id, teacher_id, days) VALUE (?, ?, ?)", [req.body.subject.id, req.body.teacher.id, req.body.subject.days], function(error, res, fields) {
+            connection.release();
+            if(error) return res.json({ success: false, results: { isConnected: false, reason: error }});
+            res.json({ success: true, results: { isConnected: true, insertId: res.insertId }});
+        });
+    })
+});
 app.listen(port, () => { 
     console.log("Example Server is Listening at http://localhost:" + port); 
 });

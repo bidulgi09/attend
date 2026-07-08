@@ -52,6 +52,13 @@ const UserManager = {
         } catch(e) {
             return {};
         }
+    },
+    async connectSubject(subject, user) {
+        try {
+            let res = await api.post('/api/connectSubject', this.headers, { subject, teacher: user });
+        } catch(e) {
+            return {};
+        }
     }
 } 
 export default UserManager;
