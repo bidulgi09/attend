@@ -393,7 +393,7 @@ app.post('/api/addSubject', (req, res) => {
         connection.query("INSERT INTO subjects (name) VALUES (?)", [req.body.name], function(error, result, fields) {
             if(error) {
                 if(error.code === "ER_DUP_ENTRY") {
-                    connection.query("SELECT id FROM subjects WHERE name=?", [req.body.name], function(error2, result2) {
+                    return connection.query("SELECT id FROM subjects WHERE name=?", [req.body.name], function(error2, result2) {
                         connection.release();
                         if(error2) 
                             return res.json({ success: false, results: { isAdded: false, reason: error2 } });
