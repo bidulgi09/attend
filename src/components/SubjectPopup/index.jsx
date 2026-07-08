@@ -15,7 +15,8 @@ function SubjectPopup ({ isopen, user }) {
     const setSubject = function(event) {
         setData(Object.assign(data, { subject: event.target.value }));
     }
-    const addSubject = function() {
+    const addSubject = function(event) {
+        event.preventDefault();
         let res = SubjectManager.addSubject(data);
         UserManager.connectSubject(user, res.results.subject.id);
     }
