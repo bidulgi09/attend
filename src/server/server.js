@@ -400,10 +400,10 @@ app.post('/api/addSubject', (req, res) => {
 
 app.post('/api/connectSubject', (req, res) => {
     pool.getConnection(function(err, connection) {
+            console.log(req.body);
         if(err) return res.status(500).json({ success: false, results: { isConnected: false, reason: err }});
         connection.query("INSERT INTO subjects_teachers (subject_id, teacher_id, days) VALUE (?, ?, ?)", [req.body.subject.id, req.body.teacher.id, req.body.subject.days], function(error, res, fields) {
             connection.release();
-            console.log(req.body);
             if(error) return res.json({ success: false, results: { isConnected: false, reason: error }});
             return res.json({ success: true, results: { isConnected: true, insertId: res.insertId }});
         });
