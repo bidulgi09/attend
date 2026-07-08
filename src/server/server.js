@@ -415,10 +415,13 @@ app.get('/api/subjectList', (req, res) => {
         if(err) return res.status(500).json({ success: false, results: { isLoaded: false, reason: err }});
         connection.query(
             `SELECT 
-                a.subject_id AS subject_id, c.name AS subject_name, a.teacher_id AS teacher_id, a.days AS subject_days, JSON_ARRAYAGG(b.student_id) AS students 
+                a.subject_id AS subject_id, c.name AS subject_name, 
+                a.teacher_id AS teacher_id, a.days AS subject_days, 
+                COALENSCE(
+                    SELECT b.student_id FROM subject_students AS b WHERE b.subject_teacher_id = a.teacher_id,
+                    JSON_ARRAY()
+                ) AS students
             FROM subject_teachers AS a 
-            LEFT JOIN subject_students AS b 
-                ON a.teacher_id = b.subject_teacher_id 
             INNER JOIN subjects AS c 
                 ON a.subject_id = c.id 
             GROUP BY a.subject_id, c.name, a.teacher_id, a.days`, function(error, result, fields) {
