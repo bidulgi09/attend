@@ -417,7 +417,7 @@ app.get('/api/subjectList', (req, res) => {
             `SELECT 
                 a.subject_id AS subject_id, c.name AS subject_name, a.teacher_id AS teacher_id, a.days AS subject_days, JSON_ARRAYAGG(b.student_id) AS students 
             FROM subject_teachers AS a 
-            INNER JOIN subject_students AS b 
+            LEFT JOIN subject_students AS b 
                 ON a.teacher_id = b.subject_teacher_id 
             INNER JOIN subjects AS c 
                 ON a.subject_id = c.id 
