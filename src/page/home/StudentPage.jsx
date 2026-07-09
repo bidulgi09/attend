@@ -45,7 +45,12 @@ function StudentPage({ user, setUser }) {
         { date: "2023-01-13", status: "결과", subject: "국어" }
     ];
 
-    const handleProfileClick = () => {
+    const handleProfileClick = (e) => {
+        e.stopPropagation();
+        if(!user || !user.id) {
+            alert("로그인이 필요한 서비스입니다.");
+            return;
+        }
         fileInputRef.current?.click();
     };
 
@@ -70,7 +75,7 @@ function StudentPage({ user, setUser }) {
             <Helmet>
                 <title>출첵커 | 홈</title>
             </Helmet>
-            <form>
+            <form onSubmit={(e) => e.preventDefault() }>
                 <input type="file" name="profileImage" ref={ fileInputRef } onChange={ handleFileChange }style={{ display: "none" }}/>
             </form>
             <div className='main'>
