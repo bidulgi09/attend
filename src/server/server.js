@@ -33,6 +33,7 @@ app.use(cors({
     origin: [
         "http://localhost:5173",
         "https://attend-508x.onrender.com",
+        "https://www.xn--wx6bnqz4a.xn--yq5b.xn--3e0b707e/",
         "https://organic-engine-x5j4gjxjq7xxfv44w-5173.app.github.dev",
         "https://refactored-potato-4j66rr45x7753gvx-5173.app.github.dev",
         "https://bidulgi09.github.io"

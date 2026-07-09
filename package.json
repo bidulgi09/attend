@@ -62,7 +62,6 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://bidulgi09.github.io/attend",
   "proxy": "https://attend-508x.onrender.com/",
   "devDependencies": {
     "@vitejs/plugin-react": "^6.0.3",

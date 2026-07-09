@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
       react(),
       svgr()
     ],
-    base: '/attend/',
+    base: '/',
     assetsInclude: ['**/*.md']
   };
 });
