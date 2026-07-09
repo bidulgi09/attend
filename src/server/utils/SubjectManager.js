@@ -5,5 +5,9 @@ const SubjectManager = {
         let res = await api.post('/api/addSubject', this.headers, subject);
         return res;
     },
+    async getAll() {
+        let res = await api.get('/api/subjectList', this.headers);
+        return res;
+    }
 } 
 export default SubjectManager;

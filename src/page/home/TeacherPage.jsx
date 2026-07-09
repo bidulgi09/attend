@@ -28,6 +28,10 @@ function TeacherPage({ user, setUser }) {
     const handleAddItem = function() {
         setIsPopup(!isPopup)
     }
+    useEffect(async () => {
+        let subjects = await SubjectManager.getAll();
+        setItems(subjects.results.list.filter(v => v.teacher_id === user.id));
+    }, [items]);
     useEffect(() => {
         function handleClickOutSide(event) {
             if(dropdownRef.current && !dropdownRef.current.contains(event.target)) {
