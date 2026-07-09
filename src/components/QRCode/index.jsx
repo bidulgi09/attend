@@ -1,6 +1,6 @@
 import React from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import logo from '../../assets/logo.png';
+import logo from '../../assets/logo_final_final.png';
 import './styles.css';
 
 function QRCode({ url, iscreated, removelink }) {
