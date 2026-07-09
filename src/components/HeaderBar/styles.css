@@ -63,6 +63,7 @@
 
 .HeaderBar .logo * {
     stroke: rgb(238, 238, 238) !important;
+    fill: rgb(238, 238, 238) !important;
     stroke-width: 5;
 }
 
