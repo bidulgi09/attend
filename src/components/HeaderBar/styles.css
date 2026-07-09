@@ -57,14 +57,14 @@
     display: flex;
     justify-content: center;
     overflow: hidden;
-    width: 55px;
-    height: 65px;
+    width: 60px;
+    height: 70px;
 }
 
 .HeaderBar .logo * {
     stroke: rgb(238, 238, 238) !important;
     fill: rgb(238, 238, 238) !important;
-    stroke-width: 5;
+    stroke-width: 4;
 }
 
 .HeaderBar .tabs {

@@ -30,7 +30,7 @@ function QRCode({ url, iscreated, removelink }) {
                         y: undefined,
                         height: 70,
                         width: 70,
-                        excavate: true
+                        excavate: false
                     }}
                 />
             </div>
