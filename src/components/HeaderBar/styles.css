@@ -55,15 +55,10 @@
 .HeaderBar .logo {
     display: flex;
     justify-content: center;
+    border: 3px solid rgb(238, 238, 238);
     overflow: hidden;
     width: 60px;
-    height: 70px;
-}
-
-.HeaderBar .logo * {
-    stroke: rgb(238, 238, 238) !important;
-    fill: rgb(238, 238, 238) !important;
-    stroke-width: 4;
+    height: 60px;
 }
 
 .HeaderBar .tabs {

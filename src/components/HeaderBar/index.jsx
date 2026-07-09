@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import './styles.css';
-import Logo from '../../assets/logo_final_final (1).svg?react';
+import Logo from '../../assets/logo_final_final_2.svg?react';
 import MenuIcon from '../../assets/hamburger-light.svg?react';
 import UserManager from '../../server/utils/UserManager';
 
