@@ -28,8 +28,8 @@ function QRCode({ url, iscreated, removelink }) {
                         src: logo,
                         x: undefined,
                         y: undefined,
-                        height: 50,
-                        width: 50,
+                        height: 70,
+                        width: 70,
                         excavate: true
                     }}
                 />
