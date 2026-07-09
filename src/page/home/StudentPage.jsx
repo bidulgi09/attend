@@ -10,6 +10,7 @@ import Schedule from '../../components/Schedule';
 import NotesTab from '../../components/NotesTab';
 import LogTab from '../../components/LogTab';
 
+import guest_profile from '../../uploads/guest_profile.png';
 import UserManager from '../../server/utils/UserManager';
 
 function StudentPage({ user, setUser }) {
@@ -83,7 +84,7 @@ function StudentPage({ user, setUser }) {
                 <GhostBox/>
                 <div className='profile-info-wrapper'>
                     <div className='profile-img' onClick={ handleProfileClick }>
-                        <img src={(user && user.avatar) ? user.avatar : 'src/uploads/guest_profile.png'} alt="Profile" />
+                        <img src={(user && user.avatar) ? user.avatar : guest_profile} alt="Profile" />
                     </div>
                     <div className='name row-wrapper'>
                         <p>{user.isLogin ? user.name : 'Guest'}</p>
