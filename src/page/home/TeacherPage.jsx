@@ -13,6 +13,7 @@ import LogTab from '../../components/LogTab';
 import QRCode from '../../components/QRCode';
 import guest_profile from '../../uploads/guest_profile.png';
 import UserManager from '../../server/utils/UserManager';
+import SubjectManager from '../../server/utils/SubjectManager';
 
 function TeacherPage({ user, setUser }) {
     const [ isOpen, setIsOpen ] = useState(false);
@@ -28,9 +29,12 @@ function TeacherPage({ user, setUser }) {
     const handleAddItem = function() {
         setIsPopup(!isPopup)
     }
-    useEffect(async () => {
-        let subjects = await SubjectManager.getAll();
-        setItems(subjects.results.list.filter(v => v.teacher_id === user.id));
+    useEffect(() => {
+        let fetchItems = async () => {
+            let subjects = await SubjectManager.getAll();
+            setItems(subjects.results.list.filter(v => v.teacher_id === user.id));
+        }
+        fetchItems();
     }, [items]);
     useEffect(() => {
         function handleClickOutSide(event) {
@@ -150,7 +154,7 @@ function TeacherPage({ user, setUser }) {
                                         {
                                             items.map((item, i) => {
                                                 return <li key={i} className='dropdown-item' onClick={ () => { setIsOpen(false) }}>
-                                                    {item}
+                                                    {item.subject_name}({item.subject_days})
                                                 </li>
                                             })
                                         }
