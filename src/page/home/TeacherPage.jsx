@@ -97,15 +97,15 @@ function TeacherPage({ user, setUser }) {
     };
     const [columnIndex, setColumnIndex] = useState(0);
     function moveSlidePrev() {
-        if(columnIndex == -1) return;
+        if(columnIndex == 0) return;
         let slideBox = document.querySelector(".slide_box")
-        slideBox.style.transform = `translateX(${-(columnIndex - 1) * 400 + 200}px)`;
+        slideBox.style.transform = `translateX(${-(columnIndex - 1) * 100 + 50}dvh)`;
         setColumnIndex(columnIndex-1);
     } 
     function moveSlideNext() {
-        if(columnIndex == 3) return;
+        if(columnIndex == 4) return;
         let slideBox = document.querySelector(".slide_box")
-        slideBox.style.transform = `translateX(${-(columnIndex + 1) * 400 + 200}px)`;
+        slideBox.style.transform = `translateX(${-(columnIndex + 1) * 100 + 50}dvh)`;
         setColumnIndex(columnIndex+1);
     } 
     return (

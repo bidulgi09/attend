@@ -32,25 +32,25 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        width: 400px;
-        height: 300px;
+        width: 100dvh;
+        height: 60dvh;
         overflow: hidden;
         background-color: black;
         & .slide_box {
             display: flex;
             flex-shrink: 0;
             flex-direction: row;
-            width: 1600px;
+            width: 200dvh;
             margin: 0 auto;
-            height: 300px;
-            transform: translateX(600px);
+            height: 60dvh;
+            transform: translateX(50dvh);
             & .slide_item {
                 flex-shrink: 0;
                 float: left;
                 color: white;
                 font-size: 100px;
-                width: 400px;
-                height: 300px;
+                width: 100dvh;
+                height: 60dvh;
                 background-color: red;
             }
         }
