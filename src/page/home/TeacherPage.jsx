@@ -16,17 +16,18 @@ import UserManager from '../../server/utils/UserManager';
 import SubjectManager from '../../server/utils/SubjectManager';
 
 function TeacherPage({ user, setUser }) {
-    const [ isOpen, setIsOpen ] = useState(false);
-    const [ items, setItems ] = useState([]);
-    const [ isPopup, setIsPopup ] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const [items, setItems] = useState([]);
+    const [selectedSubject, setSelectedSubject] = useState({});
+    const [isPopup, setIsPopup] = useState(false);
     const dropdownRef = useRef(null);
 
     const fileInputRef = useRef(null);
-    const [ generatedURL, setGeneratedURL ] = useState('');
-    const [ QRStatus, setQRStatus ] = useState(false);
-    const [ studentID, setStudentID ] = useState('');
+    const [generatedURL, setGeneratedURL] = useState('');
+    const [QRStatus, setQRStatus] = useState(false);
+    const [studentID, setStudentID] = useState('');
 
-    const handleAddItem = function() {
+    const handleAddItem = function () {
         setIsPopup(!isPopup)
     }
     useEffect(() => {
@@ -38,35 +39,35 @@ function TeacherPage({ user, setUser }) {
     }, [items]);
     useEffect(() => {
         function handleClickOutSide(event) {
-            if(dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setIsOpen(false);
             }
         }
         document.addEventListener('mousedown', handleClickOutSide);
         return () => document.removeEventListener('mousedown', handleClickOutSide);
     }, []);
-    const addStudent = function(event) {
-        if(/[^\d]/.test(event.target.value)) {
+    const addStudent = function (event) {
+        if (/[^\d]/.test(event.target.value)) {
             event.target.value = event.target.value.replace(/[^\d]/g, '');
         }
         let val = event.target.value.replace(/[^\d]/g, '');
-        if(val.length > 2) {
+        if (val.length > 2) {
             event.target.value = val.substring(0, 2) + '-' + val.substring(2, 7);
         }
     }
-    const removeLink = function() {
+    const removeLink = function () {
         setQRStatus(false);
         setGeneratedURL('');
     }
-    const generateLink = function() {
+    const generateLink = function () {
         let url = window.location.origin + "/attend";
         let current_date = Date.now();
-        
+
         const access_url = `${url}?t=${current_date}`;
         setQRStatus(true);
         setGeneratedURL(access_url);
     }
-    
+
     let data = user ? user.data : [
         ["국어", "수학", "영어", "과학", "사회"],
         ["체육", "음악", "미술", "정보", "역사"],
@@ -75,26 +76,6 @@ function TeacherPage({ user, setUser }) {
         ["국어", "수학", "영어", "과학", "사회"]
     ];
 
-    const logData = [
-    { date: "2023-01-01", status: "출석", subject: "국어" },
-    { date: "2023-01-02", status: "출석", subject: "체육" },
-    { date: "2023-01-02", status: "출석", subject: "미술" },
-    { date: "2023-01-03", status: "출석", subject: "음악" },
-    { date: "2023-01-04", status: "결석", subject: "미술" },
-    { date: "2023-01-05", status: "조퇴", subject: "음악" },
-    { date: "2023-01-06", status: "결과", subject: "수학" },
-    { date: "2023-01-07", status: "출석", subject: "수학" },
-    { date: "2023-01-07", status: "출석", subject: "영어" },
-    { date: "2023-01-08", status: "결과", subject: "영어" },
-    { date: "2023-01-08", status: "출석", subject: "과학" },
-    { date: "2023-01-08", status: "출석", subject: "사회" },
-    { date: "2023-01-09", status: "결과", subject: "과학" },
-    { date: "2023-01-10", status: "결과", subject: "사회" },
-    { date: "2023-01-11", status: "결석", subject: "체육" },
-    { date: "2023-01-11", status: "출석", subject: "한문" },
-    { date: "2023-01-12", status: "출석", subject: "코딩" },
-    { date: "2023-01-13", status: "결과", subject: "국어" }
-];
     const handleProfileClick = () => {
         fileInputRef.current?.click();
     };
@@ -102,39 +83,98 @@ function TeacherPage({ user, setUser }) {
     const handleFileChange = async (e) => {
         alert("프로필 업로드 중");
         const file = e.target.files[0];
-        
+
         if (!file) return alert("프로필 업로드 실패");
 
         const formData = new FormData();
         formData.append('file', file);
         formData.append('user', JSON.stringify(user));
-        
+
         let res = await UserManager.uploadProfileImage(formData, user);
-        
-        setUser(Object.assign(user, {avatar: res.results.url}));
+
+        setUser(Object.assign(user, { avatar: res.results.url }));
         return alert("프로필 업로드 완료");
     };
+    const [columnIndex, setColumnIndex] = useState(0);
+    function moveSlidePrev() {
+        if(columnIndex == -1) return;
+        let slideBox = document.querySelector(".slide_box")
+        slideBox.style.transform = `translateX(${-(columnIndex - 1) * 400 + 200}px)`;
+        setColumnIndex(columnIndex-1);
+    } 
+    function moveSlideNext() {
+        if(columnIndex == 3) return;
+        let slideBox = document.querySelector(".slide_box")
+        slideBox.style.transform = `translateX(${-(columnIndex + 1) * 400 + 200}px)`;
+        setColumnIndex(columnIndex+1);
+    } 
     return (
         <div className="TeacherPage">
             <Helmet>
                 <title>출첵커 | 홈</title>
             </Helmet>
-            <SubjectPopup isopen={isPopup} setIsOpen={setIsPopup} user={user}/>
+            <SubjectPopup isopen={isPopup} setIsOpen={setIsPopup} user={user} />
             <form>
-                <input type="file" name="profileImage" ref={ fileInputRef } onChange={ handleFileChange }style={{ display: "none" }}/>
+                <input type="file" name="profileImage" ref={fileInputRef} onChange={handleFileChange} style={{ display: "none" }} />
             </form>
             <div className='main'>
                 <form className='attendence-form-main'>
-                    <input type="text" placeholder="학생 추가 (00-00000)"></input>
+                    <div className="dropdown" ref={dropdownRef}>
+                        <span className="dropdown-box">
+                            <button className="dropdown-placeholder" onClick={() => setIsOpen(!isOpen)}>
+                                {selectedSubject.subject_name ? `${selectedSubject.subject_name}${(selectedSubject.subject_days.length > 0) ? (" (" + selectedSubject.subject_days.join(", ") + ")") : ""}` : "선택하기 v"}
+                            </button>
+                            {isOpen && (
+                                <ul className="dropdown-menu">
+                                    {
+                                        items.map((item, i) => {
+                                            return <li key={i} className='dropdown-item' onClick={() => { setIsOpen(false); setSelectedSubject(item); }}>
+                                                {item.subject_name}{(item.subject_days.length > 0) && (" (" + item.subject_days.join(", ") + ")")}
+                                            </li>
+                                        })
+                                    }
+                                    <button className='add-btn' onClick={handleAddItem}>
+                                        + 새 과목
+                                    </button>
+                                </ul>
+                            )}
+                        </span>
+                        <input type="text" placeholder="학생 추가 (00-00000)" onChange={addStudent}></input>
+                    </div>
                 </form>
-                <NotesTab NotesData={{ attendance: 10, result: 5, absence: 2, earlyLeave: 1 }} />
-                <LogTab LogData={logData} />
+                <div className="student-list">
+                    <div className="slide_box">
+                        <div className="slide_item">
+                            1
+                        </div>
+                        <div className="slide_item">
+                            2
+                        </div>
+                        <div className="slide_item">
+                            3
+                        </div>
+                        <div className="slide_item">
+                            4
+                        </div>
+                        <div className="slide_item">
+                            5
+                        </div>
+                    </div>
+                </div>
+                <div className="row-wrapper">
+                    <div className="prev" onClick={moveSlidePrev}>
+                        {"<"}
+                    </div>
+                    <div className="next" onClick={moveSlideNext}>
+                        {">"}
+                    </div>
+                </div>
             </div>
             <div className='profile-tab contents-wrapper'>
-                <GhostBox/>
+                <GhostBox />
                 <div className='profile-info-wrapper'>
-                    <div className='profile-img' onClick={ handleProfileClick }>
-                        <img src={(user && user.avatar) ? user.avatar : guest_profile } alt="Profile" />
+                    <div className='profile-img' onClick={handleProfileClick}>
+                        <img src={(user && user.avatar) ? user.avatar : guest_profile} alt="Profile" />
                     </div>
                     <div className='name row-wrapper'>
                         <p>{user.isLogin ? user.name : 'Guest'}</p>
@@ -147,14 +187,14 @@ function TeacherPage({ user, setUser }) {
                         <div className="dropdown" ref={dropdownRef}>
                             <span className="dropdown-box">
                                 <button className="dropdown-placeholder" onClick={() => setIsOpen(!isOpen)}>
-                                    선택하기 v
+                                    {selectedSubject.subject_name ? `${selectedSubject.subject_name}${(selectedSubject.subject_days.length > 0) ? (" (" + selectedSubject.subject_days.join(", ") + ")") : ""}` : "선택하기 v"}
                                 </button>
                                 {isOpen && (
                                     <ul className="dropdown-menu">
                                         {
                                             items.map((item, i) => {
-                                                return <li key={i} className='dropdown-item' onClick={ () => { setIsOpen(false) }}>
-                                                    {item.subject_name}({item.subject_days})
+                                                return <li key={i} className='dropdown-item' onClick={() => { setIsOpen(false); setSelectedSubject(item); }}>
+                                                    {item.subject_name}{(item.subject_days.length > 0) && (" (" + item.subject_days.join(", ") + ")")}
                                                 </li>
                                             })
                                         }
@@ -164,15 +204,15 @@ function TeacherPage({ user, setUser }) {
                                     </ul>
                                 )}
                             </span>
-                            <input type="text" placeholder="학생 추가 (00-00000)" onChange={ addStudent }></input>
+                            <input type="text" placeholder="학생 추가 (00-00000)" onChange={addStudent}></input>
                         </div>
-                        <button type="button" className = "createQR" onClick={generateLink}>
+                        <button type="button" className="createQR" onClick={generateLink}>
                             QR 생성
                         </button>
                     </form>
                 </div>
-                <QRCode url={generatedURL} iscreated={QRStatus} removelink={removeLink}/>
-                <Schedule scheduleData={data} ishided={QRStatus}/>
+                <QRCode url={generatedURL} iscreated={QRStatus} removelink={removeLink} />
+                <Schedule scheduleData={data} ishided={QRStatus} />
             </div>
         </div>
     )
