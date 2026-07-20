@@ -15,6 +15,7 @@
 
 .TeacherPage .main {
     padding-top: 92px;
+    box-sizing: border-box;
     display: flex;
     flex: 3;
     z-index: 10;
@@ -27,29 +28,44 @@
     height: 100%;
     min-height: 0;
     gap: 20px;
+    & .slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        & .prev, .next {
+            display: flex;
+            font-size: 4dvw;
+            padding: 2dvw;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    }
     & .student-list {
         display: flex;
         justify-content: center;
         align-items: center;
         text-align: center;
-        width: 100dvh;
+        width: 50dvw;
         height: 60dvh;
+        border-radius: 10px;
         overflow: hidden;
         background-color: black;
         & .slide_box {
             display: flex;
             flex-shrink: 0;
             flex-direction: row;
-            width: 200dvh;
-            margin: 0 auto;
+            margin: 0;
+            width: 100%;
             height: 60dvh;
-            transform: translateX(50dvh);
+            transition: .2s all ease;
             & .slide_item {
-                flex-shrink: 0;
-                float: left;
+                display: flex;
+                flex: 0 0 100%;
+                justify-content: center;
+                align-items: center;
                 color: white;
                 font-size: 100px;
-                width: 100dvh;
                 height: 60dvh;
                 background-color: red;
             }
@@ -57,6 +73,7 @@
     }
 }
 .TeacherPage .profile-tab {
+    box-sizing: border-box;
     padding-top: 72px;
     display: flex;
     flex-direction: column;

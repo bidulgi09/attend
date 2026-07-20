@@ -452,7 +452,12 @@ app.get('/api/subjectList', (req, res) => {
                 return res.json({ success: true, results: { isLoaded: true, list: result }}); 
             })
     })
-})
+});
+
+app.post('/api/setSchedule', (req, res) => {
+    
+});
+
 app.listen(port, () => { 
     console.log("Example Server is Listening at http://localhost:" + port); 
 });

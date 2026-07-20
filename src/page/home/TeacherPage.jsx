@@ -14,6 +14,7 @@ import QRCode from '../../components/QRCode';
 import guest_profile from '../../uploads/guest_profile.png';
 import UserManager from '../../server/utils/UserManager';
 import SubjectManager from '../../server/utils/SubjectManager';
+import DailySchedule from '../../components/DailySchedule';
 
 function TeacherPage({ user, setUser }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -26,6 +27,8 @@ function TeacherPage({ user, setUser }) {
     const [generatedURL, setGeneratedURL] = useState('');
     const [QRStatus, setQRStatus] = useState(false);
     const [studentID, setStudentID] = useState('');
+
+    const [columnIndex, setColumnIndex] = useState(0);
 
     const handleAddItem = function () {
         setIsPopup(!isPopup)
@@ -68,6 +71,20 @@ function TeacherPage({ user, setUser }) {
         setGeneratedURL(access_url);
     }
 
+    function moveSlidePrev() {
+        if(columnIndex == 0) return;
+        let slideBox = document.querySelector(".slide_box")
+        slideBox.style.transform = `translateX(${-(columnIndex - 1) * 50}dvw)`;
+        setColumnIndex(columnIndex-1);
+    } 
+    function moveSlideNext() {
+        let maxColumnIndex = document.getElementsByClassName("slide_item").length;
+        if(columnIndex == maxColumnIndex) return;
+        let slideBox = document.querySelector(".slide_box")
+        slideBox.style.transform = `translateX(${-(columnIndex + 1) * 50}dvw)`;
+        setColumnIndex(columnIndex+1);
+    }
+
     let data = user ? user.data : [
         ["국어", "수학", "영어", "과학", "사회"],
         ["체육", "음악", "미술", "정보", "역사"],
@@ -95,19 +112,7 @@ function TeacherPage({ user, setUser }) {
         setUser(Object.assign(user, { avatar: res.results.url }));
         return alert("프로필 업로드 완료");
     };
-    const [columnIndex, setColumnIndex] = useState(0);
-    function moveSlidePrev() {
-        if(columnIndex == 0) return;
-        let slideBox = document.querySelector(".slide_box")
-        slideBox.style.transform = `translateX(${-(columnIndex - 1) * 100 + 50}dvh)`;
-        setColumnIndex(columnIndex-1);
-    } 
-    function moveSlideNext() {
-        if(columnIndex == 4) return;
-        let slideBox = document.querySelector(".slide_box")
-        slideBox.style.transform = `translateX(${-(columnIndex + 1) * 100 + 50}dvh)`;
-        setColumnIndex(columnIndex+1);
-    } 
+    
     return (
         <div className="TeacherPage">
             <Helmet>
@@ -142,29 +147,16 @@ function TeacherPage({ user, setUser }) {
                         <input type="text" placeholder="학생 추가 (00-00000)" onChange={addStudent}></input>
                     </div>
                 </form>
-                <div className="student-list">
-                    <div className="slide_box">
-                        <div className="slide_item">
-                            1
-                        </div>
-                        <div className="slide_item">
-                            2
-                        </div>
-                        <div className="slide_item">
-                            3
-                        </div>
-                        <div className="slide_item">
-                            4
-                        </div>
-                        <div className="slide_item">
-                            5
-                        </div>
-                    </div>
-                </div>
-                <div className="row-wrapper">
+                <div className="row-wrapper slide">
                     <div className="prev" onClick={moveSlidePrev}>
                         {"<"}
                     </div>
+                <div className="student-list">
+                    <div className="slide_box">
+                        <DailySchedule className="slide_item" scheduleData={Array(7).fill("공강")}/>
+                    </div>
+                </div>
+                
                     <div className="next" onClick={moveSlideNext}>
                         {">"}
                     </div>
