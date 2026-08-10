@@ -127,7 +127,7 @@ app.post('/api/signUp', (req, res) => {
             })(), 
             req.body.email, 
             password_hash,
-            Array.from({ length: 7 }, () => Array.from({ length: 5 }, () => "공강"))
+            JSON.stringify(Array.from({ length: 7 }, () => Array.from({ length: 5 }, () => "공강")))
         ]; 
         connection.query(`INSERT INTO ${table} (id, name, email, password_hash, subjects) VALUES (?, ?, ?, ?, ?);`, datas, function(error, results, fields) { 
             connection.release();
