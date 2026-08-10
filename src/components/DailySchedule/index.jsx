@@ -5,9 +5,11 @@ function DailySchedule({ scheduleData, className }) {
     return (
         <table className={`DailyScheduleTable ${className}`}>
             <thead>
-                <th className="title" colSpan={2}>
-                    오늘의 시간표
-                </th>
+                <tr>
+                    <th className="title" colSpan={2}>
+                        오늘의 시간표
+                    </th>
+                </tr>
                 <tr>
                     <th>교시</th>
                     <th>과목</th>

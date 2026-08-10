@@ -33,14 +33,6 @@ function TeacherPage({ user, setUser }) {
 
     const [columnIndex, setColumnIndex] = useState(0);
 
-    const [timetable, setTimetable] = useState([
-        ["공강", "공강", "공강", "공강", "공강"],
-        ["공강", "공강", "공강", "공강", "공강"],
-        ["공강", "공강", "공강", "공강", "공강"],
-        ["공강", "공강", "공강", "공강", "공강"],
-        ["공강", "공강", "공강", "공강", "공강"]
-    ]);
-
     const [editingCell, setEditingCell] = useState({ row: null, col: null });
 
     const handleAddItem = function () {
@@ -98,7 +90,7 @@ function TeacherPage({ user, setUser }) {
         setColumnIndex(columnIndex+1);
     }
 
-    let data = user ? user.data : [
+    let data = user ? user.subjects : [
         ["국어", "수학", "영어", "과학", "사회"],
         ["체육", "음악", "미술", "정보", "역사"],
         ["국어", "수학", "영어", "과학", "사회"],
@@ -133,8 +125,8 @@ function TeacherPage({ user, setUser }) {
             <Helmet>
                 <title>출첵커 | 홈</title>
             </Helmet>
-            <SubjectPopup isopen={isPopup} setIsOpen={setIsPopup} user={user} />
-            <SelectSubjectPopup isopen={isSelectSubjectPopupOpen} setIsOpen={setIsSelectSubjectPopupOpen} user={user}scheduleData={data} setScheduleData={setTimetable} editingCell={editingCell} />
+            <SubjectPopup isopen={isPopup} setIsOpen={setIsPopup} user={user}/>
+            <SelectSubjectPopup isopen={isSelectSubjectPopupOpen} setIsOpen={setIsSelectSubjectPopupOpen} user={user} setUser={setUser} editingCell={editingCell} />
             <form>
                 <input type="file" name="profileImage" ref={fileInputRef} onChange={handleFileChange} style={{ display: "none" }} />
             </form>

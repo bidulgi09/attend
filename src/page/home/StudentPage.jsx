@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import './StudentStyles.css';
 import { Helmet } from 'react-helmet-async';
 import edit from '../../assets/edit.png';
@@ -16,14 +16,15 @@ import UserManager from '../../server/utils/UserManager';
 function StudentPage({ user, setUser }) {
     const fileInputRef = useRef(null);
 
-    let data = user ? user.data : [
+    let data = user ? user.subjects : [
         ["국어", "수학", "영어", "과학", "사회"],
         ["체육", "음악", "미술", "정보", "역사"],
         ["국어", "수학", "영어", "과학", "사회"],
         ["체육", "음악", "미술", "정보", "역사"],
         ["국어", "수학", "영어", "과학", "사회"]
     ];
-
+    const [editingCell, setEditingCell] = useState({ row: null, col: null });
+    const [isSelectSubjectPopupOpen, setIsSelectSubjectPopupOpen] = useState(false);
     const logData = [
         { date: "2023-01-01", status: "출석", subject: "국어" },
         { date: "2023-01-02", status: "출석", subject: "체육" },
@@ -102,7 +103,7 @@ function StudentPage({ user, setUser }) {
                         <input type="text" placeholder="출석 코드"></input>
                     </form>
                 </div>
-                <Schedule scheduleData={data}/>
+                <Schedule scheduleData={data} ishided={false} setEditingCell={setEditingCell} setIsSelectSubjectPopupOpen={setIsSelectSubjectPopupOpen} />
             </div>
         </div>
     );
