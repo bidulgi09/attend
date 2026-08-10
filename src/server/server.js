@@ -130,10 +130,10 @@ app.post('/api/signUp', (req, res) => {
             Array.from({ length: 7 }, () => Array.from({ length: 5 }, () => "공강"))
         ]; 
         connection.query(`INSERT INTO ${table} (id, name, email, password_hash, subjects) VALUES (?, ?, ?, ?, ?);`, datas, function(error, results, fields) { 
-            connection.release(); 
+            connection.release();
             if(error) {
                 console.log(error);
-                res.status(500).json({ success: false, results: { insertedId: -1, reason: "Fail to search" } });
+                res.status(500).json({ success: false, results: { insertedId: -1, reason: error } });
                 return;
             }
             res.json({ success: true, results: { insertedId: results.insertId }}); 
