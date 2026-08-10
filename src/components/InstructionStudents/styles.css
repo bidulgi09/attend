@@ -1,10 +1,11 @@
 .InstructionStudents {
     display: flex;
-    background-color: #31363F;
+    background-color: rgba(0, 0, 0, 0.2);
     padding: 10px;
     box-sizing: border-box;
 }
 .InstructionStudents .InstructionStudentsList {
+    box-sizing: border-box;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(6, 1fr);

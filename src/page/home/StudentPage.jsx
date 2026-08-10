@@ -9,6 +9,7 @@ import GhostBox from '../../components/GhostBox';
 import Schedule from '../../components/Schedule';
 import NotesTab from '../../components/NotesTab';
 import LogTab from '../../components/LogTab';
+import SelectSubjectPopup from '../../components/selectSubjectPopup';
 
 import guest_profile from '../../uploads/guest_profile.png';
 import UserManager from '../../server/utils/UserManager';
@@ -76,6 +77,7 @@ function StudentPage({ user, setUser }) {
             <Helmet>
                 <title>출첵커 | 홈</title>
             </Helmet>
+            <SelectSubjectPopup isopen={isSelectSubjectPopupOpen} setIsOpen={setIsSelectSubjectPopupOpen} user={user} setUser={setUser} editingCell={editingCell} />
             <form onSubmit={(e) => e.preventDefault() }>
                 <input type="file" name="profileImage" ref={ fileInputRef } onChange={ handleFileChange }style={{ display: "none" }}/>
             </form>

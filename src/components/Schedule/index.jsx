@@ -20,7 +20,7 @@ function Schedule({ scheduleData, ishided, setEditingCell, setIsSelectSubjectPop
                         let res = [];
                         for(let i = 0; i < (scheduleData ? scheduleData.length : 7); i++) {
                             let row=[];
-                            for(let j = 0; j < (scheduleData ? scheduleData.length : 5); j++) {
+                            for(let j = 0; j < (scheduleData ? scheduleData[0].length : 5); j++) {
                                 row.push(
                                     <td key={`td_${j}`}>
                                         <p className="ScheduleButton" onClick={() => { setEditingCell({ row: i, col: j }); setIsSelectSubjectPopupOpen(true); }}>

@@ -50,7 +50,6 @@
         height: 60dvh;
         border-radius: 10px;
         overflow: hidden;
-        background-color: black;
         & .slide_box {
             display: flex;
             flex-shrink: 0;
@@ -79,7 +78,7 @@
     overflow-y: auto;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 15px;
+    padding-bottom: 50px;
     height: 100%;
     flex: 1;
     z-index: 10;
