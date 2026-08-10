@@ -9,9 +9,10 @@ function SelectSubjectPopup({ isopen, setIsOpen, user, setUser, editingCell }) {
     useEffect(() => {
         let fetchItems = async () => {
             let subjects = await SubjectManager.getAll();
-            console.log(subjects);
             setSubjectList(subjects.results.list);
         }
+        
+        console.log(user);
         fetchItems();
     }, []);
     const days = ['월', '화', '수', '목', '금'];

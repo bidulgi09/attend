@@ -271,7 +271,7 @@ app.get('/api/profile', authenticateToken, (req, res) => {
         }
         let table = req.user.role === "Student" ? "students" : "teachers";
         let data = [req.user.id];
-        connection.query(`SELECT id, email, name, role, avatar FROM ${table} WHERE id=?;`, data, function(error, results, fields) {
+        connection.query(`SELECT id, email, name, role, avatar, subjects FROM ${table} WHERE id=?;`, data, function(error, results, fields) {
             connection.release();
             if(error) {
                 res.status(500).json({ success: false, results: { isLoaded: false, reason: "Fail to search" } });
