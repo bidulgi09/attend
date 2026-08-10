@@ -8,7 +8,9 @@ html, body, #root {
 }
 
  *:focus { outline:none; }
- 
+ * {
+    -webkit-tap-highlight-color: transparent;
+}
 .app-container {
     display: flex;
     width: 100%;

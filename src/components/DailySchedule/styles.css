@@ -1,7 +1,9 @@
 .DailyScheduleTable {
     border-collapse: collapse;
+    flex-direction: column;
     outline: 2px solid black;
     width: 100%;
+    display: table !important;
     height: 100%;
     overflow: hidden;
     background-color: #31363F;

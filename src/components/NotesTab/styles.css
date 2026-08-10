@@ -21,13 +21,13 @@
 }
 
 .notes-table th {
-    font-size: 3vh;
+    font-size: 4vh;
     font-weight: bold;
     background-color: rgba(0, 0, 0, 0.2);
 }
 
 .notes-table td {
-    font-size: 3vh;
+    font-size: 4vh;
     color: white;
     background-color: rgba(249, 248, 255, 0.05);
 }

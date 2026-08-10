@@ -15,6 +15,7 @@ import guest_profile from '../../uploads/guest_profile.png';
 import UserManager from '../../server/utils/UserManager';
 import SubjectManager from '../../server/utils/SubjectManager';
 import DailySchedule from '../../components/DailySchedule';
+import InstructionStudents from '../../components/InstructionStudents';
 
 function TeacherPage({ user, setUser }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -29,6 +30,16 @@ function TeacherPage({ user, setUser }) {
     const [studentID, setStudentID] = useState('');
 
     const [columnIndex, setColumnIndex] = useState(0);
+
+    const [timetable, setTimetable] = useState([
+        ["공강", "공강", "공강", "공강", "공강"],
+        ["공강", "공강", "공강", "공강", "공강"],
+        ["공강", "공강", "공강", "공강", "공강"],
+        ["공강", "공강", "공강", "공강", "공강"],
+        ["공강", "공강", "공강", "공강", "공강"]
+    ]);
+
+    const [editingCell, setEditingCell] = useState({ row: null, col: null });
 
     const handleAddItem = function () {
         setIsPopup(!isPopup)
@@ -74,18 +85,20 @@ function TeacherPage({ user, setUser }) {
     function moveSlidePrev() {
         if(columnIndex == 0) return;
         let slideBox = document.querySelector(".slide_box")
-        slideBox.style.transform = `translateX(${-(columnIndex - 1) * 50}dvw)`;
+        slideBox.style.transform = `translateX(${-(columnIndex - 1) * 60}dvw)`;
         setColumnIndex(columnIndex-1);
     } 
     function moveSlideNext() {
         let maxColumnIndex = document.getElementsByClassName("slide_item").length;
-        if(columnIndex == maxColumnIndex) return;
+        if(columnIndex == maxColumnIndex - 1) return;
         let slideBox = document.querySelector(".slide_box")
-        slideBox.style.transform = `translateX(${-(columnIndex + 1) * 50}dvw)`;
+        slideBox.style.transform = `translateX(${-(columnIndex + 1) * 60}dvw)`;
         setColumnIndex(columnIndex+1);
     }
 
     let data = user ? user.data : [
+        ["국어", "수학", "영어", "과학", "사회"],
+        ["체육", "음악", "미술", "정보", "역사"],
         ["국어", "수학", "영어", "과학", "사회"],
         ["체육", "음악", "미술", "정보", "역사"],
         ["국어", "수학", "영어", "과학", "사회"],
@@ -154,6 +167,11 @@ function TeacherPage({ user, setUser }) {
                 <div className="student-list">
                     <div className="slide_box">
                         <DailySchedule className="slide_item" scheduleData={Array(7).fill("공강")}/>
+                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 1, lessonName: "공강", students: [ { id: "00-00000", name: "학생1" } ] }} />
+                         <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 2, lessonName: "공강", students: [ { id: "00-00001", name: "학생2" }, { id: "00-00002", name: "학생3" } ] }} />
+                          <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 3, lessonName: "공강", students: [ { id: "00-00003", name: "학생4" }, { id: "00-00004", name: "학생5" } ] }} />
+                           <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 4, lessonName: "공강", students: [ { id: "00-00005", name: "학생6" }, { id: "00-00006", name: "학생7" } ] }} />
+                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 5, lessonName: "공강", students: [ { id: "00-00007", name: "학생8" }, { id: "00-00008", name: "학생9" } ] }} />
                     </div>
                 </div>
                 
@@ -204,7 +222,7 @@ function TeacherPage({ user, setUser }) {
                     </form>
                 </div>
                 <QRCode url={generatedURL} iscreated={QRStatus} removelink={removeLink} />
-                <Schedule scheduleData={data} ishided={QRStatus} />
+                <Schedule scheduleData={data} ishided={QRStatus} setEditingCell={setEditingCell} />
             </div>
         </div>
     )

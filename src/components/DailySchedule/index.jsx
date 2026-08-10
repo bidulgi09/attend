@@ -1,9 +1,9 @@
 import React from 'react';
 import './styles.css';
 
-function DailySchedule({ scheduleData }) {
+function DailySchedule({ scheduleData, className }) {
     return (
-        <table className="DailyScheduleTable">
+        <table className={`DailyScheduleTable ${className}`}>
             <thead>
                 <th className="title" colSpan={2}>
                     오늘의 시간표
