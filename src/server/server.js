@@ -431,8 +431,8 @@ app.get('/api/subjectList', (req, res) => {
             `SELECT 
                 a.id AS id,
                 a.subject_id AS subject_id, c.name AS subject_name, 
-                a.teacher_id AS teacher_id, a.days AS subject_days,
-                d.name AS teacher_name,
+                a.teacher_id AS teacher_id, d.name AS teacher_name,
+                a.days AS subject_days,
                 COALESCE(
                     (
                         SELECT b.student_id FROM subject_students AS b WHERE b.subject_teacher_id = a.teacher_id
