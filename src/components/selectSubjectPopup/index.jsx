@@ -18,7 +18,6 @@ function SelectSubjectPopup({ isopen, setIsOpen, user, setUser, editingCell }) {
     const [subject, setSubject] = useState('');
     function updateSubject(e) {
         let selectedSubject = e.target.innerText.split('-')[0].trim();
-        console.log(`Selected subject: ${selectedSubject}`);
         user.subjects[editingCell.row][editingCell.col] = selectedSubject;
         setUser(user);
     }
