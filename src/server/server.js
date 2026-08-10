@@ -431,7 +431,8 @@ app.get('/api/subjectList', (req, res) => {
             `SELECT 
                 a.id AS id,
                 a.subject_id AS subject_id, c.name AS subject_name, 
-                a.teacher_id AS teacher_id, a.days AS subject_days, 
+                a.teacher_id AS teacher_id, a.days AS subject_days,
+                d.name AS teacher_name,
                 COALESCE(
                     (
                         SELECT b.student_id FROM subject_students AS b WHERE b.subject_teacher_id = a.teacher_id
@@ -441,6 +442,8 @@ app.get('/api/subjectList', (req, res) => {
             FROM subject_teachers AS a 
             INNER JOIN subjects AS c 
                 ON a.subject_id = c.id 
+            INNER JOIN teachers AS d
+                ON a.teacher_id = d.id
             GROUP BY a.id, a.subject_id, c.name, a.teacher_id, a.days`, function(error, result, fields) {
                 connection.release();
                 if(error) return res.json({ success: false, results: { isLoaded: false, reason: error }});

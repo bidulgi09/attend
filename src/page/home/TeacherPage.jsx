@@ -16,9 +16,11 @@ import UserManager from '../../server/utils/UserManager';
 import SubjectManager from '../../server/utils/SubjectManager';
 import DailySchedule from '../../components/DailySchedule';
 import InstructionStudents from '../../components/InstructionStudents';
+import SelectSubjectPopup from '../../components/selectSubjectPopup';
 
 function TeacherPage({ user, setUser }) {
     const [isOpen, setIsOpen] = useState(false);
+    const [isSelectSubjectPopupOpen, setIsSelectSubjectPopupOpen] = useState(false);
     const [items, setItems] = useState([]);
     const [selectedSubject, setSelectedSubject] = useState({});
     const [isPopup, setIsPopup] = useState(false);
@@ -132,6 +134,7 @@ function TeacherPage({ user, setUser }) {
                 <title>출첵커 | 홈</title>
             </Helmet>
             <SubjectPopup isopen={isPopup} setIsOpen={setIsPopup} user={user} />
+            <SelectSubjectPopup isopen={isSelectSubjectPopupOpen} setIsOpen={setIsSelectSubjectPopupOpen} user={user}scheduleData={data} setScheduleData={setTimetable} editingCell={editingCell} />
             <form>
                 <input type="file" name="profileImage" ref={fileInputRef} onChange={handleFileChange} style={{ display: "none" }} />
             </form>
@@ -222,7 +225,7 @@ function TeacherPage({ user, setUser }) {
                     </form>
                 </div>
                 <QRCode url={generatedURL} iscreated={QRStatus} removelink={removeLink} />
-                <Schedule scheduleData={data} ishided={QRStatus} setEditingCell={setEditingCell} />
+                <Schedule scheduleData={data} ishided={QRStatus} setEditingCell={setEditingCell} setIsSelectSubjectPopupOpen={setIsSelectSubjectPopupOpen} />
             </div>
         </div>
     )

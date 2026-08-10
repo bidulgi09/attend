@@ -1,0 +1,37 @@
+@import "/src/font.css";
+.SelectSubjectPopup {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 20dvh;
+    width: 20dvh;
+    font-size: 0;
+    font-family: appleNeo;
+    background-color: rgba(34, 40, 49, 0.8);
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    visibility: hidden;
+    opacity: 0;
+    z-index: 20;
+    pointer-events: none;
+    transition: .2s all ease;
+    padding: 2dvh;
+    & .close {
+        display: flex;
+        justify-content: right;
+        width: 100%;
+    }
+}
+    
+
+.SelectSubjectPopup[isopen='true'] {
+    height: 50dvh;
+    width: 60dvh;
+    font-size: 2dvh;
+    pointer-events: all;
+    visibility: visible;
+    opacity: 1;
+}

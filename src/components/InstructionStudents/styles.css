@@ -9,7 +9,7 @@
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(6, 1fr);
     gap: 8px;
-    list-style: none;   /* 이 줄이 점(불릿) 제거 */
+    list-style: none;
     padding: 20px;
     margin: 0;
     width: 100%;

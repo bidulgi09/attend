@@ -53,6 +53,14 @@ const UserManager = {
             return {};
         }
     },
+    async getUserById(id) {
+        try {
+            let res = await this.userList();
+            return res.results.find(v => v.id === id);
+        } catch(e) {
+            return {};
+        }
+    },
     async connectSubject(subject, user) {
         try {
             console.log({ subject, teacher: user });

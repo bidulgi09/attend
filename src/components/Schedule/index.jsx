@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './styles.css';
 
-function Schedule({ scheduleData, ishided, setEditingCell }) {
+function Schedule({ scheduleData, ishided, setEditingCell, setIsSelectSubjectPopupOpen }) {
     return (
         <table className="ScheduleTable" ishided={(ishided || false).toString()}>
             <thead>
@@ -23,9 +23,9 @@ function Schedule({ scheduleData, ishided, setEditingCell }) {
                             for(let j = 0; j < (scheduleData ? scheduleData.length : 5); j++) {
                                 row.push(
                                     <td key={`td_${j}`}>
-                                        <button className="ScheduleButton" onClick={() => setEditingCell({ row: i, col: j })}>
+                                        <p className="ScheduleButton" onClick={() => { setEditingCell({ row: i, col: j }); setIsSelectSubjectPopupOpen(true); }}>
                                             {(scheduleData ? scheduleData[i][j] : "공강")}
-                                        </button>
+                                        </p>
                                     </td>
                                 );
                             }
