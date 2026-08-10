@@ -19,7 +19,8 @@ function App() {
             role: "Student",
             email: null,
             avatar: null,
-            isLogin: false
+            isLogin: false,
+            subjects: Array.from({ length: 7 }, () => Array.from({ length: 5 }, () => "공강"))
         }
     );
     useEffect(() => {
