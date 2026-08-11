@@ -482,8 +482,8 @@ app.get('/api/subjectList', (req, res) => {
                 connection.release();
                 if(error) return res.json({ success: false, results: { isLoaded: false, reason: error }});
                 result.forEach(v => {
-                    v.subject_days = JSON.parse(v.subject_days);
-                    v.students = JSON.parse(v.students);
+                    v.subject_days = typeof v.subject_days== 'object' ? v.subject_days: JSON.parse(v.subject_days);
+                    v.students = typeof v.students == 'object' ? v.students : JSON.parse(v.students);
                     return;
                 });
                 return res.json({ success: true, results: { isLoaded: true, list: result }}); 
