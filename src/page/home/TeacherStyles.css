@@ -95,6 +95,7 @@
     width: 24dvh; 
     height: 24dvh;
     border-radius: 100%;
+    gap: 10px;
     overflow: hidden;
     & img {
         width: 100%;
@@ -106,8 +107,49 @@
 .TeacherPage .name {
     display: flex;
     justify-content: center;
+    flex-direction: row;
     align-items: center;
-    gap: 10px;
+    margin-top: 2dvh;
+    & .name-box {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: 3dvh;
+        text-align: center;
+        & .new-name-input {
+            display: flex;
+            border: none;
+            border-bottom-left-radius: 10px;
+            border-top-left-radius: 10px;
+            text-align: center; 
+            box-sizing: border-box;
+            width: 8dvw;
+            height: 3dvh;
+            &::placeholder {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+        }
+        & .new-name-submit {
+            display: flex;
+            border: none;
+            text-align: center;
+            border-bottom-right-radius: 10px;
+            border-top-right-radius: 10px;
+            box-sizing: border-box;
+            width: 3dvw;
+            height: 3dvh;
+            background-color: rgb(118, 171, 174);
+            color: white;
+        }
+    }
+}
+.TeacherPage .grade {
+    margin-bottom: 2dvh;
+    height: 10px;
 }
 .TeacherPage .edit-icon {
     display: flex;

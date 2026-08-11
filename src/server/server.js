@@ -446,6 +446,18 @@ app.post('/api/connectSubject', (req, res) => {
     })
 });
 
+app.post('/api/connectStudent', (req, res) => {
+    pool.getConnection(function(err, connection) {
+            console.log(req.body);
+        if(err) return res.status(500).json({ success: false, results: { isConnected: false, reason: err }});
+        connection.query("INSERT INTO subject_students (subject_teacher_id, student_id) VALUE (?, ?)", [req.body.subject_teacher_id, req.body.student_id], function(error, result, fields) {
+            connection.release();
+            if(error) return res.json({ success: false, results: { isConnected: false, reason: error }});
+            return res.json({ success: true, results: { isConnected: true, insertId: res.insertId }});
+        });
+    })
+});
+
 app.get('/api/subjectList', (req, res) => {
     pool.getConnection(function(err, connection) {
         if(err) return res.status(500).json({ success: false, results: { isLoaded: false, reason: err }});

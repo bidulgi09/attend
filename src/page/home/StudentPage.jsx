@@ -26,6 +26,8 @@ function StudentPage({ user, setUser }) {
     ];
     const [editingCell, setEditingCell] = useState({ row: null, col: null });
     const [isSelectSubjectPopupOpen, setIsSelectSubjectPopupOpen] = useState(false);
+    const [handleUserNameChange, setHandleUserNameChange] = useState(false);
+    const [newUserName, setNewUserName] = useState(user.name || "");
     const logData = [
         { date: "2023-01-01", status: "출석", subject: "국어" },
         { date: "2023-01-02", status: "출석", subject: "체육" },
@@ -46,7 +48,15 @@ function StudentPage({ user, setUser }) {
         { date: "2023-01-12", status: "출석", subject: "코딩" },
         { date: "2023-01-13", status: "결과", subject: "국어" }
     ];
-
+    const changeUserName = async function() {
+        if (!newUserName || newUserName.trim() === '') {
+            return alert("이름을 입력해주세요.");
+        }
+        let res = setUser({ ...user, name: newUserName });
+        setHandleUserNameChange(false);
+        await UserManager.setUser(user);
+        return alert("이름이 변경되었습니다.");
+    }
     const handleProfileClick = (e) => {
         e.stopPropagation();
         if(!user || !user.id) {
@@ -94,9 +104,18 @@ function StudentPage({ user, setUser }) {
                     <div className='profile-img' onClick={ handleProfileClick }>
                         <img src={(user && user.avatar) ? user.avatar : guest_profile} alt="Profile" />
                     </div>
-                    <div className='name row-wrapper'>
-                        <p>{user.isLogin ? user.name : 'Guest'}</p>
-                        <img className='edit-icon' src={edit} width='12vh' height='12vh' />
+                    <div className='name'>
+                        {
+                            handleUserNameChange ? 
+                            <div className="name-box">
+                                <input className="new-name-input" type="text" placeholder = " 이름을 입력하세요." value = { newUserName } onChange={e => setNewUserName(e.target.value) }/>
+                                <button className="new-name-submit" onClick={changeUserName}>저장</button>
+                            </div>:
+                            <div className="name-box">
+                                <p>{user.isLogin ? user.name : 'Guest'}</p>&nbsp;&nbsp;&nbsp;
+                                <img className='edit-icon' src={edit} width='12vh' height='12vh' onClick={() => setHandleUserNameChange(!handleUserNameChange)} />
+                            </div>   
+                        }
                     </div>
                     <div className='grade'>
                         {user ? user.id : 'N/A'}

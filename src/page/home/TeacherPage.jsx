@@ -58,13 +58,21 @@ function TeacherPage({ user, setUser }) {
         document.addEventListener('mousedown', handleClickOutSide);
         return () => document.removeEventListener('mousedown', handleClickOutSide);
     }, []);
-    const addStudent = function (event) {
+    const addStudent = async function (event) {
         if (/[^\d]/.test(event.target.value)) {
             event.target.value = event.target.value.replace(/[^\d]/g, '');
         }
         let val = event.target.value.replace(/[^\d]/g, '');
         if (val.length > 2) {
             event.target.value = val.substring(0, 2) + '-' + val.substring(2, 7);
+        }
+        if (val.length === 7) {
+            let userList = await UserManager.userList();
+            userList = userList.results;
+
+            let student = userList.find(v => v.id == event.target.value && v.role == "Student" );
+            if(!student) return alert("해당 학생이 존재하지 않습니다.");
+            await SubjectManager.connectStudent(selectedSubject.id+"-"+user.id, student.id);
         }
     }
     const changeUserName = async function() {
@@ -103,15 +111,7 @@ function TeacherPage({ user, setUser }) {
         setColumnIndex(columnIndex+1);
     }
 
-    let data = user ? user.subjects : [
-        ["국어", "수학", "영어", "과학", "사회"],
-        ["체육", "음악", "미술", "정보", "역사"],
-        ["국어", "수학", "영어", "과학", "사회"],
-        ["체육", "음악", "미술", "정보", "역사"],
-        ["국어", "수학", "영어", "과학", "사회"],
-        ["체육", "음악", "미술", "정보", "역사"],
-        ["국어", "수학", "영어", "과학", "사회"]
-    ];
+    let data = user.subjects;
 
     const handleProfileClick = () => {
         fileInputRef.current?.click();
@@ -165,7 +165,7 @@ function TeacherPage({ user, setUser }) {
                                 </ul>
                             )}
                         </span>
-                        <input type="text" placeholder="학생 추가 (00-00000)" onChange={addStudent}></input>
+                        <input type="text" placeholder="학생 추가 (00-00000)" onChange={async e => await addStudent(e)}></input>
                     </div>
                 </form>
                 <div className="row-wrapper slide">
@@ -196,17 +196,17 @@ function TeacherPage({ user, setUser }) {
                     <div className='profile-img' onClick={handleProfileClick}>
                         <img src={(user && user.avatar) ? user.avatar : guest_profile} alt="Profile" />
                     </div>
-                    <div className='name row-wrapper'>
+                    <div className='name'>
                         {
                             handleUserNameChange ? 
-                            <>
-                                <input type="text" value = { newUserName } onChange={e => setNewUserName(e.target.value) }/>
-                                <button onClick={changeUserName}>저장</button>
-                            </>:
-                            <>
-                                <p>{user.isLogin ? user.name : 'Guest'}</p>
+                            <div className="name-box">
+                                <input className="new-name-input" type="text" placeholder=" 이름을 입력하세요." value={ newUserName } onChange={e => setNewUserName(e.target.value) }/>
+                                <button className="new-name-submit" onClick={changeUserName}>저장</button>
+                            </div>:
+                            <div className="name-box">
+                                <p>{user.isLogin ? user.name : 'Guest'}</p>&nbsp;&nbsp;&nbsp;
                                 <img className='edit-icon' src={edit} width='12vh' height='12vh' onClick={() => setHandleUserNameChange(!handleUserNameChange)} />
-                            </>   
+                            </div>   
                         }
                     </div>
                     <div className='grade'>
