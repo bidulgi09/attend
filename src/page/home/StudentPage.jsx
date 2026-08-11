@@ -52,9 +52,10 @@ function StudentPage({ user, setUser }) {
         if (!newUserName || newUserName.trim() === '') {
             return alert("이름을 입력해주세요.");
         }
-        let res = setUser({ ...user, name: newUserName });
+        let res = { ...user, name: newUserName };
+        setUser({ ...user, name: newUserName });
         setHandleUserNameChange(false);
-        await UserManager.setUser(user);
+        await UserManager.setUser(res);
         return alert("이름이 변경되었습니다.");
     }
     const handleProfileClick = (e) => {

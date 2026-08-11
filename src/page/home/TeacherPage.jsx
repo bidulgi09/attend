@@ -67,21 +67,31 @@ function TeacherPage({ user, setUser }) {
             event.target.value = val.substring(0, 2) + '-' + val.substring(2, 7);
         }
         if (val.length === 7) {
+            if(!selectedSubject.subject_name) {
+                event.target.value = null;
+                return alert("과목을 선택해주세요.");
+            }
             let userList = await UserManager.userList();
             userList = userList.results;
 
             let student = userList.find(v => v.id == event.target.value && v.role == "Student" );
-            if(!student) return alert("해당 학생이 존재하지 않습니다.");
-            await SubjectManager.connectStudent(selectedSubject.id+"-"+user.id, student.id);
+            if(!student) {
+                event.target.value = null;
+                return alert("해당 학생이 존재하지 않습니다.");
+            }
+            let res = await SubjectManager.connectStudent(selectedSubject.id+"-"+user.id, student.id);
+            event.target.value = null;
+            return alert(student.name + " 학생 추가 완료");
         }
     }
     const changeUserName = async function() {
         if (!newUserName || newUserName.trim() === '') {
             return alert("이름을 입력해주세요.");
         }
-        let res = setUser({ ...user, name: newUserName });
+        let res = { ...user, name: newUserName };
+        setUser({ ...user, name: newUserName });
         setHandleUserNameChange(false);
-        await UserManager.setUser(user);
+        await UserManager.setUser(res);
         return alert("이름이 변경되었습니다.");
     }
     const removeLink = function () {
