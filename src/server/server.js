@@ -289,17 +289,14 @@ app.get('/api/profile', authenticateToken, (req, res) => {
 app.post('/api/updateUser', (req, res) => {
     const user = req.body.user;
     pool.getConnection(function(err, connection) {
-        if(err) {
-            connection.release();
-            return res.status(500).json({ success: false, results: { isUpdated: false, reason: err }});
-        }
+        if(err) return res.status(500).json({ success: false, results: { isUpdated: false, reason: err }});
         if(!req.cookies.access_token) {
             connection.release();
             return res.status(401).json({ error: "Anauthorized user" });
         }
         let data = [ user.email, user.name, user.role, user.subjects, user.id ];
         let table = user.role === "Student" ? "students" : "teachers";
-        connection.query(`UPDATE ${table} SET email=? name=? role=? subjects=? WHERE id=? `, data, function(error, result, fields) {
+        connection.query(`UPDATE ${table} SET email=?, name=?, role=?, subjects=? WHERE id=? `, data, function(errors, result, fields) {
             connection.release();
             if(errors) return res.send({ success: true, results: { isUpdated: false, reason: errors }});
             return res.send({ success: true, results: { isUpdated: true }});
