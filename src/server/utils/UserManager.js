@@ -45,6 +45,15 @@ const UserManager = {
             return {};
         }
     },
+    async setUser(user) {
+        try {
+            let res = await api.post('/api/updateUser', this.headers, typeof user.subjects === 'object' ? {...user, subjects: JSON.stringify(user.subjects)} : user);
+            return res;
+        } catch(e) {
+            console.log(e);
+            return {};
+        }
+    },
     async userList() {
         try {
             let res = await api.get('/api/userList', this.headers);

@@ -19,8 +19,9 @@ import InstructionStudents from '../../components/InstructionStudents';
 import SelectSubjectPopup from '../../components/selectSubjectPopup';
 
 function TeacherPage({ user, setUser }) {
+    const [handleUserNameChange, setHandleUserNameChange] = useState(false);
     const dayIndex = new Date().getDay();
-    const [currentDay, setCurrentDay] = useState(dayIndex >= 1 && dayIndex <= 5 ? dayIndex : 1);
+    const [currentDay, setCurrentDay] = useState(dayIndex >= 1 && dayIndex <= 5 ? dayIndex - 1 : 0);
     const [isOpen, setIsOpen] = useState(false);
     const [isSelectSubjectPopupOpen, setIsSelectSubjectPopupOpen] = useState(false);
     const [items, setItems] = useState([]);
@@ -36,7 +37,7 @@ function TeacherPage({ user, setUser }) {
     const [columnIndex, setColumnIndex] = useState(0);
 
     const [editingCell, setEditingCell] = useState({ row: null, col: null });
-
+    const [newUserName, setNewUserName] = useState(user.name || "");
     const handleAddItem = function () {
         setIsPopup(!isPopup)
     }
@@ -48,7 +49,7 @@ function TeacherPage({ user, setUser }) {
         fetchItems();
     }, [items]);
     useEffect(() => {
-        setCurrentDay(new Date().getDay());
+        setCurrentDay(dayIndex >= 1 && dayIndex <= 5 ? dayIndex - 1 : 0);
         function handleClickOutSide(event) {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setIsOpen(false);
@@ -65,6 +66,15 @@ function TeacherPage({ user, setUser }) {
         if (val.length > 2) {
             event.target.value = val.substring(0, 2) + '-' + val.substring(2, 7);
         }
+    }
+    const changeUserName = async function() {
+        if (!newUserName || newUserName.trim() === '') {
+            return alert("이름을 입력해주세요.");
+        }
+        let res = setUser({ ...user, name: newUserName });
+        setHandleUserNameChange(false);
+        await UserManager.setUser(user);
+        return alert("이름이 변경되었습니다.");
     }
     const removeLink = function () {
         setQRStatus(false);
@@ -164,7 +174,7 @@ function TeacherPage({ user, setUser }) {
                     </div>
                 <div className="student-list">
                     <div className="slide_box">
-                        <DailySchedule className="slide_item" scheduleData={user.subjects.map(v => v[0])}/>
+                        <DailySchedule className="slide_item" scheduleData={user.subjects.map(v => v[currentDay])}/>
                         <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 1, lessonName: user.subjects[0][currentDay], students: [ { id: "00-00000", name: "학생1" } ] }} />
                         <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 2, lessonName: user.subjects[1][currentDay], students: [ { id: "00-00001", name: "학생2" }, { id: "00-00002", name: "학생3" } ] }} />
                         <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 3, lessonName: user.subjects[2][currentDay], students: [ { id: "00-00003", name: "학생4" }, { id: "00-00004", name: "학생5" } ] }} />
@@ -187,8 +197,17 @@ function TeacherPage({ user, setUser }) {
                         <img src={(user && user.avatar) ? user.avatar : guest_profile} alt="Profile" />
                     </div>
                     <div className='name row-wrapper'>
-                        <p>{user.isLogin ? user.name : 'Guest'}</p>
-                        <img className='edit-icon' src={edit} width='12vh' height='12vh' />
+                        {
+                            handleUserNameChange ? 
+                            <>
+                                <input type="text" value = { newUserName } onChange={e => setNewUserName(e.target.value) }/>
+                                <button onClick={changeUserName}>저장</button>
+                            </>:
+                            <>
+                                <p>{user.isLogin ? user.name : 'Guest'}</p>
+                                <img className='edit-icon' src={edit} width='12vh' height='12vh' onClick={() => setHandleUserNameChange(!handleUserNameChange)} />
+                            </>   
+                        }
                     </div>
                     <div className='grade'>
                         {user ? user.id : 'N/A'}

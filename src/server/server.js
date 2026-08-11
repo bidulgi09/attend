@@ -69,6 +69,10 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
     if(!user || !user.role) return res.send({ success: true, results: { isUploaded: false, reason: "Unknown User."} }); 
     pool.getConnection(function(err, connection) {
         if(err) return res.send({ success: true, results: { isUploaded: false, reason: err } });
+        if(!req.cookies.access_token) {
+            connection.release();
+            return res.status(401).json({ error: "Anauthorized user." });
+        }
         let table = user.role === "Student" ? "students" : "teachers"
         connection.query(`UPDATE ${table} SET avatar = ? WHERE id = ?`, [publicUrl, user.id], function(errors, results, fields) {
             connection.release();
@@ -281,6 +285,23 @@ app.get('/api/profile', authenticateToken, (req, res) => {
             return;
         });
     });
+});
+app.post('/api/updateUser', (req, res) => {
+    const user = req.body.user;
+    pool.getConnection(function(err, connection) {
+        if(err) return res.status(500).json({ success: false, results: { isUpdated: false, reason: err }});
+        if(!req.cookies.access_token) {
+            connection.release();
+            return res.status(401).json({ error: "Anauthorized user" });
+        }
+        let data = [ user.email, user.name, user.role, user.subjects, user.id ];
+        let table = user.role === "Student" ? "students" : "teachers";
+        connection.query(`UPDATE ${table} SET email=? name=? role=? subjects=? WHERE id=? `, data, function(error, result, fields) {
+            connection.release();
+            if(errors) return res.send({ success: true, results: { isUpdated: false, reason: errors }});
+            return res.send({ success: true, results: { isUpdated: true }});
+        });
+    })
 });
 app.post('/api/refresh', (req, res) => {
     const REFRESH_TOKEN_EXPIRED_IN=(()=>new Date(Date.now() + 7*24*60*60*1000))();

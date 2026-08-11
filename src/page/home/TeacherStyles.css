@@ -78,7 +78,6 @@
     overflow-y: auto;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 50px;
     height: 100%;
     flex: 1;
     z-index: 10;
