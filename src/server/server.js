@@ -469,7 +469,7 @@ app.get('/api/subjectList', (req, res) => {
                 a.days AS subject_days,
                 COALESCE(
                     (
-                        SELECT b.student_id FROM subject_students AS b WHERE b.subject_teacher_id = CONCAT(c.id, "-", a.teacher_id)
+                        SELECT b.student_id FROM subject_students AS b WHERE b.subject_teacher_id = CONCAT(c.id, '-', a.teacher_id)
                     ),
                     JSON_ARRAY()
                 ) AS students
