@@ -438,10 +438,10 @@ app.post('/api/connectSubject', (req, res) => {
     pool.getConnection(function(err, connection) {
             console.log(req.body);
         if(err) return res.status(500).json({ success: false, results: { isConnected: false, reason: err }});
-        connection.query("INSERT INTO subject_teachers (subject_id, teacher_id, days) VALUE (?, ?, ?)", [req.body.subject.id, req.body.teacher.id, JSON.stringify(req.body.subject.days)], function(error, result, fields) {
+        connection.query("INSERT INTO subject_teachers (subject_id, teacher_id, days) VALUES (?, ?, ?)", [req.body.subject.id, req.body.teacher.id, JSON.stringify(req.body.subject.days)], function(error, result, fields) {
             connection.release();
             if(error) return res.json({ success: false, results: { isConnected: false, reason: error }});
-            return res.json({ success: true, results: { isConnected: true, insertId: res.insertId }});
+            return res.json({ success: true, results: { isConnected: true, insertId: result.insertId }});
         });
     })
 });
@@ -450,10 +450,10 @@ app.post('/api/connectStudent', (req, res) => {
     pool.getConnection(function(err, connection) {
             console.log(req.body);
         if(err) return res.status(500).json({ success: false, results: { isConnected: false, reason: err }});
-        connection.query("INSERT INTO subject_students (subject_teacher_id, student_id) VALUE (?, ?)", [req.body.subject_teacher_id, req.body.student_id], function(error, result, fields) {
+        connection.query("INSERT INTO subject_students (subject_teacher_id, student_id) VALUES (?, ?)", [req.body.subject_teacher_id, req.body.student_id], function(error, result, fields) {
             connection.release();
             if(error) return res.json({ success: false, results: { isConnected: false, reason: error }});
-            return res.json({ success: true, results: { isConnected: true, insertId: res.insertId }});
+            return res.json({ success: true, results: { isConnected: true, insertId: result.insertId }});
         });
     })
 });
@@ -469,7 +469,7 @@ app.get('/api/subjectList', (req, res) => {
                 a.days AS subject_days,
                 COALESCE(
                     (
-                        SELECT b.student_id FROM subject_students AS b WHERE b.subject_teacher_id = CONCAT(c.id, '-', a.teacher_id)
+                        SELECT b.student_id FROM subject_students AS b WHERE b.subject_teacher_id = CONCAT(a.id, '-', a.teacher_id)
                     ),
                     JSON_ARRAY()
                 ) AS students
@@ -489,10 +489,6 @@ app.get('/api/subjectList', (req, res) => {
                 return res.json({ success: true, results: { isLoaded: true, list: result }}); 
             })
     })
-});
-
-app.post('/api/setSchedule', (req, res) => {
-    
 });
 
 app.listen(port, () => { 
