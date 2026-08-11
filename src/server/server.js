@@ -287,7 +287,7 @@ app.get('/api/profile', authenticateToken, (req, res) => {
     });
 });
 app.post('/api/updateUser', (req, res) => {
-    const user = req.body.user;
+    const user = req.body;
     pool.getConnection(function(err, connection) {
         if(err) return res.status(500).json({ success: false, results: { isUpdated: false, reason: err }});
         if(!req.cookies.access_token) {
