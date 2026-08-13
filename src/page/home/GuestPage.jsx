@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './GuestStyles.css';
-import Image from '../../assets/서비스.png';
+import Image from '../../assets/main.png';
 function GuestPage() {
     return (
         <div className="GuestPage">
