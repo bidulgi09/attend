@@ -33,6 +33,7 @@ app.use(cors({
     origin: [
         "http://localhost:5173",
         "https://attend-508x.onrender.com",
+        "https://api.xn--wx6bnqz4a.xn--yq5b.xn--3e0b707e",
         "https://www.xn--wx6bnqz4a.xn--yq5b.xn--3e0b707e",
         "https://xn--wx6bnqz4a.xn--yq5b.xn--3e0b707e",
         "https://organic-engine-x5j4gjxjq7xxfv44w-5173.app.github.dev",
