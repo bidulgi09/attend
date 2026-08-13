@@ -7,6 +7,7 @@
     color: white;
     flex-direction: column;
     & .main-layout {
+        z-index: 5;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -17,11 +18,11 @@
             width: 100%;
             justify-content: stretch;
             & .title {
-                font-size: 3dvw;
+                font-size: 4dvw;
                 font-weight: bold;
             }
             & .description {
-                font-size: 1.5dvw;
+                font-size: 2dvw;
             }
         }
         & .content-container {
@@ -29,12 +30,33 @@
             flex-direction: row;
             width: 100%;
             justify-content: stretch;
-            gap: 20px;
+            align-items: center;
+            gap: 40px;
             & .text {
                 flex-direction: column;
             }
             & img {
                 border-radius: 10px;
+            }
+            & .signup-btn {
+                display: flex;
+                text-decoration: none;
+                color: white;
+                background-color: rgb(118, 171, 174);
+                border-radius: 30dvw;
+                width: 30dvw;
+                height: 10dvh;
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+                font-size: 2dvw;
+            }
+            & .more-info {
+                display: flex;
+                color: white;
+                justify-content: center;
+                align-items: center;
+                margin: 20px;
             }
         }
     }

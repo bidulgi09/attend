@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './GuestStyles.css';
-
+import Image from '../../assets/서비스.png';
 function GuestPage() {
     return (
         <div className="GuestPage">
@@ -10,11 +11,11 @@ function GuestPage() {
                     <div className="description">효율적이고 간편한 출석 관리를 시작하세요!</div>
                 </div>
                 <div className="content-container">
-                    <img src="src/assets/서비스.png" width="200px" height="200px"></img>
-                    <div className="text">
-                        <div className="signin-btn">지금 회원가입하기</div>
-                        <div className="more-info">더 알아보기</div>
-                    </div>
+                    <img src={Image} width="350px" height="250px"/>
+                    <nav className="text">
+                        <Link to="/signup" className="signup-btn">지금 시작하기</Link>
+                        <Link to="/more-info" className="more-info">더 알아보기</Link>
+                    </nav>
                 </div>
             </div>
         </div>
