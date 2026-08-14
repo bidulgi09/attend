@@ -39,7 +39,7 @@
     "start": "vite --host",
     "build": "vite build",
     "serve": "vite preview",
-    "server": "nodemon src/server/server.js",
+    "server": "node src/server/server.js",
     "dev": "concurrently \"sudo service mariadb start\" \"npm run server\" \"npm start\"",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
@@ -62,7 +62,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://attend-508x.onrender.com/",
   "devDependencies": {
     "@vitejs/plugin-react": "^6.0.3",
     "gh-pages": "^6.3.0",

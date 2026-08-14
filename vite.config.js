@@ -3,7 +3,6 @@ import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr'
 
 export default defineConfig(({ mode }) => {
-  // 환경 변수 로드
   const env = loadEnv(mode, process.cwd());
 
   return {
@@ -15,11 +14,6 @@ export default defineConfig(({ mode }) => {
       svgr()
     ],
     base: '/',
-    assetsInclude: ['**/*.md'],
-    server: {
-      allowedHosts: [
-        'api.xn--wx6bnqz4a.xn--yq5b.xn--3e0b707e'
-      ]
-    }
+    assetsInclude: ['**/*.md']
   };
 });
