@@ -15,6 +15,11 @@ export default defineConfig(({ mode }) => {
       svgr()
     ],
     base: '/',
-    assetsInclude: ['**/*.md']
+    assetsInclude: ['**/*.md'],
+    server: {
+      allowedHosts: [
+        'api.xn--wx6bnqz4a.xn--yq5b.xn--3e0b707e'
+      ]
+    }
   };
 });
