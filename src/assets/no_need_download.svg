@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<g bx:workspace="root" id="svg2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+<path d="M 78.186 45.556 C 78.186 48.699 77.691 51.727 76.774 54.566 C 73.918 52.459 70.387 51.213 66.566 51.213 C 57.06 51.213 49.353 58.92 49.353 68.426 C 49.353 70.68 49.786 72.833 50.574 74.805 C 50.016 74.837 49.455 74.853 48.889 74.853 C 32.709 74.853 19.592 61.736 19.592 45.556 C 19.592 29.376 32.709 16.259 48.889 16.259 C 65.069 16.259 78.186 29.376 78.186 45.556 Z" style="stroke: currentColor; fill: rgba(216, 216, 216, 0); stroke-width: 3px;"></path>
+<path d="M -1.515 17.371 H 36.069 L 19.854 2.292 L 36.487 17.761 L 19.854 33.229 L 36.069 18.15 H -1.515 V 17.371 Z" bx:shape="arrow -1.515 2.292 38.002 30.937 0.779 16.634 16.215 1@3cc6c095" style="fill: rgb(216, 216, 216); stroke: currentColor; stroke-width: 3px; stroke-linejoin: round; stroke-linecap: round;" transform="matrix(0, 1, -1, 0, 66.649499, 19.360863)"></path>
+<ellipse style="stroke: currentColor; stroke-width: 3; fill: rgba(216, 216, 216, 0);" cx="66.448" cy="68.604" rx="17.213" ry="17.213"></ellipse>
+<path d="M 66.456 53.382 H 66.756 V 68.297 H 81.671 V 68.598 H 66.756 V 83.512 H 66.456 V 68.598 H 51.541 V 68.297 H 66.456 Z" bx:shape="cross 51.541 53.382 30.13 30.13 0.301 0.301 0.5 1@ab7703ba" style="fill: rgb(216, 216, 216); stroke: currentColor; stroke-width: 3px; transform-box: fill-box; transform-origin: 50% 50%;" transform="matrix(0.707107, 0.707107, -0.707107, 0.707107, -0.000005, 0.000039)"></path>
+</g>
+</svg>

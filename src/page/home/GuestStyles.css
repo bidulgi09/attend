@@ -60,32 +60,66 @@
                 margin: 20px;
                 font-size: 1.5dvw;
             }
-            & .quick-attend {
+            & .icons {
                 display: flex;
-                flex-direction: column;
                 justify-content: center;
-                text-align: center;
                 align-items: center;
-                & .quick-attend-icon {
-                    color: rgb(118, 171, 174);
-                    border-radius: 10px;
-                    width: 5dvw;
-                    height: 100%;
-                }
-                & .quick-attend-text {
+                gap: 5dvw;
+                & .quick-attend {
                     display: flex;
+                    flex-direction: column;
                     justify-content: center;
-                    align-items: center;
                     text-align: center;
-                    font-size: 1.5dvw;
-                    font-weight: bold;
+                    align-items: center;
+                    & .quick-attend-icon {
+                        color: rgb(118, 171, 174);
+                        border-radius: 10px;
+                        width: 5dvw;
+                        height: 100%;
+                    }
+                    & .quick-attend-text {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;
+                        font-size: 1.5dvw;
+                        font-weight: bold;
+                    }
+                    & .quick-attend-subtext {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;
+                        font-size: 1dvw;
+                    }
                 }
-                & .quick-attend-subtext {
+                & .no-download {
                     display: flex;
+                    flex-direction: column;
                     justify-content: center;
-                    align-items: center;
                     text-align: center;
-                    font-size: 1dvw;
+                    align-items: center;
+                    & .no-download-icon {
+                        color: rgb(118, 171, 174);
+                        border-radius: 10px;
+                        width: 5dvw;
+                        height: 100%;
+                    }
+                    & .no-download-text {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;
+                        font-size: 1.5dvw;
+                        font-weight: bold;
+                    }
+                    & .no-download-subtext {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;
+                        font-size: 1dvw;
+                    }
                 }
             }
         }
