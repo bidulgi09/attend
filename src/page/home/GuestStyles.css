@@ -125,3 +125,62 @@
         }
     }
 }
+
+@media(max-width:520px) {
+    .GuestPage {
+        width: 90%;
+        padding-left: 5%;
+        padding-right: 5%;
+        & .main-layout {
+            justify-content: flex-start;
+            flex-direction: column;
+            overflow-y: scroll;
+            & .title-container {
+                .title {
+                    font-size: 150%;
+                }
+                .description {
+                    font-size: 110%;
+                }
+            }
+            & .content-container {
+                flex-direction: column;
+                & img {
+                    width: 100%;
+                    height: 100%;
+                }
+                & .signup-btn {
+                    width: 90dvw;
+                    font-size: 6dvw;
+                }
+                & .more-info {
+                    font-size: 4dvw;
+                }
+                & .icons {
+                    & .quick-attend {
+                        & .quick-attend-icon {
+                            width: 30dvw;
+                        }
+                        & .quick-attend-text {
+                            font-size: 5dvw;
+                        }
+                        & .quick-attend-subtext {
+                            font-size: 3dvw;
+                        }
+                    }
+                    & .no-download {
+                        & .no-download-icon {
+                            width: 30dvw;;
+                        }
+                        & .no-download-text {
+                            font-size: 5dvw;
+                        }
+                        & .no-download-subtext {
+                            font-size: 3dvw;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
