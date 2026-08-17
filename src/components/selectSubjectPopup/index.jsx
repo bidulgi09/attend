@@ -17,12 +17,11 @@ function SelectSubjectPopup({ isopen, setIsOpen, user, setUser, editingCell }) {
     }, []);
     const days = ['월', '화', '수', '목', '금'];
     const [subject, setSubject] = useState('');
-    function updateSubject(, subject) {
-        let selectedSubject = subject.name;
-        let selectedSubjectId = subject.id;
+    function updateSubject(e, subject) {
         let subjects = user.subjects;
-        subjects[editingCell.row][editingCell.col] = selectedSubject;
+        subjects[editingCell.row][editingCell.col] = { id: subject.id   , name: subject.subject_name };
         setUser({...user, subjects});
+        console.log(user);
     }
     return (
         <div className="SelectSubjectPopup" isopen={isopen.toString()}>

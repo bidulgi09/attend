@@ -185,7 +185,7 @@ function TeacherPage({ user, setUser }) {
                 <div className="student-list">
                     <div className="slide_box">
                         <DailySchedule className="slide_item" scheduleData={user.subjects.map(v => v[currentDay])}/>
-                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 1, lessonName: user.subjects[0][currentDay].name, students: user.subjects[0][currentDay] }} />
+                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 1, lessonName: user.subjects[0][currentDay].name, students: [ { id: "00-00001", name: "학생2" }, { id: "00-00002", name: "학생3" } ] }} />
                         <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 2, lessonName: user.subjects[1][currentDay].name, students: [ { id: "00-00001", name: "학생2" }, { id: "00-00002", name: "학생3" } ] }} />
                         <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 3, lessonName: user.subjects[2][currentDay].name, students: [ { id: "00-00003", name: "학생4" }, { id: "00-00004", name: "학생5" } ] }} />
                         <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 4, lessonName: user.subjects[3][currentDay].name, students: [ { id: "00-00005", name: "학생6" }, { id: "00-00006", name: "학생7" } ] }} />
