@@ -17,7 +17,7 @@ function SelectSubjectPopup({ isopen, setIsOpen, user, setUser, editingCell }) {
     }, []);
     const days = ['월', '화', '수', '목', '금'];
     const [subject, setSubject] = useState('');
-    function updateSubject(e, subject) {
+    async function updateSubject(e, subject) {
         let subjects = user.subjects;
         subjects[editingCell.row][editingCell.col] = { id: subject.id, name: subject.subject_name };
         setUser({...user, subjects});
@@ -34,7 +34,7 @@ function SelectSubjectPopup({ isopen, setIsOpen, user, setUser, editingCell }) {
                         {
                             subjectList.filter(v => (v.subject_name.includes(subject) || v.teacher_name.includes(subject)) && v.subject_days.includes(days[editingCell.col])).map((subject, index) => {
                                 return (
-                                    <div className="subject-item" key={index} onClick={ e => { updateSubject(e, subject) } }>
+                                    <div className="subject-item" key={index} onClick={ async e => { await updateSubject(e, subject) } }>
                                         {index + 1}. {subject.subject_name} ({subject.subject_days.join(", ")}) - {subject.teacher_name}
                                     </div>
                                 )
