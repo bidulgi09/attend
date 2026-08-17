@@ -473,8 +473,8 @@ app.get('/api/subjectList', (req, res) => {
                     (
                         SELECT JSON_ARRAYAGG(
                             JSON_OBJECT(
-                                'student_id', b.student_id,
-                                'student_name', e.name
+                                'id', b.student_id,
+                                'name', e.name
                             )
                         ) 
                         FROM subject_students AS b 
