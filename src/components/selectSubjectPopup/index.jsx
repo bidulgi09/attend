@@ -17,8 +17,9 @@ function SelectSubjectPopup({ isopen, setIsOpen, user, setUser, editingCell }) {
     }, []);
     const days = ['월', '화', '수', '목', '금'];
     const [subject, setSubject] = useState('');
-    function updateSubject(e) {
-        let selectedSubject = e.target.innerText.replace(/\d\.\s/, '').split('-')[0].replace(/\(.*\)/, '').trim();
+    function updateSubject(, subject) {
+        let selectedSubject = subject.name;
+        let selectedSubjectId = subject.id;
         let subjects = user.subjects;
         subjects[editingCell.row][editingCell.col] = selectedSubject;
         setUser({...user, subjects});
@@ -34,7 +35,7 @@ function SelectSubjectPopup({ isopen, setIsOpen, user, setUser, editingCell }) {
                         {
                             subjectList.filter(v => (v.subject_name.includes(subject) || v.teacher_name.includes(subject)) && v.subject_days.includes(days[editingCell.col])).map((subject, index) => {
                                 return (
-                                    <div className="subject-item" key={index} onClick={ updateSubject }>
+                                    <div className="subject-item" key={index} onClick={ e => { updateSubject(e, subject) } }>
                                         {index + 1}. {subject.subject_name} ({subject.subject_days.join(", ")}) - {subject.teacher_name}
                                     </div>
                                 )

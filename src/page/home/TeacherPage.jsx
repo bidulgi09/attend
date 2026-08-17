@@ -185,13 +185,13 @@ function TeacherPage({ user, setUser }) {
                 <div className="student-list">
                     <div className="slide_box">
                         <DailySchedule className="slide_item" scheduleData={user.subjects.map(v => v[currentDay])}/>
-                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 1, lessonName: user.subjects[0][currentDay], students: [ { id: "00-00000", name: "학생1" } ] }} />
-                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 2, lessonName: user.subjects[1][currentDay], students: [ { id: "00-00001", name: "학생2" }, { id: "00-00002", name: "학생3" } ] }} />
-                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 3, lessonName: user.subjects[2][currentDay], students: [ { id: "00-00003", name: "학생4" }, { id: "00-00004", name: "학생5" } ] }} />
-                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 4, lessonName: user.subjects[3][currentDay], students: [ { id: "00-00005", name: "학생6" }, { id: "00-00006", name: "학생7" } ] }} />
-                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 5, lessonName: user.subjects[4][currentDay], students: [ { id: "00-00007", name: "학생8" }, { id: "00-00008", name: "학생9" } ] }} />
-                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 6, lessonName: user.subjects[5][currentDay], students: [ { id: "00-00009", name: "학생10" }, { id: "00-00010", name: "학생11" } ] }} />
-                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 7, lessonName: user.subjects[6][currentDay], students: [ { id: "00-00012", name: "학생12" }, { id: "00-00013", name: "학생13" } ] }} />
+                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 1, lessonName: user.subjects[0][currentDay].name, students: user.subjects[0][currentDay] }} />
+                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 2, lessonName: user.subjects[1][currentDay].name, students: [ { id: "00-00001", name: "학생2" }, { id: "00-00002", name: "학생3" } ] }} />
+                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 3, lessonName: user.subjects[2][currentDay].name, students: [ { id: "00-00003", name: "학생4" }, { id: "00-00004", name: "학생5" } ] }} />
+                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 4, lessonName: user.subjects[3][currentDay].name, students: [ { id: "00-00005", name: "학생6" }, { id: "00-00006", name: "학생7" } ] }} />
+                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 5, lessonName: user.subjects[4][currentDay].name, students: [ { id: "00-00007", name: "학생8" }, { id: "00-00008", name: "학생9" } ] }} />
+                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 6, lessonName: user.subjects[5][currentDay].name, students: [ { id: "00-00009", name: "학생10" }, { id: "00-00010", name: "학생11" } ] }} />
+                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 7, lessonName: user.subjects[6][currentDay].name, students: [ { id: "00-00012", name: "학생12" }, { id: "00-00013", name: "학생13" } ] }} />
                     </div>
                 </div>
                 
