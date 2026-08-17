@@ -90,7 +90,7 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
 app.get('/api/userList', (req, res) => { 
     pool.getConnection(function(err, connection) { 
         if(err) return res.status(500).json({ success: false, results: { isSearched: false, reason: err } });
-        connection.query("SELECT id, name, email, role, avatar, subjects FROM students UNION ALL SELECT id, name, email, role, avatar FROM teachers;", function(error, results, fields) {
+        connection.query("SELECT id, name, email, role, avatar, subjects FROM students UNION ALL SELECT id, name, email, role, avatar, subjects FROM teachers;", function(error, results, fields) {
             connection.release(); 
             if(error) return res.status(500).json({ success: false, results: { isSearched: false, reason: error } });
             return res.send({ counts: results.length, results }); 
