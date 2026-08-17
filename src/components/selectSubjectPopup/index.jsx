@@ -21,7 +21,7 @@ function SelectSubjectPopup({ isopen, setIsOpen, user, setUser, editingCell }) {
         let subjects = user.subjects;
         subjects[editingCell.row][editingCell.col] = { id: subject.id, name: subject.subject_name };
         setUser({...user, subjects});
-        console.log(user);
+        await UserManager.setUser(user);
     }
     return (
         <div className="SelectSubjectPopup" isopen={isopen.toString()}>
