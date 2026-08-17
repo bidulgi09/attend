@@ -17,13 +17,7 @@ import UserManager from '../../server/utils/UserManager';
 function StudentPage({ user, setUser }) {
     const fileInputRef = useRef(null);
 
-    let data = user ? user.subjects : [
-        ["국어", "수학", "영어", "과학", "사회"],
-        ["체육", "음악", "미술", "정보", "역사"],
-        ["국어", "수학", "영어", "과학", "사회"],
-        ["체육", "음악", "미술", "정보", "역사"],
-        ["국어", "수학", "영어", "과학", "사회"]
-    ];
+    let data = user.subjects;
     const [editingCell, setEditingCell] = useState({ row: null, col: null });
     const [isSelectSubjectPopupOpen, setIsSelectSubjectPopupOpen] = useState(false);
     const [handleUserNameChange, setHandleUserNameChange] = useState(false);

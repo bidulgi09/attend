@@ -471,7 +471,16 @@ app.get('/api/subjectList', (req, res) => {
                 a.days AS subject_days,
                 COALESCE(
                     (
-                        SELECT JSON_ARRAYAGG(b.student_id) FROM subject_students AS b WHERE b.subject_teacher_id = CONCAT(a.id, '-', a.teacher_id)
+                        SELECT JSON_ARRAYAGG(
+                            JSON_OBJECT(
+                                'student_id', b.student_id,
+                                'student_name', e.name
+                            )
+                        ) 
+                        FROM subject_students AS b 
+                        INNER JOIN students AS e
+                            ON b.student_id = e.id
+                        WHERE b.subject_teacher_id = CONCAT(a.id, '-', a.teacher_id)
                     ),
                     JSON_ARRAY()
                 ) AS students
@@ -480,7 +489,7 @@ app.get('/api/subjectList', (req, res) => {
                 ON a.subject_id = c.id 
             INNER JOIN teachers AS d
                 ON a.teacher_id = d.id
-            GROUP BY a.id, a.subject_id, c.name, a.teacher_id, a.days`, function(error, result, fields) {
+            GROUP BY a.id, a.subject_id, c.name, a.teacher_id, a.days, d.name`, function(error, result, fields) {
                 connection.release();
                 if(error) return res.json({ success: false, results: { isLoaded: false, reason: error }});
                 result.forEach(v => {
