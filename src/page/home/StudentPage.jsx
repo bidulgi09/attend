@@ -119,7 +119,7 @@ function StudentPage({ user, setUser }) {
                         <input type="text" placeholder="출석 코드"></input>
                     </form>
                 </div>
-                <Schedule scheduleData={data} ishided={false} setEditingCell={setEditingCell} setIsSelectSubjectPopupOpen={setIsSelectSubjectPopupOpen} />
+                <Schedule scheduleData={data.map(v => v.map(e => e.name || "공강"))} ishided={false} setEditingCell={setEditingCell} setIsSelectSubjectPopupOpen={setIsSelectSubjectPopupOpen} />
             </div>
         </div>
     );

@@ -19,7 +19,7 @@ function SelectSubjectPopup({ isopen, setIsOpen, user, setUser, editingCell }) {
     const [subject, setSubject] = useState('');
     function updateSubject(e, subject) {
         let subjects = user.subjects;
-        subjects[editingCell.row][editingCell.col] = { id: subject.id   , name: subject.subject_name };
+        subjects[editingCell.row][editingCell.col] = { id: subject.id, name: subject.subject_name };
         setUser({...user, subjects});
         console.log(user);
     }
