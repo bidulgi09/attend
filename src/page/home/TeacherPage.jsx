@@ -159,23 +159,23 @@ function TeacherPage({ user, setUser }) {
                 <form className='attendence-form-main'>
                     <div className="dropdown" ref={dropdownRef}>
                         <span className="dropdown-box">
-                            <button className="dropdown-placeholder" onClick={() => setIsOpen(!isOpen)}>
+                            <button className="dropdown-placeholder" onClick={() => console.log(1) }>
                                 {selectedSubject.subject_name ? `${selectedSubject.subject_name}${(selectedSubject.subject_days.length > 0) ? (" (" + selectedSubject.subject_days.join(", ") + ")") : ""}` : "선택하기 v"}
                             </button>
-                            {isOpen && (
-                                <ul className="dropdown-menu">
-                                    {
-                                        items.map((item, i) => {
-                                            return <li key={i} className='dropdown-item' onClick={() => { setIsOpen(false); setSelectedSubject(item); }}>
-                                                {item.subject_name}{(item.subject_days.length > 0) && (" (" + item.subject_days.join(", ") + ")")}
-                                            </li>
-                                        })
-                                    }
+                            <ul className="dropdown-menu" data-is-open={isOpen.toString()}>
+                                {
+                                    items.map((item, i) => {
+                                        return <li key={i} className='dropdown-item' onClick={() => { setIsOpen(false); setSelectedSubject(item); }}>
+                                            {item.subject_name}{(item.subject_days.length > 0) && (" (" + item.subject_days.join(", ") + ")")}
+                                        </li>
+                                    })
+                                }
+                                <li className="add-item">
                                     <button className='add-btn' onClick={handleAddItem}>
                                         + 새 과목
                                     </button>
-                                </ul>
-                            )}
+                                </li>
+                            </ul>
                         </span>
                         <input type="text" placeholder="학생 추가 (00-00000)" onChange={async e => await addStudent(e)}></input>
                     </div>
@@ -224,26 +224,24 @@ function TeacherPage({ user, setUser }) {
                     <div className='grade'>
                         {user ? user.id : 'N/A'}
                     </div>
-                    <form className='attendence-form-side' onSubmit={() => { event.preventDefault(); }}>
+                    <form className='attendence-form-side' onSubmit={(event) => { event.preventDefault(); }}>
                         <div className="dropdown" ref={dropdownRef}>
                             <span className="dropdown-box">
                                 <button className="dropdown-placeholder" onClick={() => setIsOpen(!isOpen)}>
                                     {selectedSubject.subject_name ? `${selectedSubject.subject_name}${(selectedSubject.subject_days.length > 0) ? (" (" + selectedSubject.subject_days.join(", ") + ")") : ""}` : "선택하기 v"}
                                 </button>
-                                {isOpen && (
-                                    <ul className="dropdown-menu">
-                                        {
-                                            items.map((item, i) => {
-                                                return <li key={i} className='dropdown-item' onClick={() => { setIsOpen(false); setSelectedSubject(item); }}>
-                                                    {item.subject_name}{(item.subject_days.length > 0) && (" (" + item.subject_days.join(", ") + ")")}
-                                                </li>
-                                            })
-                                        }
-                                        <button className='add-btn' onClick={handleAddItem}>
-                                            + 새 과목
-                                        </button>
-                                    </ul>
-                                )}
+                                <ul className="dropdown-menu" data-is-open={isOpen.toString()}>
+                                    {
+                                        items.map((item, i) => {
+                                            return <li key={i} className='dropdown-item' onClick={() => { setIsOpen(false); setSelectedSubject(item); }}>
+                                                {item.subject_name}{(item.subject_days.length > 0) && (" (" + item.subject_days.join(", ") + ")")}
+                                            </li>
+                                        })
+                                    }
+                                    <button className='add-btn' onClick={handleAddItem}>
+                                        + 새 과목
+                                    </button>
+                                </ul>
                             </span>
                             <input type="text" placeholder="학생 추가 (00-00000)" onChange={addStudent}></input>
                         </div>
