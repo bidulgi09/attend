@@ -1,5 +1,6 @@
 .DailyScheduleTable {
     border-collapse: collapse;
+    box-sizing: border-box;
     flex-direction: column;
     outline: 2px solid black;
     width: 100%;
@@ -12,7 +13,7 @@
     color: black;
     text-align: center;
 }
-
+  
 .DailyScheduleTable th,
 .DailyScheduleTable td {
     height: 35px;

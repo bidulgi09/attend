@@ -104,7 +104,7 @@ function StudentPage({ user, setUser }) {
                             handleUserNameChange ? 
                             <div className="name-box">
                                 <input className="new-name-input" type="text" placeholder = " 이름을 입력하세요." value = { newUserName } onChange={e => setNewUserName(e.target.value) }/>
-                                <button className="new-name-submit" onClick={changeUserName}>저장</button>
+                                <button className="new-name-submit" onClick={async (e) => await changeUserName(e) }>저장</button>
                             </div>:
                             <div className="name-box">
                                 <p>{user.isLogin ? user.name : 'Guest'}</p>&nbsp;&nbsp;&nbsp;
