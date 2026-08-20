@@ -23,7 +23,7 @@ function DailySchedule({ scheduleData, className }) {
                             res.push(
                                 <tr key={`tr_${i}`}>
                                     <th key={`th_${i}`}>{i+1}교시</th>
-                                    <td key={`td_${i}`}>{(scheduleData ? scheduleData[i] : "공강")}</td>
+                                    <td key={`td_${i}`}>{scheduleData[i].subject_name ? ((scheduleData[i].subject_name || "공강") + (" (" + (scheduleData[i].grade || 0) + "-" + (scheduleData[i].class || 0) + ")")) : "공강"}</td>
                                 </tr>
                             );
                         }

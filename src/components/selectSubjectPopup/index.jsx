@@ -35,7 +35,7 @@ function SelectSubjectPopup({ isopen, setIsOpen, user, setUser, editingCell }) {
                             subjectList.filter(v => (v.subject_name.includes(subject) || v.teacher_name.includes(subject)) && v.subject_days.includes(days[editingCell.col])).map((subject, index) => {
                                 return (
                                     <div className="subject-item" key={index} onClick={ async e => { await updateSubject(e, subject) } }>
-                                        {index + 1}. {subject.subject_name} ({subject.subject_days.join(", ")}) - {subject.teacher_name}
+                                        {index + 1}. {subject.subject_name} ({subject.grade + "-" + subject.class}) - {subject.teacher_name}
                                     </div>
                                 )
                             })

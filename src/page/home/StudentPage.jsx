@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './StudentStyles.css';
 import { Helmet } from 'react-helmet-async';
 import edit from '../../assets/edit.png';
@@ -14,6 +14,7 @@ import SelectSubjectPopup from '../../components/selectSubjectPopup';
 
 import guest_profile from '../../uploads/guest_profile.png';
 import UserManager from '../../server/utils/UserManager';
+import SubjectManager from '../../server/utils/SubjectManager';
 
 function StudentPage({ user, setUser }) {
     const fileInputRef = useRef(null);
@@ -23,6 +24,8 @@ function StudentPage({ user, setUser }) {
     const [currentDay, setCurrentDay] = useState(dayIndex >= 1 && dayIndex <= 5 ? dayIndex - 1 : 0);
     const [editingCell, setEditingCell] = useState({ row: null, col: null });
     const [columnIndex, setColumnIndex] = useState(0);
+    const [items, setItems] = useState([]);
+    const [subjectList, setSubjectList] = useState([]);
     const [isSelectSubjectPopupOpen, setIsSelectSubjectPopupOpen] = useState(false);
     const [handleUserNameChange, setHandleUserNameChange] = useState(false);
     const [newUserName, setNewUserName] = useState(user.name || "");
@@ -46,7 +49,15 @@ function StudentPage({ user, setUser }) {
         { date: "2023-01-12", status: "출석", subject: "코딩" },
         { date: "2023-01-13", status: "결과", subject: "국어" }
     ];
-        function moveSlidePrev() {
+    useEffect(() => {
+        let fetchItems = async () => {
+            let subjects = await SubjectManager.getAll();
+            setSubjectList(subjects.results.list);
+            setItems(subjects.results.list.filter(v => v.teacher_id === user.id));
+        }
+        fetchItems();
+    }, [items]);
+    function moveSlidePrev() {
         if(columnIndex == 0) return;
         let slideBox = document.querySelector(".slide_box")
         slideBox.style.transform = `translateX(${-(columnIndex - 1) * 60}dvw)`;
@@ -149,7 +160,7 @@ function StudentPage({ user, setUser }) {
                         <input type="text" placeholder="출석 코드"></input>
                     </form>
                 </div>
-                <Schedule scheduleData={data.map(v => v.map(e => e.name || "공강"))} ishided={false} setEditingCell={setEditingCell} setIsSelectSubjectPopupOpen={setIsSelectSubjectPopupOpen} />
+                <Schedule scheduleData={user.subjects.map(v => v.map(v2 => subjectList.find(x => x.id === v2.id)))} ishided={false} setEditingCell={setEditingCell} setIsSelectSubjectPopupOpen={setIsSelectSubjectPopupOpen} />
             </div>
         </div>
     );

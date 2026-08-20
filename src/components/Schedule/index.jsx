@@ -24,7 +24,8 @@ function Schedule({ scheduleData, ishided, setEditingCell, setIsSelectSubjectPop
                                 row.push(
                                     <td key={`td_${j}`}>
                                         <p className="ScheduleButton" onClick={() => { setEditingCell({ row: i, col: j }); setIsSelectSubjectPopupOpen(true); }}>
-                                            {(scheduleData ? scheduleData[i][j] : "공강")}
+                                            {(scheduleData[i][j] ? scheduleData[i][j]?.subject_name : "공강")}<br/>
+                                            {(scheduleData[i][j] ? (scheduleData[i][j]?.grade + "-" + scheduleData[i][j]?.class) : "")}
                                         </p>
                                     </td>
                                 );

@@ -160,7 +160,6 @@ function TeacherPage({ user, setUser }) {
         setUser(Object.assign(user, { avatar: res.results.url }));
         return alert("프로필 업로드 완료");
     };
-    
     return (
         <div className="TeacherPage">
             <Helmet>
@@ -202,14 +201,14 @@ function TeacherPage({ user, setUser }) {
                     </div>
                     <div className="student-list">
                         <div className="slide_box">
-                            <DailySchedule className="slide_item" scheduleData={user.subjects.map(v => v[currentDay].name || "공강")}/>
-                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 1, lessonName: user.subjects[0][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[0][currentDay].id)?.students || [] }} />
-                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 2, lessonName: user.subjects[1][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[1][currentDay].id)?.students || [] }} />
-                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 3, lessonName: user.subjects[2][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[2][currentDay].id)?.students || [] }} />
-                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 4, lessonName: user.subjects[3][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[3][currentDay].id)?.students || [] }} />
-                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 5, lessonName: user.subjects[4][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[4][currentDay].id)?.students || [] }} />
-                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 6, lessonName: user.subjects[5][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[5][currentDay].id)?.students || [] }} />
-                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 7, lessonName: user.subjects[6][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[6][currentDay].id)?.students || [] }} />
+                            <DailySchedule className="slide_item" scheduleData={user.subjects.map(v => subjectList.find(x => x.id === v[currentDay].id) || {})}/>
+                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 1, grade: subjectList.find(v => v.id === user.subjects[0][currentDay].id)?.grade || 0, class: subjectList.find(v => v.id === user.subjects[0][currentDay].id)?.class || 0, lessonName: user.subjects[0][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[0][currentDay].id)?.students || [] }} />
+                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 2, grade: subjectList.find(v => v.id === user.subjects[1][currentDay].id)?.grade || 0, class: subjectList.find(v => v.id === user.subjects[1][currentDay].id)?.class || 0, lessonName: user.subjects[1][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[1][currentDay].id)?.students || [] }} />
+                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 3, grade: subjectList.find(v => v.id === user.subjects[2][currentDay].id)?.grade || 0, class: subjectList.find(v => v.id === user.subjects[2][currentDay].id)?.class || 0, lessonName: user.subjects[2][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[2][currentDay].id)?.students || [] }} />
+                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 4, grade: subjectList.find(v => v.id === user.subjects[3][currentDay].id)?.grade || 0, class: subjectList.find(v => v.id === user.subjects[3][currentDay].id)?.class || 0, lessonName: user.subjects[3][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[3][currentDay].id)?.students || [] }} />
+                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 5, grade: subjectList.find(v => v.id === user.subjects[4][currentDay].id)?.grade || 0, class: subjectList.find(v => v.id === user.subjects[4][currentDay].id)?.class || 0, lessonName: user.subjects[4][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[4][currentDay].id)?.students || [] }} />
+                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 6, grade: subjectList.find(v => v.id === user.subjects[5][currentDay].id)?.grade || 0, class: subjectList.find(v => v.id === user.subjects[5][currentDay].id)?.class || 0, lessonName: user.subjects[5][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[5][currentDay].id)?.students || [] }} />
+                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 7, grade: subjectList.find(v => v.id === user.subjects[6][currentDay].id)?.grade || 0, class: subjectList.find(v => v.id === user.subjects[6][currentDay].id)?.class || 0, lessonName: user.subjects[6][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[6][currentDay].id)?.students || [] }} />
                         </div>
                     </div>
                     <div className="next" onClick={moveSlideNext}>
@@ -268,7 +267,7 @@ function TeacherPage({ user, setUser }) {
                     </form>
                 </div>
                 <QRCode url={generatedURL} iscreated={QRStatus} removelink={removeLink} />
-                <Schedule scheduleData={data.map(v => v.map(e => e.name || "공강"))} ishided={QRStatus} setEditingCell={setEditingCell} setIsSelectSubjectPopupOpen={setIsSelectSubjectPopupOpen} />
+                <Schedule scheduleData={user.subjects.map(v => v.map(v2 => subjectList.find(x => x.id === v2.id)))} ishided={QRStatus} setEditingCell={setEditingCell} setIsSelectSubjectPopupOpen={setIsSelectSubjectPopupOpen} />
             </div>
         </div>
     )
