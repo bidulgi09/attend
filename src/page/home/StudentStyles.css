@@ -1,3 +1,4 @@
+@import "/src/font.css";
 .StudentPage {
     display: flex;
     flex: 1;
@@ -10,8 +11,6 @@
     color: rgb(238, 238, 238);
     box-sizing: border-box;
 }
-
-
 .StudentPage .main {
     padding-top: 92px;
     display: flex;
@@ -26,6 +25,47 @@
     height: 100%;
     min-height: 0;
     gap: 20px;
+    & .slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        & .prev, .next {
+            display: flex;
+            font-size: 4dvw;
+            padding: 2dvw;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    }
+    & .student-list {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        text-align: center;
+        width: 60dvw;
+        height: 60dvh;
+        border-radius: 10px;
+        overflow: hidden;
+        & .slide_box {
+            display: flex;
+            flex-shrink: 0;
+            flex-direction: row;
+            margin: 0;
+            height: 60dvh;
+            transition: .2s all ease;
+            & .slide_item {
+                display: flex;
+                flex-direction: column;
+                flex: 0 0 60dvw;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                height: 60dvh;
+                scroll-snap-align: unset;
+            }
+        }
+    }
 }
 .StudentPage .profile-tab {
     box-sizing: border-box;

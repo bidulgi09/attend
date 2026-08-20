@@ -7,16 +7,16 @@
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
     border-radius: 10px;
     max-width: 120vh;
-    width: 100%;
-    margin: 10px;
+    width: 60dvw;
+    height: 60dvh;
     font-size: 1.5vh;
     text-align: center;
 }
 
 .notes-table th,
 .notes-table td {
-    height: 100px;
-    width: 200px;
+    height: 30dvh;
+    width: 15dvw;
     padding: 1px 6px;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .notes-table td {
-    font-size: 4vh;
+    font-size: 4dvh;
     color: white;
     background-color: rgba(249, 248, 255, 0.05);
 }

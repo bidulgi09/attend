@@ -9,10 +9,8 @@
     width: 100%;
     min-height: 0;
     color: rgb(238, 238, 238);
-    box-sizing: b   order-box;
+    box-sizing: border-box;
 }
-
-
 .TeacherPage .main {
     padding-top: 92px;
     box-sizing: border-box;
@@ -22,7 +20,7 @@
     flex-direction: column;
     overflow-y: auto;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     padding-left: 5%;
     padding-right: 5%;
     height: 100%;
@@ -191,8 +189,7 @@
             border-radius: 10px;
             pointer-events: none;
             overflow: scroll;
-            max-height: 25dvh;
-            height: 0;
+            max-height: 0dvh;
             border: none;
             padding: 0;
             left: 0;
@@ -205,8 +202,10 @@
             &[data-is-open="true"] {
                 pointer-events: auto;
                 max-height: 25dvh;
-                height: 25dvh;
-                padding-bottom: 1dvh;
+            }
+            &[data-is-open="false"] {
+                pointer-events: none;
+                max-height: 0dvh;
             }
             & .dropdown-item {
                 display: flex;
@@ -215,21 +214,22 @@
                 align-items: center;
                 text-align: center;
                 list-style-type: none;
-                transition: .2s ease;
+                transition: .2s all ease;
                 &:hover {
                     color: rgb(118, 171, 174);
                     transition: .2s ease;
                 }
                 &:first-child {
                     margin-top: 4dvh;
+                    padding-bottom: 1dvh;
                 }
-            }
-            & .add-btn {
-                border: none;
-                background-color: rgba(0,0,0,0);
-                font-size: 1.5dvh;
-                padding: .3dvh;
-                font-family: appleNeo;
+                & .add-btn {
+                    border: none;
+                    background-color: rgba(0,0,0,0);
+                    font-size: 1.5dvh;
+                    padding: .3dvh;
+                    font-family: appleNeo;
+                }
             }
         }
     }
@@ -290,15 +290,20 @@
             flex-direction: column;
             position: absolute;
             border-radius: 10px;
+            max-height: 0dvh;
             border: none;
+            overflow: scroll;
             padding: 0;
-            padding-bottom: 1dvh;
-            padding-top: 8dvh;
             left: 0;
             right: 0;
             z-index: 5;
             background-color: rgb(255, 255, 255);
             color: black;
+            transition: .2s all ease;
+            &[data-is-open="true"] {
+                pointer-events: auto;
+                max-height: 25dvh;
+            }
             & .dropdown-item {
                 display: flex;
                 padding: 0.2dvh;
@@ -306,17 +311,21 @@
                 align-items: center;
                 text-align: center;
                 list-style-type: none;
-                transition: .2s ease;
+                transition: .2s all ease;
                 &:hover {
                     color: rgb(118, 171, 174);
                     font-size: 2.3dvh;
                     transition: .2s ease;
                 }
-            }
-            & .add-btn {
-                border: none;
-                background-color: rgba(0,0,0,0);
-                font-size: 1.5dvh;
+                &:first-child {
+                    margin-top: 8dvh;
+                    padding-bottom: 1dvh;
+                }
+                & .add-btn {
+                    border: none;
+                    background-color: rgba(0,0,0,0);
+                    font-size: 1.5dvh;
+                }
             }
         }
     }

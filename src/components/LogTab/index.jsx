@@ -1,9 +1,9 @@
 import React from 'react';
 import './styles.css';
 
-function LogTab({ LogData }) {
+function LogTab({ LogData, className }) {
     return (
-        <div className="LogTab">
+        <div className={`LogTab ${className}`}>
             <p className="log-title">출석 기록</p>
             <div className="log-datas">
                 {

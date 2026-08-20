@@ -68,6 +68,25 @@
                 background-color: rgb(118, 171, 174);
             }
         }
+        & .grade-class {
+            display: flex;
+            flex-direction: row;
+            gap: 0.5dvw;
+            & .grade, & .class {
+                display: flex;
+                box-sizing: border-box;
+                vertical-align: middle;
+                text-align: center;
+                border-radius: 10px;
+                border: none;
+                height: 4dvh;
+                width: 4dvw;
+                &::placeholder {
+                    text-align: center;
+                    font-family: appleNeo;
+                }
+            }
+        }
         & .days {
             display: flex;
             flex-direction: row;

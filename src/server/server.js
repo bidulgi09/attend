@@ -440,7 +440,7 @@ app.post('/api/connectSubject', (req, res) => {
     pool.getConnection(function(err, connection) {
             console.log(req.body);
         if(err) return res.status(500).json({ success: false, results: { isConnected: false, reason: err }});
-        connection.query("INSERT INTO subject_teachers (subject_id, teacher_id, days) VALUES (?, ?, ?)", [req.body.subject.id, req.body.teacher.id, JSON.stringify(req.body.subject.days)], function(error, result, fields) {
+        connection.query("INSERT INTO subject_teachers (subject_id, teacher_id, grade, class, days) VALUES (?, ?, ?, ?, ?)", [req.body.subject.id, req.body.teacher.id, req.body.subject.grade, req.body.subject.class, JSON.stringify(req.body.subject.days)], function(error, result, fields) {
             connection.release();
             if(error) return res.json({ success: false, results: { isConnected: false, reason: error }});
             return res.json({ success: true, results: { isConnected: true, insertId: result.insertId }});
@@ -468,6 +468,7 @@ app.get('/api/subjectList', (req, res) => {
                 a.id AS id,
                 a.subject_id AS subject_id, c.name AS subject_name, 
                 a.teacher_id AS teacher_id, d.name AS teacher_name,
+                a.grade AS grade, a.class AS class, 
                 a.days AS subject_days,
                 COALESCE(
                     (

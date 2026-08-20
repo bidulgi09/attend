@@ -33,6 +33,11 @@ function SubjectPopup ({ isopen, setIsOpen, user }) {
                     <input type="text" className="subject" placeholder='과목 입력' value={data.name || ""} onChange={setSubject}></input>
                     <button className = "subject-submit" onClick={addSubject}>추가</button>
                 </div>
+                <span>학년/반 선택</span>
+                <div className="grade-class">
+                    <input type="number" className="grade" placeholder='학년' value={data.grade || ""} onChange={(e) => setData({...data, grade: e.target.value})}></input>
+                    <input type="number" className="class" placeholder='반' value={data.class || ""} onChange={(e) => setData({...data, class: e.target.value})}></input>
+                </div>
                 <span>요일 선택</span>
                 <div className="days" onChange={setDays}>
                     <div className="day">

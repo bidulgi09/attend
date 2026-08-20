@@ -22,6 +22,7 @@ function TeacherPage({ user, setUser }) {
     const [handleUserNameChange, setHandleUserNameChange] = useState(false);
     const dayIndex = new Date().getDay();
     const [currentDay, setCurrentDay] = useState(dayIndex >= 1 && dayIndex <= 5 ? dayIndex - 1 : 0);
+    const [currentSubject, setCurrentSubject] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const [isSelectSubjectPopupOpen, setIsSelectSubjectPopupOpen] = useState(false);
     const [items, setItems] = useState([]);
@@ -39,6 +40,8 @@ function TeacherPage({ user, setUser }) {
     const [editingCell, setEditingCell] = useState({ row: null, col: null });
     const [newUserName, setNewUserName] = useState(user.name || "");
     const [subjectList, setSubjectList] = useState([]);
+    
+    let data = user.subjects;
     const handleAddItem = function () {
         setIsPopup(!isPopup)
     }
@@ -59,6 +62,21 @@ function TeacherPage({ user, setUser }) {
         }
         document.addEventListener('mousedown', handleClickOutSide);
         return () => document.removeEventListener('mousedown', handleClickOutSide);
+    }, []);
+    useEffect(() => {
+        const date = new Date();
+        const h = date.getHours();
+        const m = date.getMinutes();
+        let schedule = [
+            { h: 15, m: 20, id: user.subjects[6][currentDay].subject_id, name: user.subjects[6][currentDay].name }, 
+            { h: 14, m: 20, id: user.subjects[5][currentDay].subject_id, name: user.subjects[5][currentDay].name },
+            { h: 13, m: 20, id: user.subjects[4][currentDay].subject_id, name: user.subjects[4][currentDay].name },
+            { h: 11, m: 20, id: user.subjects[3][currentDay].subject_id, name: user.subjects[3][currentDay].name },
+            { h: 10, m: 20, id: user.subjects[2][currentDay].subject_id, name: user.subjects[2][currentDay].name },
+            { h: 9, m: 20, id: user.subjects[1][currentDay].subject_id, name: user.subjects[1][currentDay].name },
+            { h: 8, m: 20, id: user.subjects[0][currentDay].subject_id, name: user.subjects[0][currentDay].name }
+        ];
+        setCurrentSubject(schedule.find(v => (v.h > h) || (v.h === h && v.m >= m)));
     }, []);
     const addStudent = async function (event) {
         if (/[^\d]/.test(event.target.value)) {
@@ -100,11 +118,11 @@ function TeacherPage({ user, setUser }) {
         setQRStatus(false);
         setGeneratedURL('');
     }
-    const generateLink = function () {
+    const generateLink = function (subjectId) {
         let url = window.location.origin + "/attend";
         let current_date = Date.now();
 
-        const access_url = `${url}?t=${current_date}`;
+        const access_url = `${url}?t=${current_date}&subject_id=${subjectId}`;
         setQRStatus(true);
         setGeneratedURL(access_url);
     }
@@ -122,8 +140,6 @@ function TeacherPage({ user, setUser }) {
         slideBox.style.transform = `translateX(${-(columnIndex + 1) * 60}dvw)`;
         setColumnIndex(columnIndex+1);
     }
-
-    let data = user.subjects;
 
     const handleProfileClick = () => {
         fileInputRef.current?.click();
@@ -156,10 +172,10 @@ function TeacherPage({ user, setUser }) {
                 <input type="file" name="profileImage" ref={fileInputRef} onChange={handleFileChange} style={{ display: "none" }} />
             </form>
             <div className='main'>
-                <form className='attendence-form-main'>
+                <form className='attendence-form-main' onClick={(event) => event.preventDefault() }>
                     <div className="dropdown" ref={dropdownRef}>
-                        <span className="dropdown-box">
-                            <button className="dropdown-placeholder" onClick={() => console.log(1) }>
+                        <div className="dropdown-box">
+                            <button className="dropdown-placeholder" onClick={() => setIsOpen(prev => !prev)}>
                                 {selectedSubject.subject_name ? `${selectedSubject.subject_name}${(selectedSubject.subject_days.length > 0) ? (" (" + selectedSubject.subject_days.join(", ") + ")") : ""}` : "선택하기 v"}
                             </button>
                             <ul className="dropdown-menu" data-is-open={isOpen.toString()}>
@@ -170,13 +186,13 @@ function TeacherPage({ user, setUser }) {
                                         </li>
                                     })
                                 }
-                                <li className="add-item">
+                                <li className="dropdown-item">
                                     <button className='add-btn' onClick={handleAddItem}>
                                         + 새 과목
                                     </button>
                                 </li>
                             </ul>
-                        </span>
+                        </div>
                         <input type="text" placeholder="학생 추가 (00-00000)" onChange={async e => await addStudent(e)}></input>
                     </div>
                 </form>
@@ -184,19 +200,18 @@ function TeacherPage({ user, setUser }) {
                     <div className="prev" onClick={moveSlidePrev}>
                         {"<"}
                     </div>
-                <div className="student-list">
-                    <div className="slide_box">
-                        <DailySchedule className="slide_item" scheduleData={user.subjects.map(v => v[currentDay].name || "공강")}/>
-                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 1, lessonName: user.subjects[0][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[0][currentDay].id)?.students || [] }} />
-                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 2, lessonName: user.subjects[1][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[1][currentDay].id)?.students || [] }} />
-                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 3, lessonName: user.subjects[2][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[2][currentDay].id)?.students || [] }} />
-                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 4, lessonName: user.subjects[3][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[3][currentDay].id)?.students || [] }} />
-                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 5, lessonName: user.subjects[4][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[4][currentDay].id)?.students || [] }} />
-                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 6, lessonName: user.subjects[5][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[5][currentDay].id)?.students || [] }} />
-                        <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 7, lessonName: user.subjects[6][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[6][currentDay].id)?.students || [] }} />
+                    <div className="student-list">
+                        <div className="slide_box">
+                            <DailySchedule className="slide_item" scheduleData={user.subjects.map(v => v[currentDay].name || "공강")}/>
+                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 1, lessonName: user.subjects[0][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[0][currentDay].id)?.students || [] }} />
+                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 2, lessonName: user.subjects[1][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[1][currentDay].id)?.students || [] }} />
+                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 3, lessonName: user.subjects[2][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[2][currentDay].id)?.students || [] }} />
+                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 4, lessonName: user.subjects[3][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[3][currentDay].id)?.students || [] }} />
+                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 5, lessonName: user.subjects[4][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[4][currentDay].id)?.students || [] }} />
+                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 6, lessonName: user.subjects[5][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[5][currentDay].id)?.students || [] }} />
+                            <InstructionStudents className="slide_item" instructionData={{ lessonNumber: 7, lessonName: user.subjects[6][currentDay].name || "공강", students: subjectList.find(v => v.id === user.subjects[6][currentDay].id)?.students || [] }} />
+                        </div>
                     </div>
-                </div>
-                
                     <div className="next" onClick={moveSlideNext}>
                         {">"}
                     </div>
@@ -224,7 +239,7 @@ function TeacherPage({ user, setUser }) {
                     <div className='grade'>
                         {user ? user.id : 'N/A'}
                     </div>
-                    <form className='attendence-form-side' onSubmit={(event) => { event.preventDefault(); }}>
+                    <form className='attendence-form-side' onSubmit={(event) => event.preventDefault() }>
                         <div className="dropdown" ref={dropdownRef}>
                             <span className="dropdown-box">
                                 <button className="dropdown-placeholder" onClick={() => setIsOpen(!isOpen)}>
@@ -238,9 +253,11 @@ function TeacherPage({ user, setUser }) {
                                             </li>
                                         })
                                     }
-                                    <button className='add-btn' onClick={handleAddItem}>
-                                        + 새 과목
-                                    </button>
+                                    <li className='dropdown-item'>
+                                        <button className='add-btn' onClick={handleAddItem}>
+                                            + 새 과목
+                                        </button>
+                                    </li>
                                 </ul>
                             </span>
                             <input type="text" placeholder="학생 추가 (00-00000)" onChange={addStudent}></input>

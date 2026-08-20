@@ -78,6 +78,8 @@ CREATE TABLE `subject_teachers` (
   `id` int NOT NULL AUTO_INCREMENT,
   `subject_id` int NOT NULL,
   `teacher_id` varchar(8) NOT NULL,
+  'grade' int,
+  'class' int,
   `days` varchar(255) DEFAULT (json_array()),
   PRIMARY KEY (`id`),
   UNIQUE KEY `sub_tech_unique` (`subject_id`,`teacher_id`,`days`),

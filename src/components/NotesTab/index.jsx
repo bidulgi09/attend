@@ -1,9 +1,9 @@
 import React from 'react';
 import './styles.css';
 
-function NotesTab({ NotesData }) {
+function NotesTab({ NotesData, className }) {
     return (
-        <table className="notes-table">
+        <table className={`notes-table ${className}`}>
             <thead>
                 <tr>
                     <th scope='col'>출석</th>

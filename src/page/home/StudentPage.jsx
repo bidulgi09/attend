@@ -9,6 +9,7 @@ import GhostBox from '../../components/GhostBox';
 import Schedule from '../../components/Schedule';
 import NotesTab from '../../components/NotesTab';
 import LogTab from '../../components/LogTab';
+import DailySchedule from '../../components/DailySchedule';
 import SelectSubjectPopup from '../../components/selectSubjectPopup';
 
 import guest_profile from '../../uploads/guest_profile.png';
@@ -18,7 +19,10 @@ function StudentPage({ user, setUser }) {
     const fileInputRef = useRef(null);
 
     let data = user.subjects;
+    const dayIndex = new Date().getDay();
+    const [currentDay, setCurrentDay] = useState(dayIndex >= 1 && dayIndex <= 5 ? dayIndex - 1 : 0);
     const [editingCell, setEditingCell] = useState({ row: null, col: null });
+    const [columnIndex, setColumnIndex] = useState(0);
     const [isSelectSubjectPopupOpen, setIsSelectSubjectPopupOpen] = useState(false);
     const [handleUserNameChange, setHandleUserNameChange] = useState(false);
     const [newUserName, setNewUserName] = useState(user.name || "");
@@ -42,6 +46,19 @@ function StudentPage({ user, setUser }) {
         { date: "2023-01-12", status: "출석", subject: "코딩" },
         { date: "2023-01-13", status: "결과", subject: "국어" }
     ];
+        function moveSlidePrev() {
+        if(columnIndex == 0) return;
+        let slideBox = document.querySelector(".slide_box")
+        slideBox.style.transform = `translateX(${-(columnIndex - 1) * 60}dvw)`;
+        setColumnIndex(columnIndex-1);
+    } 
+    function moveSlideNext() {
+        let maxColumnIndex = document.getElementsByClassName("slide_item").length;
+        if(columnIndex == maxColumnIndex - 1) return;
+        let slideBox = document.querySelector(".slide_box")
+        slideBox.style.transform = `translateX(${-(columnIndex + 1) * 60}dvw)`;
+        setColumnIndex(columnIndex+1);
+    }
     const changeUserName = async function() {
         if (!newUserName || newUserName.trim() === '') {
             return alert("이름을 입력해주세요.");
@@ -76,7 +93,7 @@ function StudentPage({ user, setUser }) {
         setUser({...user, avatar: res.results.url});
         return alert("프로필 업로드 완료");
     };
-
+    
     return (
         <div className="StudentPage">
             <Helmet>
@@ -90,8 +107,21 @@ function StudentPage({ user, setUser }) {
                 <form className='attendence-form-main'>
                     <input type="text" placeholder="출석 코드"></input>
                 </form>
-                <NotesTab NotesData={{ attendance: 10, result: 5, absence: 2, earlyLeave: 1 }} />
-                <LogTab LogData={logData} />
+                <div className="row-wrapper slide">
+                    <div className="prev" onClick={moveSlidePrev}>
+                        {"<"}
+                    </div>
+                    <div className="student-list">
+                        <div className="slide_box">
+                            <DailySchedule className="slide_item" scheduleData={user.subjects.map(v => v[currentDay].name || "공강")}/>
+                            <NotesTab className="slide_item" NotesData={{ attendance: 10, result: 5, absence: 2, earlyLeave: 1 }} />
+                            <LogTab className="slide_item" LogData={logData} />
+                        </div>
+                    </div>
+                    <div className="next" onClick={moveSlideNext}>
+                        {">"}
+                    </div>
+                </div>
             </div>
             <div className='profile-tab contents-wrapper'>
                 <GhostBox/>
