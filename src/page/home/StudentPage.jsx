@@ -123,7 +123,7 @@ function StudentPage({ user, setUser }) {
                     </div>
                     <div className="student-list">
                         <div className="slide_box">
-                            <DailySchedule className="slide_item" scheduleData={user.subjects.map(v => v[currentDay].name || "공강")}/>
+                            <DailySchedule className="slide_item" scheduleData={user.subjects.map(v => v[currentDay] || {})}/>
                             <NotesTab className="slide_item" NotesData={{ attendance: 10, result: 5, absence: 2, earlyLeave: 1 }} />
                             <LogTab className="slide_item" LogData={logData} />
                         </div>
