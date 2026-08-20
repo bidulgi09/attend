@@ -5,7 +5,6 @@ import edit from '../../assets/edit.png';
 
 import banner from '../../assets/배너.png';
 
-import GhostBox from '../../components/GhostBox';
 import Schedule from '../../components/Schedule';
 import NotesTab from '../../components/NotesTab';
 import LogTab from '../../components/LogTab';
@@ -135,7 +134,6 @@ function StudentPage({ user, setUser }) {
                 </div>
             </div>
             <div className='profile-tab contents-wrapper'>
-                <GhostBox/>
                 <div className='profile-info-wrapper'>
                     <div className='profile-img' onClick={ handleProfileClick }>
                         <img src={(user && user.avatar) ? user.avatar : guest_profile} alt="Profile" />

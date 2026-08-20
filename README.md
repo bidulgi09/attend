@@ -135,7 +135,6 @@ attend
 │  │  ├─ DailySchedule
 │  │  │  ├─ index.jsx
 │  │  │  └─ styles.css
-│  │  ├─ GhostBox
 │  │  │  ├─ index.jsx
 │  │  │  └─ styles.css
 │  │  ├─ HeaderBar
