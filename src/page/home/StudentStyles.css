@@ -209,4 +209,9 @@
         width:90%;
         padding: 5%;
     }
+    .StudentPage .main .attendence-form-main {
+        display: flex;
+        width: 90%;
+        padding: 5%;
+    }
 }
