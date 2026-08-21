@@ -48,7 +48,6 @@
         height: 60dvh;
         border-radius: 10px;
         overflow: hidden;
-        overflow-y: scroll;
         & .slide_box {
             display: flex;
             flex-shrink: 0;
