@@ -9,7 +9,7 @@
     overflow: hidden;
     background-color: #31363F;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    font-size: 3dvw;
+    font-size: 4dvh;
     color: black;
     text-align: center;
 }
@@ -37,4 +37,10 @@
     width: 100%;
     text-align: center;
     color: white;
+}
+
+@media(max-width:520px) {
+    .DailyScheduleTable {
+        font-size: 3dvw;
+    }
 }
