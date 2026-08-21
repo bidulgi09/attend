@@ -181,6 +181,7 @@
     margin-top: 72px;
     justify-content: center;
     align-items: center;
+    width: 60dvw;
     & input {
         box-sizing: border-box;
         display: inline-block;
@@ -189,7 +190,6 @@
         border-radius: 10px;
         border: none;
         height: 10dvh;
-        width: 60dvw;
         width: 100%;
         &::placeholder {
             text-align: center;
