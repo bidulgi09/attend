@@ -188,8 +188,8 @@
         box-shadow: 0 0 20px rgba(0,0,0,0.1);
         border-radius: 10px;
         border: none;
-        height: 10vh;
-        max-width: 120vh;
+        height: 10dvh;
+        width: 60dvw;
         width: 100%;
         &::placeholder {
             text-align: center;
@@ -207,11 +207,6 @@
     }
     .StudentPage .main {
         width:90%;
-        padding: 5%;
-    }
-    .StudentPage .main .attendence-form-main {
-        display: flex;
-        width: 90%;
         padding: 5%;
     }
 }

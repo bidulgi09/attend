@@ -265,6 +265,7 @@
     flex: 1;
     margin-top: 72px;
     justify-content: center;
+    width: 60dvw;
     align-items: center;
     & .dropdown {
         display: flex;
@@ -338,7 +339,6 @@
         border: none;
         height: 10dvh;
         width: 100%;
-        max-width: 20dvh;
         &::placeholder {
             text-align: center;
             font-family: appleNeo;
