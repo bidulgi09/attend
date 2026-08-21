@@ -30,18 +30,22 @@ function SideBar({ status, setStatus, user, setUser }) {
                 <Link className='tab' to="/home" onClick={ change }>홈</Link>
                 <hr/>
                 {user.isLogin ?
-                    <div className='tab' onClick={async () => { await logout(user); change(); }}>로그아웃</div>
+                    <>
+                        <Link className='tab' to="/mypage" onClick={ change }>프로필</Link>
+                        <hr/>
+                        <div className='tab' onClick={async () => { await logout(user); change(); }}>로그아웃</div>
+                    </>
                     :
                     <>
                         <Link className='tab' to="/login" onClick={ change }>로그인</Link>
                         <hr/>
                         <Link className='tab' to="/signup" onClick={ change }>회원가입</Link>
-                        <hr/>
-                        <Link className='tab' to="/introduction" onClick={ change }>기능소개</Link>
-                        <hr/>
-                        <Link className='tab' to="/ask" onClick={ change }>문의</Link>
                     </>
                 }
+                <hr/>
+                <Link className='tab' to="/introduction" onClick={ change }>기능소개</Link>
+                <hr/>
+                <Link className='tab' to="/ask" onClick={ change }>문의</Link>
             </div>
             <div className='outside' onClick={ () => { if(status) return change(); }}/>
         </div>

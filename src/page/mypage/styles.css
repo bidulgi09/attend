@@ -1,0 +1,103 @@
+.MyPage {
+    display: flex;
+    flex: 1;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    min-height: 0;
+    color: rgb(238, 238, 238);
+    box-sizing: border-box;
+}
+.MyPage .profile-tab {
+    box-sizing: border-box;
+    padding-top: 72px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    min-height: 0;
+    flex: 1;
+    z-index: 10;
+    background-color: rgba(233, 233, 233, 0.03);
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+.MyPage .profile-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.MyPage .profile-img {
+    display: flex;
+    width: 24vh; 
+    height: 24vh;
+    gap: 10px;
+    border-radius: 100%;
+    overflow: hidden;
+    & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.MyPage .name {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 2dvh;
+    & .name-box {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        height: 3dvh;
+        align-items: center;
+        text-align: center;
+        & .new-name-input {
+            display: flex;
+            border: none;
+            border-bottom-left-radius: 10px;
+            border-top-left-radius: 10px;
+            text-align: center; 
+            box-sizing: border-box;
+            width: 20dvh;
+            height: 4dvh;
+            &::placeholder {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+        }
+        & .new-name-submit {
+            display: flex;
+            border: none;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            border-bottom-right-radius: 10px;
+            border-top-right-radius: 10px;
+            box-sizing: border-box;
+            width: 6dvh;
+            height: 4dvh;
+            background-color: rgb(118, 171, 174);
+            color: white;
+        }
+    }
+}
+.MyPage .grade {
+    margin-bottom: 2dvh;
+}
+
+.MyPage .edit-icon {
+    display: flex;
+    filter: brightness(0) invert(1);
+    justify-content: center;
+    align-items: center;
+}

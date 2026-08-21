@@ -8,7 +8,7 @@
     align-items: center;
     text-align: center;
     height: 20dvh;
-    width: 20dvh;
+    width: 20dvw;
     font-size: 0;
     font-family: appleNeo;
     background-color: rgba(34, 40, 49, 0.8);
@@ -87,4 +87,24 @@
     pointer-events: all;
     visibility: visible;
     opacity: 1;
+}
+
+@media(max-width:520px) {
+    .SelectSubjectPopup {
+        height: 50dvh;
+        width: 10dvw;
+        & .subject-form {
+            & .subject-list {
+                width: 80dvw;
+            }
+            & .subject {
+                width: 80dvw;
+            }
+        }
+    }
+    .SelectSubjectPopup[isopen='true'] {
+        width: 80vw;
+        height: 50dvh;
+        max-width: 80vw;
+    }
 }

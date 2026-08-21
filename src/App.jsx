@@ -8,6 +8,7 @@ import SignupPage from './page/signup';
 import HomePage from './page/home';
 import SideBar from './components/SideBar';
 import HeaderBar from './components/HeaderBar';
+import MyPage from './page/mypage';
 
 function App() {
     let [status, setStatus] = useState(false);
@@ -38,6 +39,7 @@ function App() {
                             <Route path="/home" element={<HomePage user={user} setUser={setUser}/>}/>
                             <Route path="/login" element={<LoginPage user={user} setUser={setUser}/>}/>
                             <Route path="/signup" element={<SignupPage user={ user } setUser={ setUser }/>}/>
+                            <Route path="/mypage" element={<MyPage user={ user } setUser={ setUser }/>}/>
                             <Route path='*' element={<NotFound/>}/>
                         </Routes>
                     </div>

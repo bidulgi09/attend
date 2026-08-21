@@ -503,6 +503,19 @@ app.get('/api/subjectList', (req, res) => {
     })
 });
 
+app.post('/api/attendance_session', (req, res) => {
+    pool.getConnection(function(err, connection) {
+        if(err) return res.status(500).json({ success: false, results: { isCreated: false, reason: err }});
+        connection.query(`
+            INSERT INTO attendance_sessions (id, subject_id, teacher_id, code, token, expires_at) VALUES (?, ?, ?, ?, ?, ?)
+        `);
+    });
+});
+app.post('/api/attendance', (req, res) => {
+    pool.getConnection(function(err, connection) {
+        if(err) return res.status(500).json({ success: false, results: { isAttend: false, reason: err }});
+    });
+})
 app.listen(port, () => { 
     console.log("Example Server is Listening at http://localhost:" + port); 
 });
