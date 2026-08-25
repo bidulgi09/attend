@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 import checkDomainServer from "./utils/checkDomainServer.js";
 import authenticateToken from "./utils/authenticateToken.js";
 import multer from 'multer';
+import crypto from 'crypto';
 
 dotenv.config({ path: '.env' });
 
@@ -490,7 +491,8 @@ app.get('/api/subjectList', (req, res) => {
                 ON a.subject_id = c.id 
             INNER JOIN teachers AS d
                 ON a.teacher_id = d.id
-            GROUP BY a.id, a.subject_id, c.name, a.teacher_id, a.days, d.name`, function(error, result, fields) {
+            GROUP BY a.id, a.subject_id, c.name, a.teacher_id, a.days, d.name`, 
+            function(error, result, fields) {
                 connection.release();
                 if(error) return res.json({ success: false, results: { isLoaded: false, reason: error }});
                 result.forEach(v => {
@@ -503,19 +505,108 @@ app.get('/api/subjectList', (req, res) => {
     })
 });
 
-app.post('/api/attendance_session', (req, res) => {
+app.post('/api/attendance_session', authenticateToken, (req, res) => {
     pool.getConnection(function(err, connection) {
         if(err) return res.status(500).json({ success: false, results: { isCreated: false, reason: err }});
+        if(req.user.role !== "Teacher") {
+            connection.release();
+            res.send({ success: false, results: { isCreated: false, reason: "Unauthorized" } });
+            return;
+        }
+        
+        let token = crypto.randomBytes(16).toString('hex');
+        let code = String(crypto.randomInt(0, 1000000)).padStart(6, '0');
+        let expires_at = new Date(Date.now() + 50 * 60 * 1000);
         connection.query(`
-            INSERT INTO attendance_sessions (id, subject_id, teacher_id, code, token, expires_at) VALUES (?, ?, ?, ?, ?, ?)
-        `);
+            SELECT id 
+            FROM attendance_sessions 
+            WHERE subject_id = ? 
+                AND teacher_id = ? 
+                AND status='ACTIVE' 
+                AND expires_at > NOW()
+            LIMIT 1
+        `, [req.body.subject_id, req.user.id], 
+        function(error, rows) {
+            if(error) {
+                connection.release();
+                return res.status(500).json({ success: false, results: { isCreated: false, reason: error }});
+            }
+            if(rows.length > 0) {
+                connection.release();
+                return res.json({ success: false, results: { isCreated: false, reason: "An active session already exists for this subject." }});
+            }
+            connection.query(`
+            INSERT INTO attendance_sessions (subject_id, teacher_id, code, token, expires_at) 
+                VALUES (?, ?, ?, ?, ?)
+            `, [req.body.subject_id, req.user.id, code, token, expires_at],
+            function(error2, result, fields) {
+                connection.release();
+                if(error2) return res.status(500).json({ success: false, results: { isCreated: false, reason: error2 }});
+                return res.json({ success: true, results: { isCreated: true, session_id: result.insertId, token, code, expires_at }});
+            });
+        });
     });
 });
-app.post('/api/attendance', (req, res) => {
+app.post('/api/attendance', authenticateToken, (req, res) => {
     pool.getConnection(function(err, connection) {
         if(err) return res.status(500).json({ success: false, results: { isAttend: false, reason: err }});
+        
+        if(req.user.role !== "Student") {
+            connection.release();
+            return res.status(403).json({ success: false, results: { isAttend: false, reason: "Unauthorized" }});
+        }
+        const { token, code } = req.body;
+        if(!token && !code) {
+            connection.release();
+            return res.status(400).json({ success: false, results: { isAttend: false, reason: "Token or code is required." }});
+        }
+        const student_id = req.user.id;
+        connection.query(`
+            SELECT id, subject_id, expires_at
+            FROM attendance_session
+            WHERE
+                ${token ? `token = ?` : `code = ?`}
+                AND status = 'ACTIVE'
+            LIMIT 1
+        `, [token || code], 
+        function(error, rows, fields) {
+            if(error) {
+                connection.release();
+                return res.status(500).json({ success: false, results: { isAttend: false, reason: error }});
+            }
+            if(rows.length === 0) {
+                connection.release();
+                return res.status(400).json({ success:false, results: { isAttend: false, reason: "No active session found for the provided token or code." }});
+            }
+            connection.query(`
+                SELECT id FROM  attendances
+                WHERE session_id = ? AND student_id = ?
+            `, [rows[0].id, student_id],
+            function(error3, result, fields) {
+                if(error3) {
+                    connection.release();
+                    return res.status(500).json({ success: false, results: { isAttend: false, reason: error3 }});
+                }
+                if(result.length > 0) {
+                    connection.release();
+                    return res.json({ success: true, results: { isAttend: false, reason: "Already attended."}});
+                }
+                let status = new Date(rows[0].expires_at) < new Date() ? 'ABSENCE' : 
+                            new Date(new Date(rows[0].expires_at) - 35 * 60 * 1000) < new Date() ? 'LATE' : 'PRESENT';
+                connection.query(`
+                   INSERT INTO attendances (session_id, student_id, status, checked_at)
+                   VALUES (?, ?, ?, ?) 
+                `, [rows[0].id, student_id, status, new Date()],
+                function(error4, result2, fields) {
+                    connection.release();
+                    if(error4) return res.status(500).json({ success: false, results: { isAttend: false, reason: error4 }});
+                    return res.json({ success: true, results: { isAttend: true }});
+                });
+            });
+        });
     });
-})
+});
+
 app.listen(port, () => { 
     console.log("Example Server is Listening at http://localhost:" + port); 
 });
