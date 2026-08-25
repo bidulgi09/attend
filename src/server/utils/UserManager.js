@@ -77,23 +77,29 @@ const UserManager = {
             return {};
         }
     },
-    async attend(user, { subject_id, token, code }) {
+    async attend(user, setUser, { subject_id, token, code }) {
         try {
             let res = await api.post('/api/attendance', this.headers, { subject_id, token, code });
-            this.pushAttendLog(user, subject_id, res.results.status);
+            this.pushAttendLog(user, setUser, subject_id, res.results.status);
             return res;
         } catch(e) {
             return {};
         }
     },
-    pushAttendLog(user, subject_id, status) {
+    pushAttendLog(user, setUser, subject_id, status) {
         if(!user.log.find(log => log.date === new Date().toISOString().split('T')[0] && log.subject_id == subject_id)) {
-            user.log.push({
-                date: new Date().toISOString().split('T')[0],
-                subject_id: subject_id,
-                subject_name: user.subjects.find(subject => subject.id == subject_id).name,
-                status: status
-            });
+            setUser(prev => { return {
+                ...user,
+                log: [
+                    ...prev.log, 
+                    {
+                        date: new Date().toISOString().split('T')[0],
+                        subject_id: subject_id,
+                        subject_name: user.subjects.find(subject => subject.id == subject_id).name,
+                        status: status
+                    }
+                ]
+            }});
         }
     }
 } 
