@@ -17,7 +17,7 @@ function QRCode({ url, iscreated, removelink }) {
     }
     return (
         <div className='QRCode' iscreated={iscreated.toString()} >
-            <div className='url'>코드:&nbsp;{url.length > 0 && encodeToBase62(parseInt(new URL(url).searchParams.get('t')))}</div>
+            <div className='url'>코드:&nbsp;{url.length > 0 && new URL(url).searchParams.get('code')}</div>
             <div className='qr-code'>
                 <div className='delete-btn' onClick={removelink}>삭제</div>
                 <QRCodeSVG

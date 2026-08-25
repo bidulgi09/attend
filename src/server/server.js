@@ -505,7 +505,7 @@ app.get('/api/subjectList', (req, res) => {
     })
 });
 
-app.post('/api/attendance_session', authenticateToken, (req, res) => {
+app.post('/api/attendanceSession', authenticateToken, (req, res) => {
     pool.getConnection(function(err, connection) {
         if(err) return res.status(500).json({ success: false, results: { isCreated: false, reason: err }});
         if(req.user.role !== "Teacher") {
@@ -600,7 +600,7 @@ app.post('/api/attendance', authenticateToken, (req, res) => {
                 function(error4, result2, fields) {
                     connection.release();
                     if(error4) return res.status(500).json({ success: false, results: { isAttend: false, reason: error4 }});
-                    return res.json({ success: true, results: { isAttend: true }});
+                    return res.json({ success: true, results: { isAttend: true, status }});
                 });
             });
         });

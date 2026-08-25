@@ -117,13 +117,12 @@ function TeacherPage({ user, setUser }) {
         setQRStatus(false);
         setGeneratedURL('');
     }
-    const generateLink = function (subjectId) {
-        let url = window.location.origin + "/attend";
+    const generateLink = async function (subjectId) {
+        let data = await SubjectManager.createAttendanceSession(subjectId);
+        let url = window.location.origin + "/attendance?token=" + data.results.token + "&code=" + data.results.code;
         let current_date = Date.now();
-
-        const access_url = `${url}?t=${current_date}&subject_id=${subjectId}`;
         setQRStatus(true);
-        setGeneratedURL(access_url);
+        setGeneratedURL(url);
     }
 
     function moveSlidePrev() {
@@ -259,7 +258,7 @@ function TeacherPage({ user, setUser }) {
                             </span>
                             <input type="text" placeholder="학생 추가 (00-00000)" onChange={addStudent}></input>
                         </div>
-                        <button type="button" className="createQR" onClick={generateLink}>
+                        <button type="button" className="createQR" onClick={async() => await generateLink(currentSubject.id)}>
                             QR 생성
                         </button>
                     </form>
