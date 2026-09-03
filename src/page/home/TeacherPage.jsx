@@ -119,7 +119,6 @@ function TeacherPage({ user, setUser }) {
     const generateLink = async function (subjectId) {
         console.log(currentSubject);
         let data = await SubjectManager.createAttendanceSession(subjectId);
-        if(!data.results.isCreated) return false;
         let url = window.location.origin + "/attendance?token=" + data.results.token + "&code=" + data.results.code + "&subject_id=" + subjectId;
         console.log(url);
         setQRStatus(true);
