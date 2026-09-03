@@ -519,7 +519,7 @@ app.post('/api/attendanceSession', authenticateToken, (req, res) => {
         const utc = new Date().getTime() + (new Date().getTimezoneOffset() * 60000);
         let expires_at = new Date(utc + 50 * 60 * 1000);
         connection.query(`
-            SELECT id 
+            SELECT id , token, code, expires_at
             FROM attendance_sessions 
             WHERE subject_id = ? 
                 AND teacher_id = ? 
