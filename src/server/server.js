@@ -597,7 +597,7 @@ app.post('/api/attendance', authenticateToken, (req, res) => {
                             new Date(new Date(rows[0].expires_at) - 35 * 60 * 1000) < new Date(utc) ? 'LATE' : 'PRESENT';
                 connection.query(`
                    INSERT INTO attendances (session_id, subject_id, student_id, status, checked_at)
-                   VALUES (?, ?, ?, ?) 
+                   VALUES (?, ?, ?, ?, ?) 
                 `, [rows[0].id, req.body.subject_id, student_id, status, new Date(utc)],
                 function(error4, result2, fields) {
                     connection.release();
