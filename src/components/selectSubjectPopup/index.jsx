@@ -19,7 +19,7 @@ function SelectSubjectPopup({ isopen, setIsOpen, user, setUser, editingCell }) {
     const [subject, setSubject] = useState('');
     async function updateSubject(e, subject) {
         let subjects = user.subjects;
-        subjects[editingCell.row][editingCell.col] = { id: subject.id, name: subject.subject_name };
+        subjects[editingCell.row][editingCell.col] = { id: subject.id, subject_id: subject.subject_id, name: subject.subject_name };
         setUser({...user, subjects});
         await UserManager.setUser(user);
     }

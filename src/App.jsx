@@ -9,6 +9,7 @@ import HomePage from './page/home';
 import SideBar from './components/SideBar';
 import HeaderBar from './components/HeaderBar';
 import MyPage from './page/mypage';
+import Attendance from './page/Attendance';
 
 function App() {
     let [status, setStatus] = useState(false);
@@ -40,6 +41,7 @@ function App() {
                             <Route path="/login" element={<LoginPage user={user} setUser={setUser}/>}/>
                             <Route path="/signup" element={<SignupPage user={ user } setUser={ setUser }/>}/>
                             <Route path="/mypage" element={<MyPage user={ user } setUser={ setUser }/>}/>
+                            <Route path="/attendance" element={<Attendance user={ user } setUser={ setUser }/>}/>
                             <Route path='*' element={<NotFound/>}/>
                         </Routes>
                     </div>

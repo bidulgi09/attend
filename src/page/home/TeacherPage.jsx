@@ -67,13 +67,13 @@ function TeacherPage({ user, setUser }) {
         const h = date.getHours();
         const m = date.getMinutes();
         let schedule = [
-            { h: 15, m: 20, id: user.subjects[6][currentDay].subject_id, name: user.subjects[6][currentDay].name }, 
-            { h: 14, m: 20, id: user.subjects[5][currentDay].subject_id, name: user.subjects[5][currentDay].name },
-            { h: 13, m: 20, id: user.subjects[4][currentDay].subject_id, name: user.subjects[4][currentDay].name },
-            { h: 11, m: 20, id: user.subjects[3][currentDay].subject_id, name: user.subjects[3][currentDay].name },
-            { h: 10, m: 20, id: user.subjects[2][currentDay].subject_id, name: user.subjects[2][currentDay].name },
-            { h: 9, m: 20, id: user.subjects[1][currentDay].subject_id, name: user.subjects[1][currentDay].name },
-            { h: 8, m: 20, id: user.subjects[0][currentDay].subject_id, name: user.subjects[0][currentDay].name }
+            { h: 15, m: 20, id: user.subjects[6][currentDay].id, name: user.subjects[6][currentDay].name }, 
+            { h: 14, m: 20, id: user.subjects[5][currentDay].id, name: user.subjects[5][currentDay].name },
+            { h: 13, m: 20, id: user.subjects[4][currentDay].id, name: user.subjects[4][currentDay].name },
+            { h: 11, m: 20, id: user.subjects[3][currentDay].id, name: user.subjects[3][currentDay].name },
+            { h: 10, m: 20, id: user.subjects[2][currentDay].id, name: user.subjects[2][currentDay].name },
+            { h: 9, m: 20, id: user.subjects[1][currentDay].id, name: user.subjects[1][currentDay].name },
+            { h: 8, m: 20, id: user.subjects[0][currentDay].id, name: user.subjects[0][currentDay].name }
         ];
         setCurrentSubject(schedule.find(v => (v.h > h) || (v.h === h && v.m >= m)));
     }, []);
@@ -118,7 +118,9 @@ function TeacherPage({ user, setUser }) {
         setGeneratedURL('');
     }
     const generateLink = async function (subjectId) {
+        console.log(currentSubject);
         let data = await SubjectManager.createAttendanceSession(subjectId);
+        if(!data.results.isCreated) return false;
         let url = window.location.origin + "/attendance?token=" + data.results.token + "&code=" + data.results.code;
         let current_date = Date.now();
         setQRStatus(true);
