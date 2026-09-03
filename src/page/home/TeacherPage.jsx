@@ -64,19 +64,18 @@ function TeacherPage({ user, setUser }) {
     }, []);
     useEffect(() => {
         const date = new Date();
-        const h = date.getHours();
-        const m = date.getMinutes();
+        const now = date.getHours() * 60 + date.getMinutes();
         let schedule = [
-            { h: 15, m: 20, id: user.subjects[6][currentDay].id, name: user.subjects[6][currentDay].name }, 
-            { h: 14, m: 20, id: user.subjects[5][currentDay].id, name: user.subjects[5][currentDay].name },
-            { h: 13, m: 20, id: user.subjects[4][currentDay].id, name: user.subjects[4][currentDay].name },
-            { h: 11, m: 20, id: user.subjects[3][currentDay].id, name: user.subjects[3][currentDay].name },
-            { h: 10, m: 20, id: user.subjects[2][currentDay].id, name: user.subjects[2][currentDay].name },
+            { h: 8, m: 20, id: user.subjects[0][currentDay].id, name: user.subjects[0][currentDay].name },
             { h: 9, m: 20, id: user.subjects[1][currentDay].id, name: user.subjects[1][currentDay].name },
-            { h: 8, m: 20, id: user.subjects[0][currentDay].id, name: user.subjects[0][currentDay].name }
+            { h: 10, m: 20, id: user.subjects[2][currentDay].id, name: user.subjects[2][currentDay].name },
+            { h: 11, m: 20, id: user.subjects[3][currentDay].id, name: user.subjects[3][currentDay].name },
+            { h: 13, m: 20, id: user.subjects[4][currentDay].id, name: user.subjects[4][currentDay].name },
+            { h: 14, m: 20, id: user.subjects[5][currentDay].id, name: user.subjects[5][currentDay].name },
+            { h: 15, m: 20, id: user.subjects[6][currentDay].id, name: user.subjects[6][currentDay].name } 
         ];
-        setCurrentSubject(schedule.find(v => (v.h > h) || (v.h === h && v.m >= m)));
-    }, []);
+        setCurrentSubject(schedule.find(v => (v.h + 1) * 60 + v.m >= now));
+    }, [user, currentDay]);
     const addStudent = async function (event) {
         if (/[^\d]/.test(event.target.value)) {
             event.target.value = event.target.value.replace(/[^\d]/g, '');

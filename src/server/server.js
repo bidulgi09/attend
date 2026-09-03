@@ -563,7 +563,7 @@ app.post('/api/attendance', authenticateToken, (req, res) => {
         const student_id = req.user.id;
         connection.query(`
             SELECT id, subject_id, expires_at
-            FROM attendance_session
+            FROM attendance_sessions
             WHERE
                 ${token ? `token = ?` : `code = ?`}
                 AND status = 'ACTIVE'
