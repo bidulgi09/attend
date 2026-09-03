@@ -120,8 +120,8 @@ function TeacherPage({ user, setUser }) {
         console.log(currentSubject);
         let data = await SubjectManager.createAttendanceSession(subjectId);
         if(!data.results.isCreated) return false;
-        let url = window.location.origin + "/attendance?token=" + data.results.token + "&code=" + data.results.code;
-        let current_date = Date.now();
+        let url = window.location.origin + "/attendance?token=" + data.results.token + "&code=" + data.results.code + "&subject_id=" + subjectId;
+        console.log(url);
         setQRStatus(true);
         setGeneratedURL(url);
     }

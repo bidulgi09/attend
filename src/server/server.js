@@ -516,7 +516,8 @@ app.post('/api/attendanceSession', authenticateToken, (req, res) => {
         
         let token = crypto.randomBytes(16).toString('hex');
         let code = String(crypto.randomInt(0, 1000000)).padStart(6, '0');
-        let expires_at = new Date(Date.now() + 50 * 60 * 1000);
+        const utc = new Date().getTime() + (new Date().getTimezoneOffset() * 60000);
+        let expires_at = new Date(utc + 50 * 60 * 1000);
         connection.query(`
             SELECT id 
             FROM attendance_sessions 
@@ -591,12 +592,13 @@ app.post('/api/attendance', authenticateToken, (req, res) => {
                     connection.release();
                     return res.json({ success: true, results: { isAttend: false, reason: "Already attended."}});
                 }
-                let status = new Date(rows[0].expires_at) < new Date() ? 'ABSENCE' : 
-                            new Date(new Date(rows[0].expires_at) - 35 * 60 * 1000) < new Date() ? 'LATE' : 'PRESENT';
+                const utc = new Date().getTime() + (new Date().getTimezoneOffset() * 60000);
+                let status = new Date(rows[0].expires_at) < new Date(utc) ? 'ABSENCE' : 
+                            new Date(new Date(rows[0].expires_at) - 35 * 60 * 1000) < new Date(utc) ? 'LATE' : 'PRESENT';
                 connection.query(`
-                   INSERT INTO attendances (session_id, student_id, status, checked_at)
+                   INSERT INTO attendances (session_id, subject_id, student_id, status, checked_at)
                    VALUES (?, ?, ?, ?) 
-                `, [rows[0].id, student_id, status, new Date()],
+                `, [rows[0].id, req.body.subject_id, student_id, status, new Date(utc)],
                 function(error4, result2, fields) {
                     connection.release();
                     if(error4) return res.status(500).json({ success: false, results: { isAttend: false, reason: error4 }});

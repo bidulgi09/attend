@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './StudentStyles.css';
+import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import edit from '../../assets/edit.png';
 
@@ -17,10 +18,12 @@ import SubjectManager from '../../server/utils/SubjectManager';
 
 function StudentPage({ user, setUser }) {
     const fileInputRef = useRef(null);
+    const navigate = useNavigate();
 
     let data = user.subjects;
     const dayIndex = new Date().getDay();
     const [currentDay, setCurrentDay] = useState(dayIndex >= 1 && dayIndex <= 5 ? dayIndex - 1 : 0);
+    const [currentSubject, setCurrentSubject] = useState(null);
     const [editingCell, setEditingCell] = useState({ row: null, col: null });
     const [columnIndex, setColumnIndex] = useState(0);
     const [items, setItems] = useState([]);
@@ -103,7 +106,42 @@ function StudentPage({ user, setUser }) {
         setUser({...user, avatar: res.results.url});
         return alert("프로필 업로드 완료");
     };
+    useEffect(() => {
+        setCurrentDay(dayIndex >= 1 && dayIndex <= 5 ? dayIndex - 1 : 0);
+        function handleClickOutSide(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutSide);
+        return () => document.removeEventListener('mousedown', handleClickOutSide);
+    }, []);
+    useEffect(() => {
+        const date = new Date();
+        const now = date.getHours() * 60 + date.getMinutes();
+        let schedule = [
+            { h: 8, m: 20, id: user.subjects[0][currentDay].id, name: user.subjects[0][currentDay].name },
+            { h: 9, m: 20, id: user.subjects[1][currentDay].id, name: user.subjects[1][currentDay].name },
+            { h: 10, m: 20, id: user.subjects[2][currentDay].id, name: user.subjects[2][currentDay].name },
+            { h: 11, m: 20, id: user.subjects[3][currentDay].id, name: user.subjects[3][currentDay].name },
+            { h: 13, m: 20, id: user.subjects[4][currentDay].id, name: user.subjects[4][currentDay].name },
+            { h: 14, m: 20, id: user.subjects[5][currentDay].id, name: user.subjects[5][currentDay].name },
+            { h: 15, m: 20, id: user.subjects[6][currentDay].id, name: user.subjects[6][currentDay].name } 
+        ];
+        setCurrentSubject(schedule.find(v => (v.h + 1) * 60 + v.m >= now));
+    }, [user, currentDay]);
     
+    const attendCode = function (event) {
+        if (/[^\d]/.test(event.target.value)) {
+            event.target.value = event.target.value.replace(/[^\d]/g, '');
+        }
+        let val = event.target.value.replace(/[^\d]/g, '');
+        
+        if (val.length === 6) {
+            let res = navigate('/attendance?code=' + val + '&subject_id=' + currentSubject.id);
+            event.target.value = null;
+        }
+    }
     return (
         <div className="StudentPage">
             <Helmet>
@@ -155,7 +193,7 @@ function StudentPage({ user, setUser }) {
                         {user ? user.id : 'N/A'}
                     </div>
                     <form className='attendence-form-side'>
-                        <input type="text" placeholder="출석 코드"></input>
+                        <input type="text" placeholder="출석 코드" onChange={attendCode}></input>
                     </form>
                 </div>
                 <Schedule scheduleData={user.subjects.map(v => v.map(v2 => subjectList.find(x => x.id === v2.id)))} ishided={false} setEditingCell={setEditingCell} setIsSelectSubjectPopupOpen={setIsSelectSubjectPopupOpen} />
