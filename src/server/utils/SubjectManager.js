@@ -28,6 +28,10 @@ const SubjectManager = {
     async createAttendanceSession(subject_id) {
         try {
             let res = await api.post('/api/attendanceSession', this.headers, { subject_id });
+            if(res.status == 401) {
+                await api.post('/api/refresh');
+                res = await api.post('/api/attendanceSession', this.headers, { subject_id });
+            }
             return res;
         } catch(e) {
             return {};
