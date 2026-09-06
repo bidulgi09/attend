@@ -316,13 +316,13 @@ app.post('/api/refresh', (req, res) => {
             return res.status(401).json({ error: "Refresh token required."});   
         }
         let data = [req.cookies.refresh_token, req.cookies.refresh_token];
-        connection.query('SELECT id, refresh_token, expired_in FROM students WHERE refresh_token=? UNION ALL SELECT id, refresh_token, expired_in FROM teachers WHERE refresh_token=?;', data, function(error, results, fields) {
-            let user = results[0];
+        connection.query('SELECT role, id, refresh_token, expired_in FROM students WHERE refresh_token=? UNION ALL SELECT id, refresh_token, expired_in FROM teachers WHERE refresh_token=?;', data, function(error, results, fields) {
             if(error) {
                 connection.release();
                 res.status(500).json({ success: false, results: { isRefreshed: false, reason: "Fail to search" } });
                 return;
             }
+            let user = results[0];
             if(!user) {
                 connection.release();
                 res.status(401).json({ success: false, results: { isRefreshed: false, reason: "Not exists." } });
