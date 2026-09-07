@@ -35,7 +35,7 @@ function StudentPage({ user, setUser }) {
     useEffect(() => {
         let fetchLogData = async () => {
             let res = await UserManager.getUserLog(user.id);
-            setLogData(res.results.list);
+            setLogData(res);
         }
         fetchLogData();
     }, [user.id]);
@@ -95,16 +95,6 @@ function StudentPage({ user, setUser }) {
         return alert("프로필 업로드 완료");
     };
     useEffect(() => {
-        setCurrentDay(dayIndex >= 1 && dayIndex <= 5 ? dayIndex - 1 : 0);
-        function handleClickOutSide(event) {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setIsOpen(false);
-            }
-        }
-        document.addEventListener('mousedown', handleClickOutSide);
-        return () => document.removeEventListener('mousedown', handleClickOutSide);
-    }, []);
-    useEffect(() => {
         const date = new Date();
         const now = date.getHours() * 60 + date.getMinutes();
         let schedule = [
@@ -150,7 +140,7 @@ function StudentPage({ user, setUser }) {
                     <div className="student-list">
                         <div className="slide_box">
                             <DailySchedule className="slide_item" scheduleData={user.subjects.map(v => subjectList.find(x => x.id === v[currentDay].id) || {})}/>
-                            <NotesTab className="slide_item" NotesData={{ attendance: 10, result: 5, absence: 2, earlyLeave: 1 }} />
+                            <NotesTab className="slide_item" NotesData={logData} />
                             <LogTab className="slide_item" LogData={logData} />
                         </div>
                     </div>

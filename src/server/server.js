@@ -188,7 +188,7 @@ app.post('/api/logIn', (req, res) => {
         let data = [
             req.body.id,
         ];
-        connection.query(`SELECT password_hash FROM ${table} WHERE id = ?`, data, function(error, results, fields) {
+        connection.query(`SELECT id, password_hash, role FROM ${table} WHERE id = ?`, data, function(error, results, fields) {
             if(error) {
                 connection.release();
                 res.status(500).json({ success: false, results: { isLogin: false, reason: "Fail to search" } });
@@ -201,7 +201,7 @@ app.post('/api/logIn', (req, res) => {
             } else {
                 if(bcrypt.compareSync(req.body.password, results[0].password_hash)) {
                     let refresh_token=uuidv4();
-                    let access_token=jwt.sign({ id: req.body.id, role: req.body.role }, "access_secret", { expiresIn: "3h" });
+                    let access_token=jwt.sign({ id: results[0].id, role: results[0].role }, "access_secret", { expiresIn: "3h" });
                     connection.query(`UPDATE ${table} SET refresh_token=?, expired_in=? WHERE id=?;`, [refresh_token, REFRESH_TOKEN_EXPIRED_IN, req.body.id], function(error2, results2) {
                         connection.release();
                         if(error2) {

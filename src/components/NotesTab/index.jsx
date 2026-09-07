@@ -14,10 +14,10 @@ function NotesTab({ NotesData, className }) {
             </thead>
             <tbody>
                 <tr>
-                    <td>10</td>
-                    <td>5</td>
-                    <td>2</td>
-                    <td>1</td>
+                    <td>{NotesData.filter(v => v.status === 'present').length}</td>
+                    <td>{NotesData.filter(v => v.status === 'late').length}</td>
+                    <td>{NotesData.filter(v => v.status === 'absent').length}</td>
+                    <td>{NotesData.filter(v => v.status === 'early_leave').length}</td>
                 </tr>
             </tbody>
         </table>

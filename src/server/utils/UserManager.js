@@ -123,7 +123,7 @@ const UserManager = {
     async getUserLog(id) {
         try {
             let logs = await this.getAllAttendLog();
-            return logs.results.filter(v => v.user_id === id);
+            return logs.results.list.filter(v => v.student_id === id);
         } catch(e) {
             return {};
         }
