@@ -609,6 +609,22 @@ app.post('/api/attendance', authenticateToken, (req, res) => {
     });
 });
 
+app.get('/api/attendance', (req, res) => {
+    pool.getConnection(function(err, connection) {
+        if(err) return res.status(500).json({ success: false, results: { isLoaded: false, reason: err }});
+        connection.query(`
+            SELECT 
+                student_id, subject_id, status, checked_at
+                FROM attendances
+            `, 
+            function(error, result, fields) {
+                connection.release();
+                if(error) return res.json({ success: false, results: { isLoaded: false, reason: error }});
+                return res.json({ success: true, results: { isLoaded: true, list: result }});
+            });
+    });
+});
+
 app.listen(port, () => { 
     console.log("Example Server is Listening at http://localhost:" + port); 
 });
