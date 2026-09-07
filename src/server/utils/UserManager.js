@@ -52,10 +52,6 @@ const UserManager = {
     async setUser(user) {
         try {
             let res = await api.post('/api/updateUser', this.headers, typeof user.subjects === 'object' ? {...user, subjects: JSON.stringify(user.subjects)} : user);
-            if(res.status == 401) {
-                await api.post('/api/refresh');
-                res = await api.post('/api/updateUser', this.headers, typeof user.subjects === 'object' ? {...user, subjects: JSON.stringify(user.subjects)} : user);
-            }
             return res;
         } catch(e) {
             console.log(e);
@@ -81,10 +77,6 @@ const UserManager = {
     async connectSubject(subject, user) {
         try {
             let res = await api.post('/api/connectSubject', this.headers, { subject, teacher: user });
-            if(res.status == 401) {
-                await api.post('/api/refresh');
-                res = await api.post('/api/connectSubject', this.headers, { subject, teacher: user });
-            }
             return res;
         } catch(e) {
             return {};
@@ -92,13 +84,31 @@ const UserManager = {
     },
     async attend(user, setUser, { subject_id, token, code }) {
         try {
-            let res = await api.post('/api/attendance', this.headers, { subject_id, token, code });
-            if(res.status == 401) {
+            let res;
+
+            try {
+                res = await api.post(
+                    '/api/attendance',
+                    this.headers,
+                    { subject_id, token, code }
+                );
+            } catch (e) {
+                if (e.response?.status !== 401) {
+                    throw e;
+                }
+
                 await api.post('/api/refresh');
-                res = await api.post('/api/attendance', this.headers, { subject_id, token, code });
+
+                res = await api.post(
+                    '/api/attendance',
+                    this.headers,
+                    { subject_id, token, code }
+                );
             }
+
             return res;
-        } catch(e) {
+        } catch (e) {
+            console.log(e);
             return {};
         }
     }

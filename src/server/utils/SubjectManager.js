@@ -27,13 +27,27 @@ const SubjectManager = {
     },
     async createAttendanceSession(subject_id) {
         try {
-            let res = await api.post('/api/attendanceSession', this.headers, { subject_id });
-            if(res.status == 401) {
+            let res;
+            try {
+                res = await api.post(
+                    '/api/attendanceSession',
+                    this.headers,
+                    { subject_id }
+                );
+            } catch (e) {
+                if (e.response?.status !== 401) {
+                    throw e;
+                }
                 await api.post('/api/refresh');
-                res = await api.post('/api/attendanceSession', this.headers, { subject_id });
+                res = await api.post(
+                    '/api/attendanceSession',
+                    this.headers,
+                    { subject_id }
+                );
             }
             return res;
-        } catch(e) {
+        } catch (e) {
+            console.log(e);
             return {};
         }
     }
