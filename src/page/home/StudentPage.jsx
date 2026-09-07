@@ -31,26 +31,14 @@ function StudentPage({ user, setUser }) {
     const [isSelectSubjectPopupOpen, setIsSelectSubjectPopupOpen] = useState(false);
     const [handleUserNameChange, setHandleUserNameChange] = useState(false);
     const [newUserName, setNewUserName] = useState(user.name || "");
-    const logData = [
-        { date: "2023-01-01", status: "출석", subject: "국어" },
-        { date: "2023-01-02", status: "출석", subject: "체육" },
-        { date: "2023-01-02", status: "출석", subject: "미술" },
-        { date: "2023-01-03", status: "출석", subject: "음악" },
-        { date: "2023-01-04", status: "결석", subject: "미술" },
-        { date: "2023-01-05", status: "조퇴", subject: "음악" },
-        { date: "2023-01-06", status: "결과", subject: "수학" },
-        { date: "2023-01-07", status: "출석", subject: "수학" },
-        { date: "2023-01-07", status: "출석", subject: "영어" },
-        { date: "2023-01-08", status: "결과", subject: "영어" },
-        { date: "2023-01-08", status: "출석", subject: "과학" },
-        { date: "2023-01-08", status: "출석", subject: "사회" },
-        { date: "2023-01-09", status: "결과", subject: "과학" },
-        { date: "2023-01-10", status: "결과", subject: "사회" },
-        { date: "2023-01-11", status: "결석", subject: "체육" },
-        { date: "2023-01-11", status: "출석", subject: "한문" },
-        { date: "2023-01-12", status: "출석", subject: "코딩" },
-        { date: "2023-01-13", status: "결과", subject: "국어" }
-    ];
+    const [logData, setLogData] = useState([]);
+    useEffect(() => {
+        let fetchLogData = async () => {
+            let res = await UserManager.getUserLog(user.id);
+            setLogData(res.results.list);
+        }
+        fetchLogData();
+    }, [user.id]);
     useEffect(() => {
         let fetchItems = async () => {
             let subjects = await SubjectManager.getAll();

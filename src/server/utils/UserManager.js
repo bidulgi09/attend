@@ -111,6 +111,22 @@ const UserManager = {
             console.log(e);
             return {};
         }
+    },
+    async getAllAttendLog() {
+        try{
+            let res = await api.get('/api/attendance', this.headers);
+            return res;
+        } catch(e) {
+            return {};
+        }
+    },
+    async getUserLog(id) {
+        try {
+            let logs = await this.getAllAttendLog();
+            return logs.results.filter(v => v.user_id === id);
+        } catch(e) {
+            return {};
+        }
     }
 } 
 export default UserManager;

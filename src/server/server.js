@@ -620,7 +620,7 @@ app.get('/api/attendance', (req, res) => {
             function(error, result, fields) {
                 connection.release();
                 if(error) return res.json({ success: false, results: { isLoaded: false, reason: error }});
-                return res.json({ success: true, results: { isLoaded: true, list: result }});
+                return res.json({ success: true, results: { isLoaded: true, counts: result.length, list: result }});
             });
     });
 });
