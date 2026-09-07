@@ -4,8 +4,10 @@ function authenticateToken(req, res, next) {
     const token = req.cookies.access_token;
 
     if(!token) {
-        req.user = null; 
-        return next();
+        return res.status(401).json({
+            success: false,
+            error: "Access token required."
+        });
     }
     try {
     jwt.verify(token, "access_secret", function(err, user) {
