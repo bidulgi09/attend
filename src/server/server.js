@@ -200,8 +200,13 @@ app.post('/api/logIn', (req, res) => {
                 return;
             } else {
                 if(bcrypt.compareSync(req.body.password, results[0].password_hash)) {
+                    console.log("발급 직전:", {
+                        id: results[0].id,
+                        role: results[0].role
+                    });
                     let refresh_token=uuidv4();
                     let access_token=jwt.sign({ id: results[0].id, role: results[0].role }, "access_secret", { expiresIn: "3h" });
+                    console.log("새 JWT:", jwt.decode(access_token));
                     connection.query(`UPDATE ${table} SET refresh_token=?, expired_in=? WHERE id=?;`, [refresh_token, REFRESH_TOKEN_EXPIRED_IN, req.body.id], function(error2, results2) {
                         connection.release();
                         if(error2) {
@@ -512,7 +517,7 @@ app.get('/api/subjectList', (req, res) => {
 app.post('/api/attendanceSession', authenticateToken, (req, res) => {
     pool.getConnection(function(err, connection) {
         if(err) return res.status(500).json({ success: false, results: { isCreated: false, reason: err }});
-        
+        console.log("현재 요청 JWT:", jwt.decode(req.cookies.access_token));
         console.log("req.user: ", req.user);
         if(req.user.role !== "Teacher") {
             connection.release();
