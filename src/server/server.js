@@ -307,6 +307,8 @@ app.post('/api/updateUser', (req, res) => {
     })
 });
 app.post('/api/refresh', (req, res) => {
+    console.log("========== REFRESH ==========");
+    console.log("refresh_token 존재:", !!req.cookies.refresh_token);
     const REFRESH_TOKEN_EXPIRED_IN=(()=>new Date(Date.now() + 7*24*60*60*1000))();
     const ACCESS_TOKEN_EXPIRED_IN=(()=>new Date(Date.now() + 3*60*60*1000))();
     pool.getConnection(function(err, connection) {
