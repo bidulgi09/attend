@@ -554,7 +554,7 @@ app.post('/api/attendance', authenticateToken, (req, res) => {
         
         if(req.user.role !== "Student") {
             connection.release();
-            return res.status(403).json({ success: false, results: { isAttend: false, reason: "Unauthorized" }});
+            return res.status(403).json({ success: false, results: { isAttend: false, role: req.user.role, reason: "Unauthorized" }});
         }
         const { token, code } = req.body;
         if(!token && !code) {
