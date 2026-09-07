@@ -212,14 +212,16 @@ app.post('/api/logIn', (req, res) => {
                             expires: REFRESH_TOKEN_EXPIRED_IN,
                             httpOnly: true,
                             secure: true,
-                            sameSite: 'none'
+                            sameSite: 'none',
+                            path: '/'
                         });
                         
                         res.cookie('access_token', access_token, {
                             expires: ACCESS_TOKEN_EXPIRED_IN,
                             httpOnly: true,
                             secure: true,
-                            sameSite: 'none'
+                            sameSite: 'none',
+                            path: '/'
                         });
                         res.send({ success: true, results: { isLogIn: true, refresh_token: { value: refresh_token, expiry: REFRESH_TOKEN_EXPIRED_IN } }});
                         return;
@@ -257,12 +259,14 @@ app.post('/api/logOut', (req, res) => {
             res.clearCookie("refresh_token", {
                 httpOnly: true,
                 secure: true,
-                sameSite: 'none'
+                sameSite: 'none',
+                path: '/'
             });
             res.clearCookie("access_token", {
                 httpOnly: true,
                 secure: true,
-                sameSite: 'none'
+                sameSite: 'none',
+                path: '/'
             });
             res.send({ success: true, results: { isLogOut: true }});
         });
