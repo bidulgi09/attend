@@ -200,10 +200,8 @@ app.post('/api/logIn', (req, res) => {
                 return;
             } else {
                 if(bcrypt.compareSync(req.body.password, results[0].password_hash)) {
-                    console.log("발급 직전:", {
-                        id: results[0].id,
-                        role: results[0].role
-                    });
+                    console.log("LOGIN results[0]:", results[0]);
+                    console.log("LOGIN role:", results[0].role);
                     let refresh_token=uuidv4();
                     let access_token=jwt.sign({ id: results[0].id, role: results[0].role }, "access_secret", { expiresIn: "3h" });
                     console.log("새 JWT:", jwt.decode(access_token));
