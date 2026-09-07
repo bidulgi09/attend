@@ -9,8 +9,11 @@ function authenticateToken(req, res, next) {
     }
     try {
     jwt.verify(token, "access_secret", function(err, user) {
-        if(err)
-            return res.status(403).json({ error: "Invalid token."});
+        if(err) {
+            return res.status(401).json({
+                error: "Access token expired or invalid."
+            });
+        }
 
         req.user = user;
         next();
