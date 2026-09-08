@@ -9,7 +9,7 @@
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(6, 1fr);
-    gap: 8px;
+    gap: 0.2dvw;
     list-style: none;
     padding: 20px;
     margin: 0;
@@ -18,6 +18,7 @@
 }
 
 .InstructionStudents ul li {
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,6 +26,10 @@
     background-color: rgba(255, 255, 255, 0.1);
     color: white;
     border-radius: 6px;
-    font-size: 2dvh;
+    font-size: 1dvw;
     overflow: hidden;
+    &[isattended="true"] {
+        border: 1px solid rgb(184, 251, 255);
+        color: rgb(184, 251, 255);
+    }
 }
