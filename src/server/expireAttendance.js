@@ -10,6 +10,7 @@ function expireAttendance(sessionId) {
             FROM attendance_sessions
             WHERE id = ?
                 AND expires_at <= NOW()
+                AND status = 'active'
             `, [sessionId], 
             function(error, results, fields) {
                 if(error || results.length === 0) {
