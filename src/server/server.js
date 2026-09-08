@@ -607,8 +607,8 @@ app.post('/api/attendance', authenticateToken, (req, res) => {
                     return res.json({ success: true, results: { isAttend: false, reason: "Already attended."}});
                 }
                 const utc = new Date().getTime() + (new Date().getTimezoneOffset() * 60000);
-                let status = new Date(rows[0].expires_at) < new Date(utc) ? 'ABSENCE' : 
-                            new Date(new Date(rows[0].expires_at) - 35 * 60 * 1000) < new Date(utc) ? 'LATE' : 'PRESENT';
+                let status = new Date(rows[0].expires_at) < new Date(utc) ? 'absent' : 
+                            new Date(new Date(rows[0].expires_at) - 35 * 60 * 1000) < new Date(utc) ? 'late' : 'present';
                 connection.query(`
                    INSERT INTO attendances (session_id, subject_id, student_id, status, checked_at)
                    VALUES (?, ?, ?, ?, ?) 
