@@ -42,7 +42,7 @@
 
 .HeaderBar .logo-box .description {
     font-size: 0.85rem;
-    color: rgb(184, 181, 195);
+    color: white;
 }
 .HeaderBar .logo-icon {
     display: flex;

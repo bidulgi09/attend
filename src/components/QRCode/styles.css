@@ -33,7 +33,7 @@
     background-color: rgb(34, 40, 49, 0);
     backdrop-filter: blur(0px);
     opacity: 0;
-    color: rgb(184, 181, 195);
+    color: white;
     transition: all 0.25s ease-in-out;
 }
 

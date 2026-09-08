@@ -23,11 +23,11 @@
 
 .DailyScheduleTable th {
     background-color: rgba(0, 0, 0, 0.2);
-    color: rgb(184, 181, 195);
+    color: white;
 }
 
 .DailyScheduleTable td {
-    color: rgb(184, 181, 195);
+    color: white;
     background-color: rgba(255, 255, 255, 0.1);
     border-bottom: #4A5562;
     border: .5px solid black;
@@ -36,7 +36,7 @@
 .DailyScheduleTable thead .title {
     width: 100%;
     text-align: center;
-    color: rgb(184, 181, 195);
+    color: white;
 }
 
 @media(max-width:520px) {
