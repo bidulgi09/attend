@@ -9,7 +9,6 @@ function NotesTab({ NotesData, className }) {
                     <th scope='col'>출석</th>
                     <th scope='col'>결과</th>
                     <th scope='col'>결석</th>
-                    <th scope='col'>조퇴</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,7 +16,6 @@ function NotesTab({ NotesData, className }) {
                     <td>{NotesData.filter(v => v.status === 'present').length}</td>
                     <td>{NotesData.filter(v => v.status === 'late').length}</td>
                     <td>{NotesData.filter(v => v.status === 'absent').length}</td>
-                    <td>{NotesData.filter(v => v.status === 'early_leave').length}</td>
                 </tr>
             </tbody>
         </table>

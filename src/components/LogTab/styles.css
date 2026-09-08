@@ -67,28 +67,21 @@
     text-align: center;
 }
 
-.LogTab .log-data .log-subject[status="출석"] {
+.LogTab .log-data .log-subject[status="present"] {
     display: flex;
     color: rgb(138, 255, 120);
     align-items: center;
     text-align: center;
     font-weight: bold;
 }
-.LogTab .log-data .log-subject[status="조퇴"] {
-    display: flex;
-    color: rgb(251, 255, 121);
-    align-items: center;
-    text-align: center;
-    font-weight: bold;
-}
-.LogTab .log-data .log-subject[status="결과"] {
+.LogTab .log-data .log-subject[status="late"] {
     display: flex;
     color: rgb(255, 206, 99);
     align-items: center;
     text-align: center;
     font-weight: bold;
 }
-.LogTab .log-data .log-subject[status="결석"] {
+.LogTab .log-data .log-subject[status="absent"] {
     display: flex;
     color: rgb(255, 112, 112);
     align-items: center;

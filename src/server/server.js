@@ -354,14 +354,16 @@ app.post('/api/refresh', (req, res) => {
                     expires: REFRESH_TOKEN_EXPIRED_IN,
                     httpOnly: true,
                     secure: true,
-                    sameSite: 'none'
+                    sameSite: 'none',
+                    path: '/'
                 });
                 
                 res.cookie('access_token', new_access_token, {
                     expires: ACCESS_TOKEN_EXPIRED_IN,
                     httpOnly: true,
                     secure: true,
-                    sameSite: 'none'
+                    sameSite: 'none',
+                    path: '/'
                 }); 
 
                 res.send({ success: true, results: { isRefreshed: true, data: user } });
@@ -532,7 +534,7 @@ app.post('/api/attendanceSession', authenticateToken, (req, res) => {
             FROM attendance_sessions 
             WHERE subject_id = ? 
                 AND teacher_id = ? 
-                AND status='ACTIVE' 
+                AND status='active' 
                 AND expires_at > NOW()
             LIMIT 1
         `, [req.body.subject_id, req.user.id], 
@@ -553,7 +555,7 @@ app.post('/api/attendanceSession', authenticateToken, (req, res) => {
                 connection.release();
                 if(error2) return res.status(500).json({ success: false, results: { isCreated: false, reason: error2 }});
                 setTimeout(() => {
-                    expireAttendance(sessionId);
+                    expireAttendance(result.insertId);
                 }, expires_at.getTime() - Date.now());
                 return res.json({ success: true, results: { isCreated: true, session_id: result.insertId, token, code, expires_at }});
             });
@@ -579,7 +581,7 @@ app.post('/api/attendance', authenticateToken, (req, res) => {
             FROM attendance_sessions
             WHERE
                 ${token ? `token = ?` : `code = ?`}
-                AND status = 'ACTIVE'
+                AND status = 'active'
             LIMIT 1
         `, [token || code], 
         function(error, rows, fields) {

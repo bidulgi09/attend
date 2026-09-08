@@ -141,7 +141,7 @@ function StudentPage({ user, setUser }) {
                         <div className="slide_box">
                             <DailySchedule className="slide_item" scheduleData={user.subjects.map(v => subjectList.find(x => x.id === v[currentDay].id) || {})}/>
                             <NotesTab className="slide_item" NotesData={logData} />
-                            <LogTab className="slide_item" LogData={logData} />
+                            <LogTab className="slide_item" LogData={logData.map(v => {return {...v, subject_name: subjectList.find(x => x.id === v.subject_id)?.subject_name || 'Unknown'}})} />
                         </div>
                     </div>
                     <div className="next" onClick={moveSlideNext}>
