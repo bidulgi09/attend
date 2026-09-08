@@ -13,7 +13,7 @@ function LogTab({ LogData, className }) {
                             res.push(
                                 <div className="log-data" key={`log_${i}`}>
                                     <span className="log-subject" status={LogData[i].status}>[{LogData[i].subject_name}]&nbsp;</span>
-                                    <span className="log-status">{LogData[i].status === 'present' ? '출석' : LogData[i].status === 'late' ? '지각' : '결석'}</span>
+                                    <span className="log-status">{LogData[i].status === 'present' ? '출석' : LogData[i].status === 'late' ? '결과' : '결석'}</span>
                                     <span className="log-date">{LogData[i].checked_at}</span>
                                 </div>
                             )

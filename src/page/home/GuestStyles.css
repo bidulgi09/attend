@@ -4,7 +4,7 @@
     flex: 1;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: rgb(184, 181, 195);
     flex-direction: column;
     & .main-layout {
         z-index: 5;
@@ -42,7 +42,7 @@
             & .signup-btn {
                 display: flex;
                 text-decoration: none;
-                color: white;
+                color: rgb(184, 181, 195);
                 background-color: rgb(118, 171, 174);
                 border-radius: 30dvw;
                 width: 30dvw;
@@ -54,7 +54,7 @@
             }
             & .more-info {
                 display: flex;
-                color: white;
+                color: rgb(184, 181, 195);
                 justify-content: center;
                 align-items: center;
                 margin: 20px;

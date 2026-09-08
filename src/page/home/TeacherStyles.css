@@ -61,7 +61,7 @@
                 flex: 0 0 60dvw;
                 justify-content: center;
                 align-items: center;
-                color: white;
+                color: rgb(184, 181, 195);
                 height: 60dvh;
                 scroll-snap-align: unset;
             }
@@ -141,7 +141,7 @@
             width: 3dvw;
             height: 3dvh;
             background-color: rgb(118, 171, 174);
-            color: white;
+            color: rgb(184, 181, 195);
         }
     }
 }
