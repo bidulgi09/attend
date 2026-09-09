@@ -566,6 +566,9 @@ app.post('/api/attendanceSession', authenticateToken, (req, res) => {
                     console.log("타이머 실행!");
                     expireAttendance(result.insertId);
                 }, delay);
+                setInterval(() => {
+                    console.log("현재 살아있음", new Date());
+                }, 1000);
                 return res.json({ success: true, results: { isCreated: true, session_id: result.insertId, token, code, expires_at }});
             });
         });
