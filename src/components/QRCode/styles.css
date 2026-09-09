@@ -4,7 +4,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 20px;
     font-size: 4vh;
     font-weight: bold;
     font-family: appleNeo;
@@ -17,7 +16,7 @@
 }
 
 .QRCode[iscreated='false'] {
-    display: none;
+    display: none !important;
 }
 
 .QRCode .qr-code .delete-btn {

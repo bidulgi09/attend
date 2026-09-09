@@ -3,7 +3,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import logo from '../../assets/logo_final_final.png';
 import './styles.css';
 
-function QRCode({ url, iscreated, removelink }) {
+function QRCode({ url, iscreated, removelink, className }) {
     const base62 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const encodeToBase62 = function (number) {
         console.log(number)
@@ -16,7 +16,7 @@ function QRCode({ url, iscreated, removelink }) {
         return res;
     }
     return (
-        <div className='QRCode' iscreated={iscreated.toString()} >
+        <div className={`QRCode ${className}`} iscreated={iscreated.toString()} >
             <div className='url'>코드:&nbsp;{url.length > 0 && new URL(url).searchParams.get('code')}</div>
             <div className='qr-code'>
                 <div className='delete-btn' onClick={removelink}>삭제</div>

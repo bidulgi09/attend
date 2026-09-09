@@ -25,7 +25,7 @@ function InstructionStudents({ instructionData, className }) {
                         console.log(isAttended?.status);
                         return (
                             <li key={index} className="student" status={isAttended?.status} onClick={() => alert(`학생 이름: ${student.name}\n학생 ID: ${student.id}\n출석상태: ${isAttended?.status == "present" ? "출석" : isAttended?.status == "absent" ? "결석" : "미출석"}`)}>
-                                [{isAttended?.status == "present" ? "출석" : isAttended?.status == "absent" ? "결석" : "미출석"}]<br/>{student.id}<br/>{student.name}
+                                [{isAttended?.status == "present" ? "출석" : isAttended?.status == "absent" ? "결석" : isAttended?.status === "late" ? "지각" : "미출석"}]<br/>{student.id}<br/>{student.name}
                             </li>
                         );
                     })

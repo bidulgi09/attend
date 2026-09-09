@@ -196,8 +196,12 @@ function TeacherPage({ user, setUser }) {
                             </ul>
                         </div>
                         <input type="text" placeholder="학생 추가 (00-00000)" onChange={async e => await addStudent(e)}></input>
+                        <button type="button" className="createQR" onClick={async() => await generateLink(currentSubject.id)}>
+                            QR 생성
+                        </button>
                     </div>
                 </form>
+                <QRCode url={generatedURL} iscreated={QRStatus} removelink={removeLink} className="mobileQR"/>
                 <div className="row-wrapper slide">
                     <div className="prev" onClick={moveSlidePrev}>
                         {"<"}

@@ -3,6 +3,7 @@
     display: flex;
     flex: 1;
     justify-content: center;
+    font-family: appleNeo;
     align-items: center;
     position: relative;
     height: 100%;
@@ -26,6 +27,21 @@
     height: 100%;
     min-height: 0;
     gap: 20px;
+    .mobileQR {
+        display: none;
+        flex-shrink: 0;
+        z-index: 100;
+    }
+    & .createQR {
+        box-sizing: border-box;
+        display: inline-block;
+        text-align: center;
+        border-radius: 10px;
+        margin-left: 10px;
+        border: none;
+        width: 10dvh;
+        background-color: rgb(118, 171, 174);
+    }
     & .slide {
         display: flex;
         justify-content: center;
@@ -141,7 +157,6 @@
             width: 3dvw;
             height: 3dvh;
             background-color: rgb(118, 171, 174);
-            color: white;
         }
     }
 }
@@ -357,10 +372,14 @@
     .TeacherPage .main {
         width:90%;
         padding: 5%;
+        justify-content: flex-start;
     }
     .TeacherPage .main .attendence-form-main {
         display: flex;
         width: 90%;
         padding: 5%;
+    }
+    .TeacherPage .main .mobileQR {
+        display: flex;
     }
 }
