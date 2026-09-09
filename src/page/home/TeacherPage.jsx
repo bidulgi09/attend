@@ -53,12 +53,17 @@ function TeacherPage({ user, setUser }) {
         fetchItems();
     }, [items]);
     useEffect(() => {
+        async function attendanceExpireCheck() {
+            let res = await UserManager.getAllAttendLog();
+            console.log("자동 결석 처리 결과:", res);
+        }
         setCurrentDay(dayIndex >= 1 && dayIndex <= 5 ? dayIndex - 1 : 0);
         function handleClickOutSide(event) {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setIsOpen(false);
             }
         }
+        attendanceExpireCheck();
         document.addEventListener('mousedown', handleClickOutSide);
         return () => document.removeEventListener('mousedown', handleClickOutSide);
     }, []);
