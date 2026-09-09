@@ -555,10 +555,17 @@ app.post('/api/attendanceSession', authenticateToken, (req, res) => {
             function(error2, result, fields) {
                 connection.release();
                 if(error2) return res.status(500).json({ success: false, results: { isCreated: false, reason: error2 }});
+                const delay = expires_at.getTime() - Date.now();
+
+                console.log("========== ATTENDANCE TIMER ==========");
+                console.log("expires_at:", expires_at);
+                console.log("현재 시간:", new Date());
+                console.log("delay(ms):", delay);
+                console.log("delay(sec):", delay / 1000);
                 setTimeout(() => {
                     console.log("타이머 실행!");
                     expireAttendance(result.insertId);
-                }, expires_at.getTime() - Date.now());
+                }, delay);
                 return res.json({ success: true, results: { isCreated: true, session_id: result.insertId, token, code, expires_at }});
             });
         });
