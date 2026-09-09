@@ -24,7 +24,7 @@ function InstructionStudents({ instructionData, className }) {
                         let isAttended = attendedStudents.find(attendedStudent => attendedStudent.student_id === student.id && attendedStudent.subject_id === instructionData.id);
                         console.log(isAttended?.status);
                         return (
-                            <li key={index} className="student" status={isAttended.status} onClick={() => alert(`학생 이름: ${student.name}\n학생 ID: ${student.id}\n출석상태: ${isAttended?.status == "present" ? "출석" : isAttended?.status == "absent" ? "결석" : "미출석"}`)}>
+                            <li key={index} className="student" status={isAttended?.status} onClick={() => alert(`학생 이름: ${student.name}\n학생 ID: ${student.id}\n출석상태: ${isAttended?.status == "present" ? "출석" : isAttended?.status == "absent" ? "결석" : "미출석"}`)}>
                                 [{isAttended?.status == "present" ? "출석" : isAttended?.status == "absent" ? "결석" : "미출석"}]<br/>{student.id}<br/>{student.name}
                             </li>
                         );
