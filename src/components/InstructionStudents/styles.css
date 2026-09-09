@@ -28,8 +28,16 @@
     border-radius: 6px;
     font-size: 1dvw;
     overflow: hidden;
-    &[isattended="true"] {
+    &[status="present"] {
         border: 1px solid rgb(184, 251, 255);
         color: rgb(184, 251, 255);
+    }
+    &[status="late"] {
+        border: 1px solid rgb(255, 206, 99);
+        color: rgb(255, 206, 99);
+    }
+    &[status="absent"] {
+        border: 1px solid rgb(255, 112, 112);
+        color: rgb(255, 112, 112);
     }
 }
