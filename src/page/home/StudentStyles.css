@@ -10,6 +10,7 @@
     min-height: 0;
     color: rgb(238, 238, 238);
     box-sizing: border-box;
+    animation: fadeInUp 0.3s ease-in-out;
 }
 .StudentPage .main {
     padding-top: 92px;
@@ -214,4 +215,15 @@
         width: 90%;
         padding: 5%;
     }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
