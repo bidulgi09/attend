@@ -122,6 +122,7 @@
             border: none;
             border-bottom-left-radius: 10px;
             border-top-left-radius: 10px;
+            font-family: appleNeo;
             text-align: center; 
             box-sizing: border-box;
             width: 8dvw;
@@ -130,6 +131,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                font-family: appleNeo;
                 text-align: center;
             }
         }
@@ -141,6 +143,7 @@
             border-top-right-radius: 10px;
             box-sizing: border-box;
             width: 3dvw;
+            font-family: appleNeo;
             height: 3dvh;
             background-color: rgb(118, 171, 174);
         }

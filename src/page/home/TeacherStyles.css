@@ -140,12 +140,14 @@
             text-align: center; 
             box-sizing: border-box;
             width: 8dvw;
+            font-family: appleNeo;
             height: 3dvh;
             &::placeholder {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 text-align: center;
+                font-family: appleNeo;
             }
         }
         & .new-name-submit {
@@ -156,6 +158,7 @@
             border-top-right-radius: 10px;
             box-sizing: border-box;
             width: 3dvw;
+            font-family: appleNeo;
             height: 3dvh;
             background-color: rgb(118, 171, 174);
         }
