@@ -7,6 +7,7 @@
     align-items: center;
     height: 100%;
     width: 100%;
+    font-family: appleNeo;
     min-height: 0;
     color: rgb(238, 238, 238);
     box-sizing: border-box;
@@ -142,7 +143,6 @@
             width: 3dvw;
             height: 3dvh;
             background-color: rgb(118, 171, 174);
-            color: white;
         }
     }
 }
