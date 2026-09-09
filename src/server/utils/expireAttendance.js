@@ -1,5 +1,5 @@
 import mysql from "mysql2"; 
-import dbconfig from "../mysql_middleware/config/database.js"; 
+import dbconfig from "../../mysql_middleware/config/database.js"; 
 const pool = mysql.createPool(dbconfig); 
 
 function expireAttendance(sessionId) {
@@ -54,3 +54,5 @@ function expireAttendance(sessionId) {
         );
     });
 }
+
+export default expireAttendance;
