@@ -555,6 +555,7 @@ app.post('/api/attendanceSession', authenticateToken, (req, res) => {
                 connection.release();
                 if(error2) return res.status(500).json({ success: false, results: { isCreated: false, reason: error2 }});
                 setTimeout(() => {
+                    console.log("타이머 실행!");
                     expireAttendance(result.insertId);
                 }, expires_at.getTime() - Date.now());
                 return res.json({ success: true, results: { isCreated: true, session_id: result.insertId, token, code, expires_at }});
