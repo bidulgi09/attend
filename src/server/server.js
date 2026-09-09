@@ -528,7 +528,7 @@ app.post('/api/attendanceSession', authenticateToken, (req, res) => {
         let token = crypto.randomBytes(16).toString('hex');
         let code = String(crypto.randomInt(0, 1000000)).padStart(6, '0');
         const utc = new Date().getTime() + (new Date().getTimezoneOffset() * 60000);
-        let expires_at = new Date(utc + 50 * 60 * 1000);
+        let expires_at = new Date(utc + 60 * 1000);
         connection.query(`
             SELECT id , token, code, expires_at
             FROM attendance_sessions 
