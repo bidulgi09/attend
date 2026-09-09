@@ -555,20 +555,6 @@ app.post('/api/attendanceSession', authenticateToken, (req, res) => {
             function(error2, result, fields) {
                 connection.release();
                 if(error2) return res.status(500).json({ success: false, results: { isCreated: false, reason: error2 }});
-                const delay = expires_at.getTime() - Date.now();
-
-                console.log("========== ATTENDANCE TIMER ==========");
-                console.log("expires_at:", expires_at);
-                console.log("현재 시간:", new Date());
-                console.log("delay(ms):", delay);
-                console.log("delay(sec):", delay / 1000);
-                setTimeout(() => {
-                    console.log("타이머 실행!");
-                    expireAttendance(result.insertId);
-                }, delay);
-                setInterval(() => {
-                    console.log("현재 살아있음", new Date());
-                }, 1000);
                 return res.json({ success: true, results: { isCreated: true, session_id: result.insertId, token, code, expires_at }});
             });
         });
@@ -636,20 +622,36 @@ app.post('/api/attendance', authenticateToken, (req, res) => {
     });
 });
 
-app.get('/api/attendance', (req, res) => {
-    pool.getConnection(function(err, connection) {
-        if(err) return res.status(500).json({ success: false, results: { isLoaded: false, reason: err }});
-        connection.query(`
-            SELECT 
-                student_id, subject_id, status, checked_at
-                FROM attendances
-            `, 
-            function(error, result, fields) {
-                connection.release();
-                if(error) return res.json({ success: false, results: { isLoaded: false, reason: error }});
-                return res.json({ success: true, results: { isLoaded: true, counts: result.length, list: result }});
-            });
-    });
+app.get('/api/attendance', async (req, res) => {
+    try {
+        const [sessions] = await pool.promise().query(`
+            SELECT id
+            FROM attendance_sessions
+            WHERE status = 'active'
+                AND expires_at <= NOW()
+        `);
+
+        for (const session of sessions) {
+            await expireAttendance(session.id);
+        }
+        pool.getConnection(function(err, connection) {
+            if(err) return res.status(500).json({ success: false, results: { isLoaded: false, reason: err }});
+            
+            connection.query(`
+                SELECT 
+                    student_id, subject_id, status, checked_at
+                    FROM attendances
+                `, 
+                function(error, result, fields) {
+                    connection.release();
+                    if(error) return res.json({ success: false, results: { isLoaded: false, reason: error }});
+                    return res.json({ success: true, results: { isLoaded: true, counts: result.length, list: result }});
+                });
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, results: { isLoaded: false, reason: error }});
+    }
 });
 
 app.listen(port, () => { 
