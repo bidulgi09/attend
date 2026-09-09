@@ -11,6 +11,7 @@ import { createClient } from '@supabase/supabase-js';
 import { v4 as uuidv4 } from "uuid";
 import checkDomainServer from "./utils/checkDomainServer.js";
 import authenticateToken from "./utils/authenticateToken.js";
+import expireAttendance from "./utils/expireAttendance.js"
 import multer from 'multer';
 import crypto from 'crypto';
 
