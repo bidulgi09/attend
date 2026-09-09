@@ -39,7 +39,7 @@ function expireAttendance(sessionId) {
                             connection.release();
                             return error;
                         }
-
+                        console.log("자동 결석 처리 결과:", result.affectedRows);
                         connection.query(`
                             UPDATE attendance_sessions
                             SET status='expired'

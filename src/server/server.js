@@ -545,7 +545,7 @@ app.post('/api/attendanceSession', authenticateToken, (req, res) => {
             }
             if(rows.length > 0) {
                 connection.release();
-                return res.json({ success: true, results: { isCreated: false, session_id: rows[0].id, token: rows[0].token, code: rows[0].code, expires_at: rows[0].expired_at, reason: "An active session already exists for this subject." }});
+                return res.json({ success: true, results: { isCreated: false, session_id: rows[0].id, token: rows[0].token, code: rows[0].code, expires_at: rows[0].expires_at, reason: "An active session already exists for this subject." }});
             }
             connection.query(`
             INSERT INTO attendance_sessions (subject_id, teacher_id, code, token, expires_at) 
@@ -582,6 +582,7 @@ app.post('/api/attendance', authenticateToken, (req, res) => {
             WHERE
                 ${token ? `token = ?` : `code = ?`}
                 AND status = 'active'
+                AND expires_at > NOW()
             LIMIT 1
         `, [token || code], 
         function(error, rows, fields) {
