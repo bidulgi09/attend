@@ -1,225 +1,116 @@
-# Getting Started with Create React App
+<img width="2560" height="1599" alt="image" src="https://github.com/user-attachments/assets/4c398dba-e45c-41e5-b420-b61a5d8351d6" /># 출첵커 이용 안내서
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+QR 코드로 출석을 체크하는 출결 관리 서비스, **출첵커**의 사용법을 안내합니다.
+교사와 학생 모두 아래 순서를 따라하시면 됩니다.
 
-## Available Scripts
+- 서비스 주소: https://출첵커.웹.한국
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 1. 회원가입 / 로그인
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. 메인 화면에서 **회원가입**으로 이동합니다.
+2. 본인의 역할(**학생** / **교사**)을 선택합니다.
+3. 아래 정보를 입력합니다.
+   - **아이디**: 학번·사번 형식으로 자동 정리됩니다 (예: `25-00123` → 앞 2자리-뒤 5자리)
+   - **이메일**
+   - **비밀번호**
+4. 이용약관에 동의 체크 후 **가입하기**를 누르면 자동으로 로그인됩니다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+이미 계정이 있다면 **로그인** 화면에서 역할·아이디·비밀번호만 입력하면 됩니다.
 
-### `npm test`
+<img width="2560" height="1599" alt="image" src="https://github.com/user-attachments/assets/ac381000-624a-45a5-9c62-88752b8c180d" />
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 2. 교사 가이드
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 2-1. 과목 등록하기
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. 홈 화면 상단의 과목 선택 드롭다운에서 **＋(추가)** 버튼을 누릅니다.
+2. 팝업 창에서 과목명을 입력하고 저장합니다.
 
-### `npm run eject`
+### 2-2. 시간표에 과목 배정하기
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. 홈 화면의 주간 시간표(요일 × 교시)에서 원하는 칸을 클릭합니다.
+2. 뜨는 팝업에서 해당 시간에 진행할 과목을 선택하면 시간표에 반영됩니다.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<img width="2560" height="1599" alt="image" src="https://github.com/user-attachments/assets/3c2f3088-a9ac-4a41-b405-b7fec6e050b9" />
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 2-3. QR 출석 코드 발급하기
 
-## Learn More
+1. 상단 드롭다운에서 출석을 받을 **과목을 선택**합니다.
+2. **QR 코드 생성** 버튼을 누르면 화면에 QR 코드가 표시됩니다.
+3. 학생들에게 QR 코드를 보여주면, 학생은 스캔 한 번으로 출석 처리가 됩니다.
+4. 출석 접수를 마치려면 QR 코드를 **닫기(제거)** 하면 됩니다 — 이후 접속하지 않은 학생은 자동으로 **결석 처리**됩니다.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+> ℹ️ QR 코드에는 학생이 직접 입력할 수 있는 6자리 숫자 코드도 함께 표시되며, QR을 스캔하기 어려운 환경에서는 학생이 그 코드를 화면에 직접 입력해 출석할 수도 있습니다.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<img width="2560" height="1599" alt="image" src="https://github.com/user-attachments/assets/c93d2db8-5a3d-45fa-81f6-897f6597d8ff" />
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 2-4. 내 정보 수정
 
-### Analyzing the Bundle Size
+홈 화면 좌측 프로필 영역에서 프로필 사진 클릭 시 이미지 변경, 연필 아이콘 클릭 시 닉네임을 수정할 수 있습니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## 3. 학생 가이드
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 3-1. 시간표 확인
 
-### Advanced Configuration
+홈 화면에서 요일별 시간표와 현재 교시를 확인할 수 있습니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 3-2. 출석하기
 
-### Deployment
+**방법 1. QR 스캔**
+1. 교사가 보여주는 QR 코드를 스마트폰 카메라(또는 QR 스캔 앱)로 스캔합니다.
+2. 자동으로 출첵커 페이지로 이동하며 "출석이 완료되었습니다" 안내가 뜹니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+**방법 2. 코드 직접 입력**
+1. 홈 화면의 **출석 코드** 입력창에 교사가 알려준 6자리 코드를 입력합니다.
+2. 6자리를 모두 입력하면 자동으로 출석 처리됩니다.
 
-### `npm run build` fails to minify
+> ⚠️ 이미 출석 처리된 상태에서 다시 스캔/입력하면 "이미 출석하셨습니다" 안내가 뜹니다. 오류가 아니라 정상 동작입니다.
+> ⚠️ 교사가 QR/출석 세션을 종료할 때까지 출석하지 않으면 **자동으로 결석 처리**되니, 수업 시작 후 바로 출석해주세요.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<img width="2560" height="1599" alt="image" src="https://github.com/user-attachments/assets/613c2270-cf2c-4c3c-9171-01426ee71eb6" />
 
-```
-attend
-├─ dist
-│  ├─ assets
-│  │  ├─ AppleSDGothicNeoB-RCU0ybLR.ttf
-│  │  ├─ AppleSDGothicNeoL-BPXrP0oP.ttf
-│  │  ├─ AppleSDGothicNeoM-DFH7BCGa.ttf
-│  │  ├─ AppleSDGothicNeoSB-CkQf0-ze.ttf
-│  │  ├─ edit-D0s_curc.png
-│  │  ├─ guest_profile-CZjD84zT.png
-│  │  ├─ index-BvfndHl_.css
-│  │  ├─ index-CV3XUl20.js
-│  │  ├─ logo_final_final-CsOEWQ4L.png
-│  │  ├─ web-vitals-EF2FPrUq.js
-│  │  └─ 배너-Bzm3kz-K.png
-│  ├─ CNAME
-│  ├─ favicon-96x96.png
-│  ├─ favicon.ico
-│  ├─ favicon.svg
-│  ├─ index.html
-│  ├─ manifest.json
-│  ├─ naver2c9ab690a0182b08504fa5cef3b857a2.html
-│  ├─ robots.txt
-│  ├─ terms.html
-│  ├─ web-app-manifest-192x192.png
-│  └─ web-app-manifest-512x512.png
-├─ index.html
-├─ naver2c9ab690a0182b08504fa5cef3b857a2.html
-├─ package-lock.json
-├─ package.json
-├─ public
-│  ├─ CNAME
-│  ├─ favicon-96x96.png
-│  ├─ favicon.ico
-│  ├─ favicon.svg
-│  ├─ manifest.json
-│  ├─ naver2c9ab690a0182b08504fa5cef3b857a2.html
-│  ├─ robots.txt
-│  ├─ terms.html
-│  ├─ web-app-manifest-192x192.png
-│  └─ web-app-manifest-512x512.png
-├─ README.md
-├─ src
-│  ├─ App.css
-│  ├─ App.jsx
-│  ├─ assets
-│  │  ├─ edit.png
-│  │  ├─ eye-password-hide.svg
-│  │  ├─ eye-password-show.svg
-│  │  ├─ hamburger-light.svg
-│  │  ├─ logo.png
-│  │  ├─ logo.svg
-│  │  ├─ logo_final_final (1).svg
-│  │  ├─ logo_final_final.png
-│  │  ├─ logo_final_final_1.png
-│  │  ├─ logo_final_final_1.svg
-│  │  ├─ logo_final_final_2.png
-│  │  ├─ logo_final_final_2.svg
-│  │  ├─ 배너.png
-│  │  ├─ 서비스.png
-│  │  ├─ 서비스설명.png
-│  │  └─ 서비스홍보.png
-│  ├─ components
-│  │  ├─ DailySchedule
-│  │  │  ├─ index.jsx
-│  │  │  └─ styles.css
-│  │  │  ├─ index.jsx
-│  │  │  └─ styles.css
-│  │  ├─ HeaderBar
-│  │  │  ├─ index.jsx
-│  │  │  └─ styles.css
-│  │  ├─ InstructionStudents
-│  │  │  ├─ index.jsx
-│  │  │  └─ styles.css
-│  │  ├─ LogTab
-│  │  │  ├─ index.jsx
-│  │  │  └─ styles.css
-│  │  ├─ NotesTab
-│  │  │  ├─ index.jsx
-│  │  │  └─ styles.css
-│  │  ├─ QRCode
-│  │  │  ├─ index.jsx
-│  │  │  └─ styles.css
-│  │  ├─ Schedule
-│  │  │  ├─ index.jsx
-│  │  │  └─ styles.css
-│  │  ├─ selectSubjectPopup
-│  │  │  ├─ index.jsx
-│  │  │  └─ styles.css
-│  │  ├─ SideBar
-│  │  │  ├─ index.jsx
-│  │  │  └─ styles.css
-│  │  ├─ StudentListByPeriod
-│  │  │  ├─ index.js
-│  │  │  └─ styles.css
-│  │  ├─ SubjectPopup
-│  │  │  ├─ index.jsx
-│  │  │  └─ styles.css
-│  │  ├─ ToggleToken
-│  │  │  ├─ index.jsx
-│  │  │  └─ styles.css
-│  │  ├─ UserButton
-│  │  │  ├─ index.jsx
-│  │  │  └─ styles.css
-│  │  └─ UserInput
-│  │     ├─ index.jsx
-│  │     └─ styles.css
-│  ├─ font.css
-│  ├─ fonts
-│  │  └─ Apple_Sd_Gothic_Neo
-│  │     ├─ AppleSDGothicNeoB.ttf
-│  │     ├─ AppleSDGothicNeoL.ttf
-│  │     ├─ AppleSDGothicNeoM.ttf
-│  │     └─ AppleSDGothicNeoSB.ttf
-│  ├─ index.css
-│  ├─ index.jsx
-│  ├─ mysql_middleware
-│  │  └─ config
-│  │     ├─ database.js
-│  │     └─ default.sql
-│  ├─ page
-│  │  ├─ home
-│  │  │  ├─ GuestPage.jsx
-│  │  │  ├─ GuestStyles.css
-│  │  │  ├─ index.jsx
-│  │  │  ├─ StudentPage.jsx
-│  │  │  ├─ StudentStyles.css
-│  │  │  ├─ TeacherPage.jsx
-│  │  │  └─ TeacherStyles.css
-│  │  ├─ login
-│  │  │  ├─ index.jsx
-│  │  │  └─ styles.css
-│  │  ├─ NotFound
-│  │  │  ├─ index.jsx
-│  │  │  └─ styles.css
-│  │  └─ signup
-│  │     ├─ index.jsx
-│  │     └─ styles.css
-│  ├─ reportWebVitals.js
-│  ├─ server
-│  │  ├─ server.js
-│  │  └─ utils
-│  │     ├─ api.js
-│  │     ├─ authenticateToken.js
-│  │     ├─ checkDomainServer.js
-│  │     ├─ SubjectManager.js
-│  │     ├─ upload.js
-│  │     └─ UserManager.js
-│  ├─ setupTests.js
-│  └─ uploads
-│     └─ guest_profile.png
-└─ vite.config.js
 
-```
+### 3-3. 출결 기록 / 공지 확인
+
+홈 화면 슬라이드를 옆으로 넘기면 **오늘의 시간표 → 공지(Notes) → 출결 기록(Log)** 순서로 확인할 수 있습니다. 출결 기록에서는 과목별로 출석/지각/결석 이력을 볼 수 있습니다.
+
+### 3-4. 내 정보 수정
+
+교사와 동일하게 프로필 사진과 닉네임을 홈 화면에서 바로 수정할 수 있습니다.
+
+---
+
+## 4. 비로그인 사용자 (게스트)
+
+로그인하지 않아도 서비스 소개를 볼 수 있는 게스트 페이지가 제공됩니다. 실제 출결 기능을 이용하려면 회원가입/로그인이 필요합니다.
+
+<img width="2560" height="1599" alt="image" src="https://github.com/user-attachments/assets/dd1d5b2c-0424-4a94-bf2e-ab43840d8b8a" />
+
+
+---
+
+## 5. 자주 묻는 질문
+
+**Q. QR을 스캔했는데 "출석에 실패했습니다"라고 떠요.**
+A. QR 코드의 유효 시간이 지났거나(교사가 이미 세션을 종료함), 잘못된 과목의 QR일 수 있습니다. 담당 교사에게 새 QR 발급을 요청해주세요.
+
+**Q. 로그인이 자꾸 풀려요.**
+A. 로그인은 일정 시간 후 자동 갱신되지만, 브라우저 쿠키를 차단했거나 삭제한 경우 다시 로그인해야 할 수 있습니다.
+
+**Q. 아이디 형식이 이상하게 자동으로 바뀌어요.**
+A. 아이디는 숫자만 입력되며 앞 2자리와 뒤 5자리 사이에 자동으로 하이픈(-)이 붙습니다. 정상 동작입니다.
+
+---
+
+## 6. 문의
+
+서비스 이용 중 문제가 있다면 담당 교사 또는 서비스 관리자에게 문의해주세요.
