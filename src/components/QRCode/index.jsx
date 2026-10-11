@@ -24,6 +24,7 @@ function QRCode({ url, iscreated, removelink, className }) {
                     value={url}
                     size={250}
                     level='H'
+                    includeMargin={true}
                     imageSettings={{
                         src: logo,
                         x: undefined,
