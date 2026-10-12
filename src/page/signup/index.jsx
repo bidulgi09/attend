@@ -28,7 +28,8 @@ function SignupPage({ user, setUser }) {
             return alert("이용 약관에 동의해주세요.");
         }
         let check = await UserManager.check(user.email, user.name);
-        if(!check.results.isAvailable) return alert("이미 존재하는 계정입니다.\n" + JSON.stringify(check));
+        if(!check.results.isAvailable && check.success) return alert("이미 존재하는 계정입니다.");
+        if(!check.success) return alert("계정 존재 확인 실패\n" + JSON.stringify(check));
         let data = await UserManager.signUp(user.name, user.email, user.password, user.role);
         if(data.success) {
             let login = await UserManager.logIn(user.name, user.password, user.role);
